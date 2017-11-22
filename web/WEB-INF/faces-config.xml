@@ -29,8 +29,22 @@
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
     <managed-bean>
+        <managed-bean-name>patientManagedBean</managed-bean-name>
+        <managed-bean-class>com.JSFBean.PatientManagedBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>sessionManagedBean</managed-bean-name>
+        <managed-bean-class>com.JSFBean.SessionManagedBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
         <managed-bean-name>regPerson</managed-bean-name>
         <managed-bean-class>com.JSFBean.RegPerson</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
+    <context-param> 
+   <param-name>com.sun.faces.disableUnicodeEscaping</param-name> 
+   <param-value>auto</param-value> 
+    </context-param> 
 </faces-config>

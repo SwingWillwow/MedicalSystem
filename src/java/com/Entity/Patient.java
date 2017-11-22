@@ -22,10 +22,13 @@ import javax.persistence.TemporalType;
 @Entity
 public class Patient extends Users implements Serializable {
     @Column(nullable = false)
+    private String name;
+    @Column(nullable = false)
     private char sex;
     @Column(nullable = false)
+    @Temporal(TemporalType.DATE)
     private Date birthday;
-    @Column(nullable = false)
+    @Column(nullable = false,unique = true)
     private String idCard;
     @Column(nullable = false)
     private long phone;
@@ -39,6 +42,9 @@ public class Patient extends Users implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date createTime;
 
+    public Patient(){
+    
+    }
     public char getSex() {
         return sex;
     }
@@ -126,9 +132,49 @@ public class Patient extends Users implements Serializable {
     public void setLastUpdateTime(Date lastUpdateTime) {
         this.lastUpdateTime = lastUpdateTime;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+    
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastUpdateTime;
     
-    
+    public Patient(String userName,String password,String name,char sex, Date birthday, String idCard, long phone, String emergencyName, long emergencyPhone, String address, String description, int count,Date createTime, Date lastUpdateTime) {
+        this.userName = userName;
+        this.password = password;
+        this.name = name;
+        this.sex = sex;
+        this.birthday = birthday;
+        this.idCard = idCard;
+        this.phone = phone;
+        this.emergencyName = emergencyName;
+        this.emergencyPhone = emergencyPhone;
+        this.address = address;
+        this.description = description;
+        this.count=count;
+        this.createTime = createTime;
+        this.lastUpdateTime = lastUpdateTime;
+    }
     
 }

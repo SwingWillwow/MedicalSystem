@@ -29,9 +29,13 @@ public class Users implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "UID")
     private Long uid;
-    private String userName;
-    private String password;
+    @Column(unique = true)
+    protected String userName;
+    protected String password;
 
+    public Users(){
+    
+    }
     public String getUserName() {
         return userName;
     }

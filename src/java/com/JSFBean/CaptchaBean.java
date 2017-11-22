@@ -72,6 +72,14 @@ public class CaptchaBean {
         return capPath;
     }
 
+    public void setCapPath(String capPath) {
+        this.capPath = "";
+    }
+
+    public void setCapValue(String capValue) {
+        this.capValue = capValue;
+    }
+
     public int getId() {
         return id;
     }

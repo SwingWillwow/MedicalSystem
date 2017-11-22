@@ -16,37 +16,50 @@
                 <h:form>
                     <div class="col-lg-3 col-lg-offset-4">
                         <label>用户名:</label>
-                    <h:inputText class="form-control" id="userName"></h:inputText>
+                        <h:inputText class="form-control" id="userName" value="#{patientManagedBean.userName}"></h:inputText>
                     </div>
                     <div class="space"></div>
                     <div class="col-lg-3 col-lg-offset-4">
                         <label>密码:</label>
-                        <h:inputSecret class="form-control" id="password"></h:inputSecret>
+                        <h:inputSecret class="form-control" id="password" value="#{patientManagedBean.password}"></h:inputSecret>
                     </div>
                     <div class="space"></div>
                     <div class="col-lg-3 col-lg-offset-4">
                         <label>姓名:</label>
-                        <h:inputText class="form-control" id="name"></h:inputText>
+                        <h:inputText class="form-control" id="name" value="#{patientManagedBean.name}"></h:inputText>
                     </div>
                     <div class="space"></div>
                     <div class="col-lg-8 col-lg-offset-4">
                         <label>性别:</label>
-                        <h:selectOneRadio  id="sex">
+                        <h:selectOneRadio  id="sex" value="#{patientManagedBean.sex}">
                             <f:selectItem itemLabel="男" itemValue="M" class="radio-inline"/>
                             <f:selectItem itemLabel="女" itemValue="F" class="radio-inline"/>
                         </h:selectOneRadio>
                     </div>
-                    
+                    <div class="space"></div>
+                    <div class="col-lg-3 col-lg-offset-4">
+                        <label>电话号码:</label>
+                        <h:inputText class="form-control" id="Phone" value="#{patientManagedBean.phone}"></h:inputText>
+                    </div>
+
                     <div class="space"></div>
                     <div class="col-lg-3 col-lg-offset-4">
                         <label>身份证:</label>
-                        <h:inputText class="form-control" id="idCardNumber"></h:inputText>
+                        <h:inputText class="form-control" id="idCard" value="#{patientManagedBean.idCard}"></h:inputText>
                     </div>
                     <div class="space"></div>
                     <div class="col-lg-3 col-lg-offset-4">
                         <label>生日:</label>
+                        
+                        <h:inputText class="form-control" id="birthday" value="#{patientManagedBean.birthday}">
+                        <f:convertDateTime pattern="yyyy/mm/dd"/>
+                        </h:inputText>    
+                        <label>(yyyy/mm/dd)</label>
+                        <h:message for="birthday"/>
+                        
+                        <!--
                         <h:selectOneMenu id="year" >
-                            <f:selectItems value="#{dateBean.year}"></f:selectItems>
+                            <f:selectItems value="/#{dateBean.year}"></f:selectItems>
                         </h:selectOneMenu>
                         <label>年</label>
                         <h:selectOneMenu id ="month">
@@ -57,30 +70,31 @@
                             <f:selectItems value="#{dateBean.day}"/>
                         </h:selectOneMenu>
                         <label>日</label>    
-                    </div>
-                    
-                    <div class="space"></div>
-                    <div class="col-lg-3 col-lg-offset-4">
-                        <label>紧急联系电话:</label>
-                        <h:inputText class="form-control" id="Tel"></h:inputText>
+                        !-->
                     </div>
                     
                     <div class="space"></div>
                     <div class="col-lg-3 col-lg-offset-4">
                         <label>紧急联系人:</label>
-                        <h:inputText class="form-control" id="relation"></h:inputText>
+                        <h:inputText class="form-control" id="emergencyName" value="#{patientManagedBean.emergencyName}"></h:inputText>
+                    </div>
+                    
+                    <div class="space"></div>
+                    <div class="col-lg-3 col-lg-offset-4">
+                        <label>紧急联系电话:</label>
+                        <h:inputText class="form-control" id="emergencyPhone" value="#{patientManagedBean.emergencyPhone}"></h:inputText>
                     </div>
                     
                     <div class="space"></div>
                     <div class="col-lg-3 col-lg-offset-4">
                         <label>家庭住址:</label>
-                        <h:inputText class="form-control" id="address"></h:inputText>
+                        <h:inputText class="form-control" id="address" value="#{patientManagedBean.address}"></h:inputText>
                     </div>
                     
                     <div class="space"></div>
                     <div class="col-lg-3 col-lg-offset-4">
                         <label>既往病史:</label>
-                        <h:inputTextarea id="history" class="form-control"></h:inputTextarea>
+                        <h:inputTextarea id="description" class="form-control" value="#{patientManagedBean.description}"></h:inputTextarea>
                     </div>
                     
                     <div class="space"></div>
@@ -91,13 +105,14 @@
                         <h:graphicImage name="test#{captchaBean.id}.png"/>
                         
                         <div class="space"></div>
-                        <h:inputText id="userCaptcha" class="form-control"/>
+                        <h:inputText id="enteredCaptcha" class="form-control" value="#{patientManagedBean.captcha}"/>
+                        <h:message for="enteredCaptcha"/>
                     </div>
                     
                     <div class="pace"></div>
                     <div class="row">
                         <div class="col-lg-2 col-lg-offset-4">
-                            <h:commandButton class="btn btn-success" value="注册" action="registerSubmit"/>
+                            <h:commandButton class="btn btn-success" value="注册" action="#{patientManagedBean.newPatient()}"/>
                     
                         </div>
                         <div class="col-lg-2">

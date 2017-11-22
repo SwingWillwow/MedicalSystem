@@ -18,14 +18,14 @@
     <body>
     <%
         InitialContext context = new InitialContext();
-        DataSource dataSource = (DataSource)context.lookup("mydb");
+        DataSource dataSource = (DataSource)context.lookup("NewMySqlDataSource");
         Connection conn = null;
         Statement stmt = null;
         ResultSet rset = null;
         try{
             conn = dataSource.getConnection();
             stmt = conn.createStatement();
-            rset = stmt.executeQuery("select * from `user`");
+            rset = stmt.executeQuery("select * from `Patient`");
             if(rset.next()){
     %>
     <table width="100%" border="1">
@@ -36,7 +36,7 @@
         do{
     %>
         <tr>
-            <td><%=rset.getString("userName")%></td>
+            <td><%=rset.getString("Name")%></td>
             <td><%=rset.getString("password")%></td>
         </tr>
     <%
