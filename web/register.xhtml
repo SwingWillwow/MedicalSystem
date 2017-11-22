@@ -1,0 +1,112 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+    <ui:composition template="/templates/default/main.xhtml">
+        <ui:define name="title">
+            <title>用户注册</title>
+        </ui:define>
+        <ui:define name="leftmenu"></ui:define>
+        <ui:define name="contentWithoutLeftMenu">
+            <div class="ContentContainedPage col-lg-11">
+                <div class="col-lg-4 col-lg-offset-4"><h1>欢迎进行用户注册</h1></div>
+                <h:form>
+                    <div class="col-lg-3 col-lg-offset-4">
+                        <label>用户名:</label>
+                    <h:inputText class="form-control" id="userName"></h:inputText>
+                    </div>
+                    <div class="space"></div>
+                    <div class="col-lg-3 col-lg-offset-4">
+                        <label>密码:</label>
+                        <h:inputSecret class="form-control" id="password"></h:inputSecret>
+                    </div>
+                    <div class="space"></div>
+                    <div class="col-lg-3 col-lg-offset-4">
+                        <label>姓名:</label>
+                        <h:inputText class="form-control" id="name"></h:inputText>
+                    </div>
+                    <div class="space"></div>
+                    <div class="col-lg-8 col-lg-offset-4">
+                        <label>性别:</label>
+                        <h:selectOneRadio  id="sex">
+                            <f:selectItem itemLabel="男" itemValue="M" class="radio-inline"/>
+                            <f:selectItem itemLabel="女" itemValue="F" class="radio-inline"/>
+                        </h:selectOneRadio>
+                    </div>
+                    
+                    <div class="space"></div>
+                    <div class="col-lg-3 col-lg-offset-4">
+                        <label>身份证:</label>
+                        <h:inputText class="form-control" id="idCardNumber"></h:inputText>
+                    </div>
+                    <div class="space"></div>
+                    <div class="col-lg-3 col-lg-offset-4">
+                        <label>生日:</label>
+                        <h:selectOneMenu id="year" >
+                            <f:selectItems value="#{dateBean.year}"></f:selectItems>
+                        </h:selectOneMenu>
+                        <label>年</label>
+                        <h:selectOneMenu id ="month">
+                            <f:selectItems value="#{dateBean.month}"></f:selectItems>
+                        </h:selectOneMenu>
+                        <label>月</label>
+                        <h:selectOneMenu id="day">
+                            <f:selectItems value="#{dateBean.day}"/>
+                        </h:selectOneMenu>
+                        <label>日</label>    
+                    </div>
+                    
+                    <div class="space"></div>
+                    <div class="col-lg-3 col-lg-offset-4">
+                        <label>紧急联系电话:</label>
+                        <h:inputText class="form-control" id="Tel"></h:inputText>
+                    </div>
+                    
+                    <div class="space"></div>
+                    <div class="col-lg-3 col-lg-offset-4">
+                        <label>紧急联系人:</label>
+                        <h:inputText class="form-control" id="relation"></h:inputText>
+                    </div>
+                    
+                    <div class="space"></div>
+                    <div class="col-lg-3 col-lg-offset-4">
+                        <label>家庭住址:</label>
+                        <h:inputText class="form-control" id="address"></h:inputText>
+                    </div>
+                    
+                    <div class="space"></div>
+                    <div class="col-lg-3 col-lg-offset-4">
+                        <label>既往病史:</label>
+                        <h:inputTextarea id="history" class="form-control"></h:inputTextarea>
+                    </div>
+                    
+                    <div class="space"></div>
+                    <div class="col-lg-3 col-lg-offset-4">
+                        <label>验证码</label>
+                        <h:inputHidden value="#{captchaBean.capPath}"/>
+                        <div class="space"></div>
+                        <h:graphicImage name="test#{captchaBean.id}.png"/>
+                        
+                        <div class="space"></div>
+                        <h:inputText id="userCaptcha" class="form-control"/>
+                    </div>
+                    
+                    <div class="pace"></div>
+                    <div class="row">
+                        <div class="col-lg-2 col-lg-offset-4">
+                            <h:commandButton class="btn btn-success" value="注册" action="registerSubmit"/>
+                    
+                        </div>
+                        <div class="col-lg-2">
+                            <h:button class="btn btn-default" value="登录" outcome="login"/>
+                        </div>
+                    </div>
+                </h:form>
+            </div>
+        </ui:define>
+    </ui:composition>
+</html>
+

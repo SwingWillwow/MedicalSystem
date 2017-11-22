@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        Hello from Facelets
+        <h:form>
+            ID:<h:inputText value="#{regPerson.id}" id="id"/>
+            Name:<h:inputText value="#{regPerson.name}" id="name"></h:inputText>
+            City:<h:inputText value="#{regPerson.city}" id="city"></h:inputText>
+            States:<h:inputText value="#{regPerson.states}" id="states"/>
+            Street:<h:inputText value="#{regPerson.street}" id="street"/>
+            Zip:<h:inputText value="#{regPerson.zip}" id="zip"/>
+            <h:commandButton action="#{regPerson.addPerson()}"/>
+        </h:form>
+    </h:body>
+</html>
+
