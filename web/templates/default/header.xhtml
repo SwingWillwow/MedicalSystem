@@ -14,11 +14,11 @@
                         <span class="icon-bar"></span>
                         -->
                     </button>
-                    <a class="navbar-brand" href="#">J2EE医院一体化系统</a>
+                    <h:link class="navbar-brand" outcome="index">J2EE医院一体化系统</h:link>
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav navbar-left">
-                        <li><a href="#">医院首页</a></li>
+                        <li><h:link outcome="index">医院首页</h:link></li>
                         <li><a href="#">医疗团队</a></li>
                         <li><a href="#">治疗预约</a></li>
                     </ul>
@@ -26,8 +26,9 @@
                         <input type="text" class="form-control" placeholder="站内搜索..." />
                     </form>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><h:link outcome="register">用户注册</h:link></li>
-                        <li><h:link outcome="login">用户登录</h:link></li>
+                        <li><h:link outcome="register" rendered="#{!sessionManagedBean.login}">用户注册</h:link></li>
+                        <li><h:link outcome="login" rendered="#{!sessionManagedBean.login}">用户登录</h:link></li>
+                        <li><h:link outcome="login" rendered="#{sessionManagedBean.login}">#{session.getAttribute("userName")}</h:link></li>
                     </ul>
                     
                 </div>
