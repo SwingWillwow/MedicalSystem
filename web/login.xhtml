@@ -12,21 +12,21 @@
         <ui:define name="leftmenu"></ui:define>
         <ui:define name="contentWithoutLeftMenu">
             <div class="ContentContainedPage col-lg-11">
-                <div class="col-lg-4 col-lg-offset-4"><h1>欢迎登录一体化系统</h1></div>
+                <div styleClass="col-lg-4 col-lg-offset-4"><h1>欢迎登录一体化系统</h1></div>
                 <h:form>
                     <div class="col-lg-3 col-lg-offset-4">
                         <label>用户名:</label>
-                    <h:inputText class="form-control" id="userName"></h:inputText>
+                    <h:inputText styleClass="form-control" id="userName"></h:inputText>
                     </div>
                     <div class="space"></div>
                     <div class="col-lg-3 col-lg-offset-4">
                         <label>密码:</label>
-                        <h:inputSecret class="form-control" id="password"></h:inputSecret>
+                        <h:inputSecret styleClass="form-control" id="password"></h:inputSecret>
                     </div>
                     <div class="space"></div>
                     <div class="col-lg-3 col-lg-offset-4">
                         <label>重新输入密码:</label>
-                        <h:inputSecret class="form-control" id="confirmPassword"></h:inputSecret>
+                        <h:inputSecret styleClass="form-control" id="confirmPassword"></h:inputSecret>
                     </div>
                     <div class="col-lg-3 col-lg-offset-4">
                         <label>验证码</label>
@@ -35,15 +35,15 @@
                         <div class="space"></div>
                         <h:graphicImage name="test#{captchaBean.id}.png"/>
                         <div class="space"></div>
-                        <h:inputText id="userCaptcha" class="form-control"/>
+                        <h:inputText id="userCaptcha" styleClass="form-control"/>
                     </div>
                     <div class="row btnGroup">
                         <div class="col-lg-2 col-lg-offset-4">
-                            <h:button class="btn btn-default" value="还没有账号？马上注册！" outcome="register"/>
+                            <h:button styleClass="btn btn-default" value="还没有账号？马上注册！" outcome="register"/>
                     
                         </div>
                         <div class="col-lg-2">
-                            <h:commandButton class="btn btn-success" value="登录" action="dealLogin"/>
+                            <h:commandButton styleClass="btn btn-success" value="登录" action="dealLogin"/>
                         </div>
                     </div>
                 </h:form>

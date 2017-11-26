@@ -16,17 +16,17 @@
                 <h:form>
                     <div class="col-lg-3 col-lg-offset-4">
                         <label>用户名:</label>
-                        <h:inputText class="form-control" id="userName" value="#{patientManagedBean.userName}"></h:inputText>
+                        <h:inputText styleClass="form-control" id="userName" value="#{patientManagedBean.userName}"></h:inputText>
                     </div>
                     <div class="space"></div>
                     <div class="col-lg-3 col-lg-offset-4">
                         <label>密码:</label>
-                        <h:inputSecret class="form-control" id="password" value="#{patientManagedBean.password}"></h:inputSecret>
+                        <h:inputSecret styleClass="form-control" id="password" value="#{patientManagedBean.password}"></h:inputSecret>
                     </div>
                     <div class="space"></div>
                     <div class="col-lg-3 col-lg-offset-4">
                         <label>姓名:</label>
-                        <h:inputText class="form-control" id="name" value="#{patientManagedBean.name}"></h:inputText>
+                        <h:inputText styleClass="form-control" id="name" value="#{patientManagedBean.name}"></h:inputText>
                     </div>
                     <div class="space"></div>
                     <div class="col-lg-8 col-lg-offset-4">
@@ -39,19 +39,19 @@
                     <div class="space"></div>
                     <div class="col-lg-3 col-lg-offset-4">
                         <label>电话号码:</label>
-                        <h:inputText class="form-control" id="Phone" value="#{patientManagedBean.phone}"></h:inputText>
+                        <h:inputText styleClass="form-control" id="Phone" value="#{patientManagedBean.phone}"></h:inputText>
                     </div>
 
                     <div class="space"></div>
                     <div class="col-lg-3 col-lg-offset-4">
                         <label>身份证:</label>
-                        <h:inputText class="form-control" id="idCard" value="#{patientManagedBean.idCard}"></h:inputText>
+                        <h:inputText styleClass="form-control" id="idCard" value="#{patientManagedBean.idCard}"></h:inputText>
                     </div>
                     <div class="space"></div>
                     <div class="col-lg-3 col-lg-offset-4">
                         <label>生日:</label>
                         
-                        <h:inputText class="form-control" id="birthday" value="#{patientManagedBean.birthday}">
+                        <h:inputText styleClass="form-control" id="birthday" value="#{patientManagedBean.birthday}">
                         <f:convertDateTime pattern="yyyy/mm/dd"/>
                         </h:inputText>    
                         <label>(yyyy/mm/dd)</label>
@@ -76,25 +76,25 @@
                     <div class="space"></div>
                     <div class="col-lg-3 col-lg-offset-4">
                         <label>紧急联系人:</label>
-                        <h:inputText class="form-control" id="emergencyName" value="#{patientManagedBean.emergencyName}"></h:inputText>
+                        <h:inputText styleClass="form-control" id="emergencyName" value="#{patientManagedBean.emergencyName}"></h:inputText>
                     </div>
                     
                     <div class="space"></div>
                     <div class="col-lg-3 col-lg-offset-4">
                         <label>紧急联系电话:</label>
-                        <h:inputText class="form-control" id="emergencyPhone" value="#{patientManagedBean.emergencyPhone}"></h:inputText>
+                        <h:inputText styleClass="form-control" id="emergencyPhone" value="#{patientManagedBean.emergencyPhone}"></h:inputText>
                     </div>
                     
                     <div class="space"></div>
                     <div class="col-lg-3 col-lg-offset-4">
                         <label>家庭住址:</label>
-                        <h:inputText class="form-control" id="address" value="#{patientManagedBean.address}"></h:inputText>
+                        <h:inputText styleClass="form-control" id="address" value="#{patientManagedBean.address}"></h:inputText>
                     </div>
                     
                     <div class="space"></div>
                     <div class="col-lg-3 col-lg-offset-4">
                         <label>既往病史:</label>
-                        <h:inputTextarea id="description" class="form-control" value="#{patientManagedBean.description}"></h:inputTextarea>
+                        <h:inputTextarea id="description" styleClass="form-control" value="#{patientManagedBean.description}"></h:inputTextarea>
                     </div>
                     
                     <div class="space"></div>
@@ -105,18 +105,18 @@
                         <h:graphicImage name="test#{captchaBean.id}.png"/>
                         
                         <div class="space"></div>
-                        <h:inputText id="enteredCaptcha" class="form-control" value="#{patientManagedBean.captcha}"/>
+                        <h:inputText id="enteredCaptcha" styleClass="form-control" value="#{patientManagedBean.captcha}"/>
                         <h:message for="enteredCaptcha"/>
                     </div>
                     
                     <div class="pace"></div>
                     <div class="row">
                         <div class="col-lg-2 col-lg-offset-4">
-                            <h:commandButton class="btn btn-success" value="注册" action="#{patientManagedBean.newPatient()}"/>
+                            <h:commandButton styleClass="btn btn-success" value="注册" action="#{patientManagedBean.newPatient()}"/>
                     
                         </div>
                         <div class="col-lg-2">
-                            <h:button class="btn btn-default" value="登录" outcome="login"/>
+                            <h:button styleClass="btn btn-default" value="登录" outcome="login"/>
                         </div>
                     </div>
                 </h:form>
