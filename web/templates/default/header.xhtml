@@ -1,7 +1,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
- 
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
     <ui:composition>
         <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
             <div class="container-fluid">
@@ -28,9 +29,25 @@
                     <ul class="nav navbar-nav navbar-right">
                         <li><h:link outcome="register" rendered="#{!sessionManagedBean.login}">用户注册</h:link></li>
                         <li><h:link outcome="login" rendered="#{!sessionManagedBean.login}">用户登录</h:link></li>
-                        <li><h:link outcome="login" rendered="#{sessionManagedBean.login}">#{session.getAttribute("userName")}</h:link></li>
+                        <li class="dropdown">
+                            <h:panelGroup rendered="#{sessionManagedBean.login}">
+                                <a class="dropdown-toggle" data-toggle="dropdown">
+                                    #{session.getAttribute("userName")}<span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><h:link outcome="userInformation">个人信息查看</h:link></li>
+                                <li><a href="#">历史病例查看</a></li>
+                                <li><a href="#">登出</a></li>
+                                
+                            </ul>
+                                
+                            </h:panelGroup>
+                            
+                            
+                            
+                        </li>
                     </ul>
-                    
+
                 </div>
             </div>
         </div>

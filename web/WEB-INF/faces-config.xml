@@ -10,41 +10,46 @@
     </managed-bean>
     <managed-bean>
         <managed-bean-name>dateBean</managed-bean-name>
-        <managed-bean-class>com.JSFBean.dateBean</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
-    </managed-bean>
+        <managed-bean-class>com.jsfbean.dateBean</managed-bean-class>
+    
+        <managed-bean-scope>request</managed-bean-scope></managed-bean>
     <managed-bean>
         <managed-bean-name>captchaBean</managed-bean-name>
-        <managed-bean-class>com.JSFBean.CaptchaBean</managed-bean-class>
+        <managed-bean-class>com.jsfbean.CaptchaBean</managed-bean-class>
     
         <managed-bean-scope>request</managed-bean-scope></managed-bean>
     <managed-bean>
         <managed-bean-name>nameBean</managed-bean-name>
-        <managed-bean-class>com.JSFBean.NameBean</managed-bean-class>
-        <managed-bean-scope>none</managed-bean-scope>
-    </managed-bean>
+        <managed-bean-class>com.jsfbean.NameBean</managed-bean-class>
+    
+        <managed-bean-scope>none</managed-bean-scope></managed-bean>
     <managed-bean>
         <managed-bean-name>tableTest</managed-bean-name>
-        <managed-bean-class>com.JSFBean.TableTest</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
-    </managed-bean>
+        <managed-bean-class>com.jsfbean.TableTest</managed-bean-class>
+    
+        <managed-bean-scope>session</managed-bean-scope></managed-bean>
     <managed-bean>
         <managed-bean-name>patientManagedBean</managed-bean-name>
-        <managed-bean-class>com.JSFBean.PatientManagedBean</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
-    </managed-bean>
+        <managed-bean-class>com.jsfbean.PatientManagedBean</managed-bean-class>
+    
+        <managed-bean-scope>request</managed-bean-scope></managed-bean>
     <managed-bean>
         <managed-bean-name>sessionManagedBean</managed-bean-name>
-        <managed-bean-class>com.JSFBean.SessionManagedBean</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
-    </managed-bean>
+        <managed-bean-class>com.jsfbean.SessionManagedBean</managed-bean-class>
+    
+        <managed-bean-scope>session</managed-bean-scope></managed-bean>
     <managed-bean>
         <managed-bean-name>regPerson</managed-bean-name>
-        <managed-bean-class>com.JSFBean.RegPerson</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
-    </managed-bean>
+        <managed-bean-class>com.jsfbean.RegPerson</managed-bean-class>
+    
+        <managed-bean-scope>request</managed-bean-scope></managed-bean>
     <context-param> 
    <param-name>com.sun.faces.disableUnicodeEscaping</param-name> 
    <param-value>auto</param-value> 
-    </context-param> 
+    </context-param>
+    <managed-bean>
+        <managed-bean-name>userBean</managed-bean-name>
+        <managed-bean-class>com.jsfbean.UserBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
 </faces-config>

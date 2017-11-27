@@ -3,14 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.JSFBean;
+package com.jsfbean;
 
-import com.Entity.Patient;
+import com.entity.Patient;
+import com.util.PasswordManager;
 import java.time.Instant;
 import java.util.Date;
 import javax.annotation.Resource;
 import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.validator.ValidatorException;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.servlet.http.HttpSession;
@@ -46,20 +49,31 @@ public class PatientManagedBean {
     private Patient patient;
     private String name;
     private String captcha;
+    private CaptchaBean captchaBean;
     public PatientManagedBean() {
-        
+        captchaBean = new CaptchaBean();
     }
 
     public String newPatient(){
         //inital SessionManagedBean
+        
         SessionManagedBean sessionManagedBean;
-            if((sessionManagedBean=(SessionManagedBean)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("sessionManagedBean"))==null){
+        if((sessionManagedBean=(SessionManagedBean)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("sessionManagedBean"))==null){
                 sessionManagedBean = new SessionManagedBean();
-            }
+        }
+            
+        
         //may lead to mistake add try-catch later 
         lastUpdateTime = new Date();
         createTime = new Date();
-        patient = new Patient(userName,password,name,sex,birthday,idCard,phone,emergencyName,emergencyPhone,address,description,count,createTime,lastUpdateTime);
+        String DBpassword="";
+        try {
+            DBpassword = PasswordManager.getMD5(password);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "";
+        }
+        patient = new Patient(userName,DBpassword,name,sex,birthday,idCard,phone,emergencyName,emergencyPhone,address,description,count,createTime,lastUpdateTime);
         System.out.println(name);
         try{
            //em.getTransaction();
@@ -67,7 +81,7 @@ public class PatientManagedBean {
            em.persist(patient);
            utx.commit();
            
-            sessionManagedBean.userLogin(userName);
+            sessionManagedBean.userLogin(userName,password);
             sessionManagedBean.setErrorMessage(null);
             return "index";
         }
@@ -80,10 +94,19 @@ public class PatientManagedBean {
         }
     }
     /*
+    *  validateCaptcha
+    */
+    public void validateCaptcha(FacesContext context,UIComponent toValidate,Object value)throws ValidatorException{
+        if(!checkCaptcha()){
+            FacesMessage facesMessage = new FacesMessage("验证码错误");
+            throw new ValidatorException(facesMessage);
+        }
+    }
+    /*
         check captcha
     */
     public boolean checkCaptcha(){
-        return false;
+        return (captcha == null ? captchaBean.getCapValue() == null : captcha.equals(captchaBean.getCapValue()));
     }
     
     
@@ -208,6 +231,14 @@ public class PatientManagedBean {
 
     public void setCaptcha(String captcha) {
         this.captcha = captcha;
+    }
+
+    public CaptchaBean getCaptchaBean() {
+        return captchaBean;
+    }
+
+    public void setCaptchaBean(CaptchaBean captchaBean) {
+        this.captchaBean = captchaBean;
     }
     
     

@@ -3,12 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.JSFBean;
+package com.jsfbean;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
+import javax.faces.bean.NoneScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.Servlet;
@@ -18,6 +20,7 @@ import org.captcha.Captcha;
  *
  * @author qiuyukun
  */
+@NoneScoped
 public class CaptchaBean {
 
     /**
@@ -25,7 +28,7 @@ public class CaptchaBean {
      */
     private String capPath;
     private String capValue;
-    private String [ ] savePath = new String[]{
+    private static String [ ] savePath = new String[]{
         "resources/test0.png",
         "resources/test1.png",
         "resources/test2.png",
