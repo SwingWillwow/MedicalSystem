@@ -37,7 +37,12 @@
                                 <ul class="dropdown-menu">
                                     <li><h:link outcome="userInformation">个人信息查看</h:link></li>
                                 <li><a href="#">历史病例查看</a></li>
-                                <li><a href="#">登出</a></li>
+                                <li>
+                                    <h:form>
+                                        <h:commandLink action="#{sessionManagedBean.userLogout}" value="用户登出"/>
+                                    </h:form>
+                                    
+                                </li>
                                 
                             </ul>
                                 
@@ -51,5 +56,8 @@
                 </div>
             </div>
         </div>
+        <script lang="javascript">
+            function 
+        </script>
     </ui:composition>
 </html>

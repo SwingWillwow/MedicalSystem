@@ -56,3 +56,42 @@ body{
 .btnGroup{
     margin:20px;
 }
+.dropdown-menu > li > form > a {
+  display: block;
+  padding: 3px 20px;
+  clear: both;
+  font-weight: normal;
+  line-height: 1.42857143;
+  color: #333;
+  white-space: nowrap;
+}
+/*
+    下面这段就是为了登出链接的样式
+*/
+.dropdown-menu > li > form > a:hover,
+.dropdown-menu > li > form > a:focus {
+  color: #262626;
+  text-decoration: none;
+  background-color: #f5f5f5;
+}
+.dropdown-menu > .active > form > a,
+.dropdown-menu > .active > form > a:hover,
+.dropdown-menu > .active > form > a:focus {
+  color: #fff;
+  text-decoration: none;
+  background-color: #337ab7;
+  outline: 0;
+}
+.dropdown-menu > .disabled > form > a,
+.dropdown-menu > .disabled > form > a:hover,
+.dropdown-menu > .disabled > form > a:focus {
+  color: #777;
+}
+.dropdown-menu > .disabled > form > a:hover,
+.dropdown-menu > .disabled > form > a:focus {
+  text-decoration: none;
+  cursor: not-allowed;
+  background-color: transparent;
+  background-image: none;
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+}

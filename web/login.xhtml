@@ -13,29 +13,38 @@
         <ui:define name="contentWithoutLeftMenu">
             <div class="ContentContainedPage col-lg-11">
                 <div class="col-lg-4 col-lg-offset-4"><h1>欢迎登录一体化系统</h1></div>
+                <h:panelGroup rendered="#{sessionManagedBean.hasErrorMessage()}">
+                    <div class="col-lg-11">
+                        <div class="alert alert-danger"><p style="align-content: center">#{sessionManagedBean.errorMessage}</p></div>
+                    </div>
+                </h:panelGroup>
                 <h:form>
                     <div class="col-lg-3 col-lg-offset-4">
                         <label>用户名:</label>
-                    <h:inputText styleClass="form-control" id="userName"></h:inputText>
+                        <h:inputText styleClass="form-control" id="userName" value="#{userBean.userName}" required="true" requiredMessage="用户名必填">
+                            
+                        </h:inputText>
+                        <h:message for="userName"/>
                     </div>
                     <div class="space"></div>
                     <div class="col-lg-3 col-lg-offset-4">
                         <label>密码:</label>
-                        <h:inputSecret styleClass="form-control" id="password"></h:inputSecret>
+                        <h:inputSecret styleClass="form-control" id="password" value="#{userBean.password}" required="true" requiredMessage="密码必填">
+                            
+                        </h:inputSecret>
+                        <h:message for="password"/>
                     </div>
                     <div class="space"></div>
-                    <div class="col-lg-3 col-lg-offset-4">
-                        <label>重新输入密码:</label>
-                        <h:inputSecret styleClass="form-control" id="confirmPassword"></h:inputSecret>
-                    </div>
+                    
                     <div class="col-lg-3 col-lg-offset-4">
                         <label>验证码</label>
                         <div class="space"></div>
-                        <h:inputHidden value="#{captchaBean.capPath}"/>
+                        <h:inputHidden value="#{userBean.captchaBean.capPath}"/>
                         <div class="space"></div>
-                        <h:graphicImage name="test#{captchaBean.id}.png"/>
+                        <h:graphicImage name="test#{userBean.captchaBean.id}.png"/>
                         <div class="space"></div>
-                        <h:inputText id="userCaptcha" styleClass="form-control"/>
+                        <h:inputText id="userCaptcha" styleClass="form-control" value="#{userBean.captcha}"/>
+                        <h:message for="userCaptcha"/>
                     </div>
                     <div class="row btnGroup">
                         <div class="col-lg-2 col-lg-offset-4">
@@ -43,7 +52,7 @@
                     
                         </div>
                         <div class="col-lg-2">
-                            <h:commandButton styleClass="btn btn-success" value="登录" action="dealLogin"/>
+                            <h:commandButton styleClass="btn btn-success" value="登录" action="#{userBean.dealLogin}"/>
                         </div>
                     </div>
                 </h:form>
