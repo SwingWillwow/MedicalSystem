@@ -23,10 +23,6 @@ import sun.misc.BASE64Encoder;
  * @throws UnsupportedEncodingException
  */
 public class PasswordManager {
-    public static void main(String[] args) {  
-        String pwd = getMD5("qyk666");  
-        System.out.println(pwd);  
-    }  
    
    //生成MD5  
     public static String getMD5(String message) {  

@@ -12,6 +12,7 @@ import java.util.Date;
 import javax.annotation.Resource;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.ValidatorException;
 import javax.persistence.EntityManager;
@@ -50,14 +51,43 @@ public class PatientManagedBean {
     private String name;
     private String captcha;
     private CaptchaBean captchaBean;
+    private SessionManagedBean sessionManagedBean;
     public PatientManagedBean() {
         captchaBean = new CaptchaBean();
     }
-
+    
+    public String changePatientInfo(){
+        initPatientManagedBean();
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        ExternalContext externalContext = facesContext.getExternalContext();
+        HttpSession session = (HttpSession)externalContext.getSession(true);
+        Patient p = (Patient)session.getAttribute("userInfo");
+        p.setLastUpdateTime(new Date());
+        try{
+            utx.begin();
+            em.merge(p);
+            utx.commit();
+        }
+        catch(Exception e){
+            sessionManagedBean.setErrorMessage(e.getMessage());
+            p = em.find(Patient.class, p.getId());
+            session.setAttribute("userInfo", p);
+            return "";
+        }
+        return "";
+    }
+    
+    public void initPatientManagedBean(){
+        if((sessionManagedBean=(SessionManagedBean)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("sessionManagedBean"))==null){
+                sessionManagedBean = new SessionManagedBean();
+        }
+    }
+    
+    
+    //新增病人
     public String newPatient(){
         //inital SessionManagedBean
-        
-        SessionManagedBean sessionManagedBean;
+        initPatientManagedBean();
         if((sessionManagedBean=(SessionManagedBean)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("sessionManagedBean"))==null){
                 sessionManagedBean = new SessionManagedBean();
         }

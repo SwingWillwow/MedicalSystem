@@ -7,50 +7,45 @@
       xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
     <ui:composition template="/templates/default/main.xhtml">
         <ui:define name="title">
-            <title>用户注册</title>
+            <title>用户信息修改</title>
         </ui:define>
         <ui:define name="leftmenu"></ui:define>
         <ui:define name="contentWithoutLeftMenu">
             <div class="ContentContainedPage col-lg-11">
-                <div class="col-lg-4 col-lg-offset-4"><h1>欢迎进行用户注册</h1></div>
+                    <div class="col-lg-4 col-lg-offset-4"><h1>个人信息修改</h1></div>
                 <h:form>
                     <div class="col-lg-3 col-lg-offset-4">
                         <label>用户名:</label>
-                        <h:inputText styleClass="form-control" id="userName" value="#{patientManagedBean.userName}" required="true" requiredMessage="必须输入用户名" validatorMessage="用户名为6~16位的大小写字母、下划线、数字和减号">
+                        <h:inputText styleClass="form-control" id="userName" value='#{session.getAttribute("userInfo").userName}' required="true" requiredMessage="必须输入用户名" validatorMessage="用户名为6~16位的大小写字母、下划线、数字和减号">
                             <f:validateRegex pattern="[a-zA-Z0-9_-]{6,16}" for="userName"/>
                         </h:inputText>
                         
                         <h:message for="userName"/>
                     </div>
                     <div class="space"></div>
-                    <div class="col-lg-3 col-lg-offset-4">
-                        <label>密码:</label>
-                        <h:inputSecret styleClass="form-control" id="password" value="#{patientManagedBean.password}" required="true" requiredMessage="必须输入密码" validatorMessage="密码为6~16位的大小写字母、下划线、数字和减号">
-                            <f:validateRegex pattern="[a-zA-Z0-9_-]{6,16}" for="password"/>
-                        </h:inputSecret>
-                        <h:message for="password"/>
-                    </div>
-                    <div class="space"></div>
+                    
                     <div class="col-lg-3 col-lg-offset-4">
                         <label>姓名:</label>
-                        <h:inputText styleClass="form-control" id="name" value="#{patientManagedBean.name}" required="true" requiredMessage="姓名必填">
+                        <h:inputText styleClass="form-control" id="name" value='#{session.getAttribute("userInfo").name}' required="true" requiredMessage="姓名必填">
                         </h:inputText>
                         <h:message for="name"/>
                     </div>
                     <div class="space"></div>
                     <div class="col-lg-8 col-lg-offset-4">
                         <label>性别:</label>
-                        <h:selectOneRadio  id="sex" value="#{patientManagedBean.sex}" required="true" requiredMessage="性别不能为空">
+                        <h:selectOneRadio  id="sex" value='#{session.getAttribute("userInfo").sex}' required="true" requiredMessage="性别不能为空">
                             <f:selectItem itemLabel="男" itemValue="M" class="radio-inline"/>
                             <f:selectItem itemLabel="女" itemValue="F" class="radio-inline"/>
                             
                         </h:selectOneRadio>
                         <h:message for="sex"/>
                     </div>
+                    
                     <div class="space"></div>
+                    
                     <div class="col-lg-3 col-lg-offset-4">
                         <label>手机号码:</label>
-                        <h:inputText styleClass="form-control" id="Phone" value="#{patientManagedBean.phone}" required="true" requiredMessage="手机不能为空" validatorMessage="手机号码为11位数字">
+                        <h:inputText styleClass="form-control" id="Phone" value='#{session.getAttribute("userInfo").phone}' required="true" requiredMessage="手机不能为空" validatorMessage="手机号码为11位数字">
                             <f:validateLength minimum="11" maximum="11"/>
                             
                         </h:inputText>
@@ -58,9 +53,10 @@
                     </div>
 
                     <div class="space"></div>
+                    
                     <div class="col-lg-3 col-lg-offset-4">
                         <label>身份证:</label>
-                        <h:inputText styleClass="form-control" id="idCard" value="#{patientManagedBean.idCard}" required="true" requiredMessage="身份证必填">
+                        <h:inputText styleClass="form-control" id="idCard" value='#{session.getAttribute("userInfo").idCard}' required="true" requiredMessage="身份证必填">
                             <f:validateRegex pattern="(\d{15})|(\d{18})|(\d{17}(X|x))"/>
                         </h:inputText>
                         <h:message for="idCard"/>
@@ -69,8 +65,8 @@
                     <div class="col-lg-3 col-lg-offset-4">
                         <label>生日:</label>
                         
-                        <h:inputText styleClass="form-control" id="birthday" value="#{patientManagedBean.birthday}" required="true" requiredMessage="生日必填" converterMessage="生日格式错误">
-                        <f:convertDateTime pattern="yyyy/MM/dd"/>
+                        <h:inputText styleClass="form-control" id="birthday" value='#{session.getAttribute("userInfo").birthday}' required="true" requiredMessage="生日必填" converterMessage="生日格式错误">
+                            <f:convertDateTime pattern="yyyy/MM/dd" timeZone="GMT+8"/>
                         </h:inputText>    
                         <label>(yyyy/MM/dd)</label>
                         <h:message for="birthday"/>
@@ -79,51 +75,37 @@
                     <div class="space"></div>
                     <div class="col-lg-3 col-lg-offset-4">
                         <label>紧急联系人:</label>
-                        <h:inputText styleClass="form-control" id="emergencyName" value="#{patientManagedBean.emergencyName}"></h:inputText>
+                        <h:inputText styleClass="form-control" id="emergencyName" value='#{session.getAttribute("userInfo").emergencyName}'></h:inputText>
                         <h:message for="emergencyName"/>
                     </div>
                     
                     <div class="space"></div>
                     <div class="col-lg-3 col-lg-offset-4">
                         <label>紧急联系电话:</label>
-                        <h:inputText styleClass="form-control" id="emergencyPhone" value="#{patientManagedBean.emergencyPhone}"></h:inputText>
+                        <h:inputText styleClass="form-control" id="emergencyPhone" value='#{session.getAttribute("userInfo").emergencyPhone}'></h:inputText>
                         <h:message for="emergencyPhone"/>
                     </div>
                     
                     <div class="space"></div>
                     <div class="col-lg-3 col-lg-offset-4">
                         <label>家庭住址:</label>
-                        <h:inputText styleClass="form-control" id="address" value="#{patientManagedBean.address}" required="true" requiredMessage="家庭住址不能为空"></h:inputText>
+                        <h:inputText styleClass="form-control" id="address" value='#{session.getAttribute("userInfo").address}' required="true" requiredMessage="家庭住址不能为空"></h:inputText>
                         <h:message for="address"/>
                     </div>
                     
                     <div class="space"></div>
                     <div class="col-lg-3 col-lg-offset-4">
                         <label>既往病史:</label>
-                        <h:inputTextarea id="description" styleClass="form-control" value="#{patientManagedBean.description}" required="既往病史不能为空，没有则填无"></h:inputTextarea>
+                        <h:inputTextarea id="description" styleClass="form-control" value='#{session.getAttribute("userInfo").description}' required="既往病史不能为空，没有则填无"></h:inputTextarea>
                         <h:message for="description"/>
                     </div>
                     
                     <div class="space"></div>
-                    <div class="col-lg-3 col-lg-offset-4">
-                        <label>验证码</label>
-                        <h:inputHidden value="#{patientManagedBean.captchaBean.capPath}"/>
-                        <div class="space"></div>
-                        <h:graphicImage name="test#{patientManagedBean.captchaBean.id}.png"/>
-                        
-                        <div class="space"></div>
-                        <h:inputText id="enteredCaptcha" styleClass="form-control" value="#{patientManagedBean.captcha}" validator="#{patientManagedBean.validateCaptcha}"/>
-                        <h:message for="enteredCaptcha"/>
-                    </div>
                     
-                    <div class="space"></div>
                     <div class="row">
                         <div class="col-lg-2 col-lg-offset-4">
-                            <h:commandButton styleClass="btn btn-success" value="注册" action="#{patientManagedBean.newPatient}"/>
+                            <h:commandButton styleClass="btn btn-success" value="修改信息" action="#{patientManagedBean.changePatientInfo()}"/>
                     
-                        </div>
-                        <div class="col-lg-2">
-                            <h:button styleClass="btn btn-default" value="登录" outcome="login"/>
                         </div>
                     </div>
                 </h:form>
