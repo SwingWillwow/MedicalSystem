@@ -5,6 +5,7 @@
 package com.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,6 +24,9 @@ import javax.persistence.Table;
 @Table(name="Doctor")
 public class Doctor extends Employee implements Serializable {
     private static final long serialVersionUID = 1L;
+    @OneToOne(fetch= FetchType.LAZY,cascade={CascadeType.ALL},optional=false)
+    @JoinColumn(name="SectionsId")
+    private Sections sections;
     @Column(name="Age")
     private int age;//医龄
     @OneToOne(fetch= FetchType.LAZY,cascade={CascadeType.ALL},optional=false)
@@ -39,12 +43,30 @@ public class Doctor extends Employee implements Serializable {
     public Doctor() {
     }
 
-    public Doctor(int age, Registration registration, String description, int byInternet, int byLive) {
+    public Doctor(String userName,String password,String name, String idCard, Character sex, Date birthday, Department department,Sections sections,int age, Registration registration, String description, int byInternet, int byLive, Date createTime, Date lastUpdateTime) {
         this.age = age;
         this.registration = registration;
         this.description = description;
         this.byInternet = byInternet;
         this.byLive = byLive;
+        this.userName=userName;
+        this.password=password;
+        this.name = name;
+        this.idCard = idCard;
+        this.sex = sex;
+        this.birthday = birthday;
+        this.department = department;
+        this.sections=sections;
+        this.createTime = createTime;
+        this.lastUpdateTime = lastUpdateTime;
+    }
+
+    public Sections getSections() {
+        return sections;
+    }
+
+    public void setSections(Sections sections) {
+        this.sections = sections;
     }
 
     public int getAge() {

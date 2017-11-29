@@ -39,10 +39,10 @@ public class Fee implements Serializable {
     private int payType;//支付手段（1-现金，2-支付宝，3-微信，4-银行卡）
     @OneToOne(fetch= FetchType.LAZY,cascade={CascadeType.ALL})
     @JoinColumn(name="FeeOperatorId")
-    private Users feeOperator;//外键收钱人ID
+    private Employee feeOperator;//外键收钱人ID
     @OneToOne(fetch= FetchType.LAZY,cascade={CascadeType.ALL})
     @JoinColumn(name="MedicineOperatorId")
-    private Users medicineOperator;//外键捡药人ID
+    private Employee medicineOperator;//外键捡药人ID
     @Temporal(TemporalType.TIMESTAMP)
     private Date createTime;
     @Temporal(TemporalType.TIMESTAMP)
@@ -51,7 +51,7 @@ public class Fee implements Serializable {
     public Fee() {
     }
 
-    public Fee(Double totalSum, int status,int payType, Users feeOperator, Users medicineOperator, Date createTime, Date lastUpdateTime) {
+    public Fee(Double totalSum, int status,int payType, Employee feeOperator, Employee medicineOperator, Date createTime, Date lastUpdateTime) {
         this.totalSum = totalSum;
         this.status = status;
         this.payType=payType;
@@ -93,19 +93,19 @@ public class Fee implements Serializable {
         this.status = status;
     }
 
-    public Users getFeeOperator() {
+    public Employee getFeeOperator() {
         return feeOperator;
     }
 
-    public void setFeeOperator(Users feeOperator) {
+    public void setFeeOperator(Employee feeOperator) {
         this.feeOperator = feeOperator;
     }
 
-    public Users getMedicineOperator() {
+    public Employee getMedicineOperator() {
         return medicineOperator;
     }
 
-    public void setMedicineOperator(Users medicineOperator) {
+    public void setMedicineOperator(Employee medicineOperator) {
         this.medicineOperator = medicineOperator;
     }
 

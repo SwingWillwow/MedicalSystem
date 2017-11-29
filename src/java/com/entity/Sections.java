@@ -6,45 +6,67 @@ package com.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
  *
- * @author lmh
- * 医生挂号费表，不同医生职位的挂号费不同
+ * @author Administrator
  */
 @Entity
-@Table(name="Registration")
-public class Registration implements Serializable {
+@Table(name="Sections")
+public class Sections implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name="RegistrationName",nullable = false,unique = true)
-    private String name;//职位名称
-    @Column(name="DiagFee",nullable=false)
-    private Double diagFee;//挂号费
+    @Column(name="SectionsName",nullable = false,unique = true)
+    private String name;
+    @OneToOne(fetch= FetchType.LAZY,cascade={CascadeType.ALL})//必须存在负责人
+    @JoinColumn(name="ManagerId")
+    private Doctor manager;//对应科室管理人
+    @Column(name="Number")
+    private int number;//人数
+    @OneToMany(fetch= FetchType.LAZY,cascade={CascadeType.ALL})
+    @JoinColumn(name="SectionsId")
+    private List<Doctor> doctors;//保存该部门的所有人
     @Temporal(TemporalType.TIMESTAMP)
     private Date createTime;
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastUpdateTime;
 
-    public Registration() {
+    public Sections() {
     }
 
-    public Registration(String name, Double diagFee, Date createTime, Date lastUpdateTime) {
+    public Sections(String name, Doctor manager, int number, List<Doctor> doctors, Date createTime, Date lastUpdateTime) {
         this.name = name;
-        this.diagFee = diagFee;
+        this.manager = manager;
+        this.number = number;
+        this.doctors = doctors;
         this.createTime = createTime;
         this.lastUpdateTime = lastUpdateTime;
     }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
+    }
+
 
     public String getName() {
         return name;
@@ -54,12 +76,20 @@ public class Registration implements Serializable {
         this.name = name;
     }
 
-    public Double getDiagFee() {
-        return diagFee;
+    public Doctor getManager() {
+        return manager;
     }
 
-    public void setDiagFee(Double diagFee) {
-        this.diagFee = diagFee;
+    public void setManager(Doctor manager) {
+        this.manager = manager;
+    }
+
+    public List<Doctor> getDoctors() {
+        return doctors;
+    }
+
+    public void setDoctors(List<Doctor> doctors) {
+        this.doctors = doctors;
     }
 
     public Date getCreateTime() {
@@ -97,10 +127,10 @@ public class Registration implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Registration)) {
+        if (!(object instanceof Sections)) {
             return false;
         }
-        Registration other = (Registration) object;
+        Sections other = (Sections) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -109,7 +139,7 @@ public class Registration implements Serializable {
 
     @Override
     public String toString() {
-        return "com.entity.Registration[ id=" + id + " ]";
+        return "com.entity.Section[ id=" + id + " ]";
     }
     
 }

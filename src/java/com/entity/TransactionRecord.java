@@ -44,14 +44,14 @@ public class TransactionRecord implements Serializable {
     private Patient patient;//病人
     @OneToOne(fetch= FetchType.LAZY,cascade={CascadeType.ALL},optional=false)
     @JoinColumn(name="OperatorId")
-    private Users operator;//账单处理人
+    private Employee operator;//账单处理人
     @Temporal(TemporalType.TIMESTAMP)
     private Date createTime;//外键Diagnosis表的创建时间和Fee表的缴费时间
 
     public TransactionRecord() {
     }
 
-    public TransactionRecord(int type, Diagnosis diagnosis, Double money, int payType, Patient patient, Users operator, Date createTime) {
+    public TransactionRecord(int type, Diagnosis diagnosis, Double money, int payType, Patient patient, Employee operator, Date createTime) {
         this.type = type;
         this.diagnosis = diagnosis;
         this.money = money;
@@ -109,11 +109,11 @@ public class TransactionRecord implements Serializable {
         this.patient = patient;
     }
 
-    public Users getOperator() {
+    public Employee getOperator() {
         return operator;
     }
 
-    public void setOperator(Users operator) {
+    public void setOperator(Employee operator) {
         this.operator = operator;
     }
 

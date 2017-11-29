@@ -41,14 +41,14 @@ public class MedicineRecord implements Serializable {
     private int dosage;//用量
     @OneToOne(fetch= FetchType.LAZY,cascade={CascadeType.ALL},optional=false)
     @JoinColumn(name="MedicinekOperatorId")
-    private Users medicineOperator;//外键药房捡药小姐姐,在Fee表中
+    private Employee medicineOperator;//外键药房捡药小姐姐,在Fee表中
     @Temporal(TemporalType.TIMESTAMP)
     private Date createTime;//外键Fee表中药物状态变为“3-已捡药状态”的时间
 
     public MedicineRecord() {
     }
 
-    public MedicineRecord(Medicine medicine, Diagnosis diagnosis,int dosage, Users medicineOperator, Date createTime) {
+    public MedicineRecord(Medicine medicine, Diagnosis diagnosis,int dosage, Employee medicineOperator, Date createTime) {
         this.medicine = medicine;
         this.diagnosis = diagnosis;
         this.dosage=dosage;
@@ -88,11 +88,11 @@ public class MedicineRecord implements Serializable {
         this.diagnosis = diagnosis;
     }
 
-    public Users getMedicineOperator() {
+    public Employee getMedicineOperator() {
         return medicineOperator;
     }
 
-    public void setMedicineOperator(Users medicineOperator) {
+    public void setMedicineOperator(Employee medicineOperator) {
         this.medicineOperator = medicineOperator;
     }
 

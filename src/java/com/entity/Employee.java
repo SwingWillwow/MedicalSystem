@@ -43,18 +43,45 @@ public class Employee extends Users implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     protected Date createTime;
     @Temporal(TemporalType.TIMESTAMP)
-    private Date lastUpdateTime;
+    protected Date lastUpdateTime;
     
     public Employee() {
     }
 
-    public Employee(String userName,String password,String name, Department department, Date createTime, Date lastUpdateTime) {
+    public Employee(String userName,String password,String name, String idCard, Character sex, Date birthday, Department department, Date createTime, Date lastUpdateTime) {
         this.userName=userName;
         this.password=password;
         this.name = name;
+        this.idCard = idCard;
+        this.sex = sex;
+        this.birthday = birthday;
         this.department = department;
         this.createTime = createTime;
         this.lastUpdateTime = lastUpdateTime;
+    }
+
+    public String getIdCard() {
+        return idCard;
+    }
+
+    public void setIdCard(String idCard) {
+        this.idCard = idCard;
+    }
+
+    public Character getSex() {
+        return sex;
+    }
+
+    public void setSex(Character sex) {
+        this.sex = sex;
+    }
+
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
     }
 
     public String getName() {

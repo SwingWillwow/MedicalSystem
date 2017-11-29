@@ -15,6 +15,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -28,6 +30,11 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name="Diagnosis")
+
+@NamedQueries({
+    @NamedQuery(name = "getDiagnosisByPatientId",query = "select d FROM Diagnosis d WHERE d.patient=?1"),
+    @NamedQuery(name = "getDiagnosisDetialByDiagnosisId",query = "SELECT d FROM Diagnosis d WHERE d.id=?1")
+})
 public class Diagnosis implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -40,14 +47,14 @@ public class Diagnosis implements Serializable {
     @JoinColumn(name="DocId")
     private Doctor doctor;
     @Column(name="DiagFee",nullable=false)
-    private int diagFee;//挂号费
+    private Double diagFee;//挂号费
     @Column(name="PayType",nullable=false)
     private int payType;//支付手段（1-现金，2-支付宝，3-微信，4-银行卡）
     @Column(name="DiagNumber",nullable=false)
     private int diagNumber;//排号（是今天对应医生的第几个病人，查预约人数登记表）
     @OneToOne(fetch= FetchType.LAZY,cascade={CascadeType.ALL},optional=false)
     @JoinColumn(name="OperatorId")
-    private Users operator;//挂号创建人，某前台小姐姐
+    private Employee operator;//挂号创建人，某前台小姐姐
     @Column(name="Valid",nullable=false)
     private char valid;//该挂号是否有效
     @Column(name="Symtom")
@@ -61,7 +68,7 @@ public class Diagnosis implements Serializable {
     @JoinColumn(name="FeeId")
     private Fee fee;//药费单
     @OneToOne(fetch= FetchType.LAZY,cascade={CascadeType.ALL})
-    private Users lastOperator;//最后操作人Id，比如把挂号单取消（当然不退钱），收账。
+    private Employee lastOperator;//最后操作人Id，比如把挂号单取消（当然不退钱），收账。
     @Temporal(TemporalType.TIMESTAMP)
     private Date createTime;
     @Temporal(TemporalType.TIMESTAMP)
@@ -70,7 +77,7 @@ public class Diagnosis implements Serializable {
     public Diagnosis() {
     }
 
-    public Diagnosis(Patient patient, Doctor doctor, int diagFee, int payType,int diagNumber, Users operator, char valid, String symtom, String diagnosis, List<DiagnosisDetail> diagnosisDetails, Fee fee, Users lastOperator, Date createTime, Date lastUpdateTime) {
+    public Diagnosis(Patient patient, Doctor doctor, Double diagFee, int payType,int diagNumber, Employee operator, char valid, String symtom, String diagnosis, List<DiagnosisDetail> diagnosisDetails, Fee fee, Employee lastOperator, Date createTime, Date lastUpdateTime) {
         this.patient = patient;
         this.doctor = doctor;
         this.diagFee = diagFee;
@@ -119,11 +126,11 @@ public class Diagnosis implements Serializable {
         this.doctor = doctor;
     }
 
-    public int getDiagFee() {
+    public Double getDiagFee() {
         return diagFee;
     }
 
-    public void setDiagFee(int diagFee) {
+    public void setDiagFee(Double diagFee) {
         this.diagFee = diagFee;
     }
 
@@ -135,11 +142,11 @@ public class Diagnosis implements Serializable {
         this.diagNumber = diagNumber;
     }
 
-    public Users getOperator() {
+    public Employee getOperator() {
         return operator;
     }
 
-    public void setOperator(Users operator) {
+    public void setOperator(Employee operator) {
         this.operator = operator;
     }
 
@@ -183,11 +190,11 @@ public class Diagnosis implements Serializable {
         this.fee = fee;
     }
 
-    public Users getLastOperator() {
+    public Employee getLastOperator() {
         return lastOperator;
     }
 
-    public void setLastOperator(Users lastOperator) {
+    public void setLastOperator(Employee lastOperator) {
         this.lastOperator = lastOperator;
     }
 

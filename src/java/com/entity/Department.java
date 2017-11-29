@@ -23,7 +23,8 @@ import javax.persistence.TemporalType;
 
 /**
  *
- * @author Administrator
+ * @author lmh
+ * 部门表
  */
 @Entity
 @Table(name="Department")
@@ -34,9 +35,11 @@ public class Department implements Serializable {
     private Long id;
     @Column(name="DeptName",nullable = false,unique = true)
     private String name;
-    @OneToOne(fetch= FetchType.LAZY,optional=false,cascade={CascadeType.ALL})//必须存在负责人
+    @OneToOne(fetch= FetchType.LAZY,cascade={CascadeType.ALL})//必须存在负责人
     @JoinColumn(name="ManagerId")
-    private Employee manager;//管理人,医生的部门是医生，前台部门是前台，药房是药房，管理员是管理员部
+    private Employee manager;//管理人,医生的部门是院长，前台部门是前台，药房是药房，管理员是管理员部
+    @Column(name="Number")
+    private int number;//人数
     @OneToMany(fetch= FetchType.LAZY,cascade={CascadeType.ALL})
     @JoinColumn(name="DeptId")
     private List<Employee> employees;//保存该部门的所有人
@@ -48,12 +51,21 @@ public class Department implements Serializable {
     public Department() {
     }
 
-    public Department(String name, Employee manager, List<Employee> employees, Date createTime, Date lastUpdateTime) {
+    public Department(String name, Employee manager, int number, List<Employee> employees, Date createTime, Date lastUpdateTime) {
         this.name = name;
         this.manager = manager;
+        this.number = number;
         this.employees = employees;
         this.createTime = createTime;
         this.lastUpdateTime = lastUpdateTime;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
     }
 
     public Long getId() {

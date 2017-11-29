@@ -1,17 +1,13 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
+ * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
 package com.entity;
-
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -20,31 +16,38 @@ import javax.persistence.TemporalType;
  * @author qiuyukun
  */
 @Entity
+@Table(name="Patient")
 public class Patient extends Users implements Serializable {
-    @Column(nullable = false)
+    @Column(name="PatientName",nullable=false)
     private String name;
-    @Column(nullable = false)
+    @Column(name="Sex",nullable=false)
     private char sex;
-    @Column(nullable = false)
+    @Column(name="Birthday",nullable=false)//计算年龄，不能空
     @Temporal(TemporalType.DATE)
     private Date birthday;
-    @Column(nullable = false,unique = true)
+    @Column(name="IdCard",unique=true,nullable=false)
     private String idCard;
-    @Column(nullable = false)
+    @Column(name="Phone",nullable=false)
     private long phone;
+    @Column(name="EmergencyName")
     private String emergencyName;
+    @Column(name="EmergencyPhone")
     private long emergencyPhone;
-    @Column(nullable = false)
+    @Column(name="Address",nullable=false)
     private String address;
-    @Column(nullable = false)
-    private String description;
-    private int count=0;
+    @Column(name="Description")
+    private String description;//病人过往病史
+    @Column(name="Count")
+    private int count=0;//看病次数，看情况给个vip好了
     @Temporal(TemporalType.TIMESTAMP)
     private Date createTime;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date lastUpdateTime;
 
     public Patient(){
     
     }
+    
     public char getSex() {
         return sex;
     }
@@ -141,24 +144,25 @@ public class Patient extends Users implements Serializable {
         this.name = name;
     }
 
+    @Override
     public String getUserName() {
         return userName;
     }
 
+    @Override
     public void setUserName(String userName) {
         this.userName = userName;
     }
 
+    @Override
     public String getPassword() {
         return password;
     }
 
+    @Override
     public void setPassword(String password) {
         this.password = password;
     }
-    
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date lastUpdateTime;
     
     public Patient(String userName,String password,String name,char sex, Date birthday, String idCard, long phone, String emergencyName, long emergencyPhone, String address, String description, int count,Date createTime, Date lastUpdateTime) {
         this.userName = userName;
@@ -175,6 +179,5 @@ public class Patient extends Users implements Serializable {
         this.count=count;
         this.createTime = createTime;
         this.lastUpdateTime = lastUpdateTime;
-    }
-    
+    }   
 }
