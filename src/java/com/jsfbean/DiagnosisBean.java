@@ -65,7 +65,7 @@ public class DiagnosisBean {
     
     
     public String showDiagnosisDetail(){
-        return "userDiagnosisDetail";
+        return "/patient/userDiagnosisDetail";
     }
     
     

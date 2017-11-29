@@ -157,7 +157,9 @@ public class SessionManagedBean {
     }
     
     public void initalSession(){
-        if(session == null)session = (HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+        if(session == null){
+            session = (HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+        }
     }
 
     public String getHello() {
