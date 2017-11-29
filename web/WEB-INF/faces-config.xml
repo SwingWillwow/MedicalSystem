@@ -57,4 +57,9 @@
         <managed-bean-class>com.jsfbean.changePasswordBean</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
+    <managed-bean>
+        <managed-bean-name>diagnosisBean</managed-bean-name>
+        <managed-bean-class>com.jsfbean.DiagnosisBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
 </faces-config>

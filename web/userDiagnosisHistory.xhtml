@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+    <ui:composition template="/templates/default/main.xhtml">
+        <ui:define name="title">
+            <title>用户诊疗记录查询</title>
+        </ui:define>
+        <ui:define name="leftmenu"></ui:define>
+        <ui:define name="contentWithoutLeftMenu">
+            <div class="ContentContainedPage col-lg-11">
+                <div class="col-lg-4 col-lg-offset-4"><h1>诊疗记录查询</h1></div>
+                <h:dataTable styleClass="table table-striped" value="#{diagnosisBean.userDiagnosis}" var="diag">
+                    <h:column>
+                        <f:facet name="header">诊疗记录id</f:facet>
+                        #{diag.id}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">挂号费</f:facet>
+                        #{diag.diagFee}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">药费</f:facet>
+                        #{diag.fee.totalSum}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">症状</f:facet>
+                        #{diag.symtom}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">诊断</f:facet>
+                        #{diag.diagnosis}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">主治医师</f:facet>
+                        #{diag.doctor.name}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">药费详情</f:facet>
+                        <h:form>
+                            <h:commandLink action="#{diagnosisBean.showDiagnosisDetail}" target="_blank">点击查看
+                                <f:param name="diagnosisId" value="#{diag.id}"></f:param>
+                            </h:commandLink>
+                        </h:form>
+                    </h:column>
+                </h:dataTable>
+            </div>
+        </ui:define>
+    </ui:composition>
+</html>
+
