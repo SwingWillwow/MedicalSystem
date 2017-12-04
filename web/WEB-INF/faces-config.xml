@@ -62,4 +62,14 @@
         <managed-bean-class>com.jsfbean.DiagnosisBean</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
+    <managed-bean>
+        <managed-bean-name>sectionBean</managed-bean-name>
+        <managed-bean-class>com.jsfbean.SectionBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>patientRegistrationBean</managed-bean-name>
+        <managed-bean-class>com.jsfbean.patientRegistrationBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
 </faces-config>

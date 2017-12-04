@@ -43,7 +43,7 @@
                         <div class="space"></div>
                         <h:graphicImage name="test#{userBean.captchaBean.id}.png"/>
                         <div class="space"></div>
-                        <h:inputText id="userCaptcha" styleClass="form-control" value="#{userBean.captcha}"/>
+                        <h:inputText id="userCaptcha" styleClass="form-control" value="#{userBean.captcha}" immediate="true" validator="#{userBean.validateCaptcha}"/>
                         <h:message for="userCaptcha"/>
                     </div>
                     <div class="row btnGroup">

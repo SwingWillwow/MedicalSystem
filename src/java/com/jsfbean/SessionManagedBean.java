@@ -61,7 +61,7 @@ public class SessionManagedBean {
     
     public String userLogout(){
         session.invalidate();
-        return "index";
+        return "/index";
     }
     
     // 用户登录（传入账号和密码）

@@ -54,6 +54,9 @@ public class DiagnosisBean {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         ExternalContext externalContext = facesContext.getExternalContext();
         HttpServletRequest request = (HttpServletRequest)externalContext.getRequest();
+        if(request.getParameter("diagnosisId")==null){
+            return userDiagnosisDetails;
+        }
         Long diagnosisId = Long.parseLong(request.getParameter("diagnosisId"));
         Query query = em.createNamedQuery("getDiagnosisDetialByDiagnosisId");
         query.setParameter(1, diagnosisId);

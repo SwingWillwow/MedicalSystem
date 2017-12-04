@@ -7,12 +7,12 @@
       xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
     <ui:composition template="/templates/default/main.xhtml">
         <ui:define name="title">
-            <title>用户诊疗记录查询</title>
+            <title>用户诊疗记录细节查询</title>
         </ui:define>
         <ui:define name="leftmenu"></ui:define>
         <ui:define name="contentWithoutLeftMenu">
             <div class="ContentContainedPage col-lg-11">
-                <div class="col-lg-4 col-lg-offset-4"><h1>诊疗记录查询</h1></div>
+                <div class="col-lg-4 col-lg-offset-4"><h1>诊疗记录细节查询</h1></div>
                 <h:dataTable styleClass="table table-striped" value="#{diagnosisBean.userDiagnosisDetails}" var="diagDetail">
                     <h:column>
                         <f:facet name="header">序号</f:facet>
