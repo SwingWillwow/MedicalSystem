@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+    <ui:composition template="/templates/default/main.xhtml">
+        <ui:define name="title">
+            <title>选择药物</title>
+        </ui:define>
+        <ui:define name="leftmenu"></ui:define>
+        <ui:define name="contentWithoutLeftMenu">
+            <div class="ContentContainedPage col-lg-11">
+                <div class="col-lg-4 col-lg-offset-4"><h1>搜索药物</h1></div>
+                <h:panelGroup rendered="#{sessionManagedBean.hasErrorMessage()}">
+                    <div class="col-lg-11">
+                        <div class="alert alert-danger"><p align="center">#{sessionManagedBean.errorMessage}</p></div>
+                    </div>
+                </h:panelGroup>
+                <div class="col-lg-4 col-lg-offset-4">
+                    <h:outputLabel value="药物名称"/>
+                    <h:form>
+                        <h:inputText id="searchContext" styleClass="form-control" value="#{doctorHealBean.searchInfo}">
+                        <f:ajax render="medicineTable" listener="#{doctorHealBean.searchMedicine}"/>
+                    </h:inputText>
+                    </h:form>
+                </div>
+                <h:dataTable id="medicineTable" styleClass="table table-striped" value="#{doctorHealBean.allMedicines}" var="medicines">
+                    <h:column>
+                        <f:facet name="header">药名</f:facet>
+                            #{medicines.name}
+                    </h:column> 
+                    <h:column>
+                        <f:facet name="header">剂量</f:facet>
+                            #{medicines.unite}
+                    </h:column> 
+                    <h:column>
+                        <f:facet name="header">类型</f:facet>
+                            #{medicines.type}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">添加</f:facet>
+                        <h:form>
+                            <h:commandLink value="添加">
+
+                            </h:commandLink>
+                        </h:form>
+                    </h:column>
+                </h:dataTable>
+                <div class="col-lg-4 col-lg-offset-4">
+                    <ul class="pagination">
+                        <ui:repeat value="#{doctorHealBean.pageNumber}" var="page" size="#{doctorHealBean.pageCount}">
+                            <li>
+                                <h:form><h:commandLink action="#{doctorHealBean.changePage}" value="#{page}">
+                                        <f:param name="currentPage" value="#{page}"/>
+                                    </h:commandLink>
+                                </h:form>
+
+                            </li>
+                        </ui:repeat>
+                    </ul>
+                </div>
+            </div>
+        </ui:define>
+    </ui:composition>
+</html>
+
