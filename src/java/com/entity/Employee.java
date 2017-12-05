@@ -13,6 +13,7 @@ import javax.persistence.FetchType;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -37,7 +38,7 @@ public class Employee extends Users implements Serializable {
     @Column(name="Birthday")
     @Temporal(TemporalType.DATE)
     protected Date birthday;//生日
-    @OneToOne(fetch= FetchType.LAZY,cascade={CascadeType.ALL},optional=false)
+    @ManyToOne(fetch= FetchType.LAZY,optional=false)
     @JoinColumn(name="DeptId")
     protected Department department;//部门
     @Temporal(TemporalType.TIMESTAMP)

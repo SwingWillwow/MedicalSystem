@@ -11,6 +11,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -24,12 +25,12 @@ import javax.persistence.Table;
 @Table(name="Doctor")
 public class Doctor extends Employee implements Serializable {
     private static final long serialVersionUID = 1L;
-    @OneToOne(fetch= FetchType.LAZY,cascade={CascadeType.ALL},optional=false)
+    @ManyToOne(fetch= FetchType.LAZY,optional=false)
     @JoinColumn(name="SectionsId")
     private Sections sections;
     @Column(name="Age")
     private int age;//医龄
-    @OneToOne(fetch= FetchType.LAZY,cascade={CascadeType.ALL},optional=false)
+    @ManyToOne(fetch= FetchType.LAZY,optional=false)
     @JoinColumn(name="RegistrationId")
     private Registration registration;//医生对应挂号费
     @Column(name="Description")

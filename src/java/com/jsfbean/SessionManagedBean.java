@@ -39,11 +39,22 @@ public class SessionManagedBean {
     @Resource
     private UserTransaction utx;
     private String errorMessage;
-
+    private String successMessage;
+    
     
     public SessionManagedBean() {
         initalSession();
         
+    }
+    
+    public static SessionManagedBean getInstance(){
+        HttpSession session = (HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+        if(session.getAttribute("sessionManagedBean")==null){
+            return new SessionManagedBean();
+        }
+        else{
+            return (SessionManagedBean)session.getAttribute("sessionManagedBean");
+        }
     }
     
     public boolean isLogin(){
@@ -138,13 +149,9 @@ public class SessionManagedBean {
     }
     
     public boolean hasErrorMessage(){
-        if(errorMessage!=null){
-            return true;
-        }
-        else{
-            return false;
-        }
+        return errorMessage!=null;
     }
+    
     
     public String getErrorMessage() {
         String oldStr = errorMessage;
@@ -155,6 +162,23 @@ public class SessionManagedBean {
     public void setErrorMessage(String errorMessage) {
         this.errorMessage = errorMessage;
     }
+
+    
+    public boolean hasSuccessMessage(){
+        return successMessage!=null;
+    }
+    
+    public String getSuccessMessage() {
+        String oldStr = successMessage;
+        successMessage=null;
+        return oldStr;
+    }
+
+    public void setSuccessMessage(String successMessage) {
+        this.successMessage = successMessage;
+    }
+    
+    
     
     public void initalSession(){
         if(session == null){

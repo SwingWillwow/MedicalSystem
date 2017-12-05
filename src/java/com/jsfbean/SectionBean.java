@@ -17,9 +17,14 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
+import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
+import javax.faces.component.UIComponent;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.event.ValueChangeEvent;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -32,6 +37,7 @@ import javax.transaction.UserTransaction;
  *
  * @author qiuyukun
  */
+@ViewScoped
 public class SectionBean {
 
     /**
@@ -43,38 +49,46 @@ public class SectionBean {
     @Resource
     private UserTransaction utx;
     private List<Doctor> doctor;
-    private int selectedDoctor;
-    private int selectedSections;
+    private String selectedDoctor;
+    private String selectedSections;
 
     public SectionBean() {
 
     }
 
-    //valueChangeListener
-    public void initDoctor(ValueChangeEvent event) {
-        String sid = event.getNewValue().toString();
-        Long id = Long.parseLong(sid);
-        Sections sections = em.find(Sections.class, id);
-        doctor = sections.getDoctors();
+    public void initDoctor(AjaxBehaviorEvent event) {
+        if (!(selectedSections==null)) {
+            Long id = Long.parseLong(selectedSections);
+            if (id == 0) {
+                doctor = null;
+                return;
+            }
+            Sections sections = em.find(Sections.class, id);
+            doctor = sections.getDoctors();
+        }
     }
 
     public String toPatientRegistrationInformation() {
         SessionManagedBean sessionManagedBean;
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
         if (session.getAttribute("sessionManagedBean") == null) {
-                sessionManagedBean = new SessionManagedBean();
-            } else {
-                sessionManagedBean = (SessionManagedBean) session.getAttribute("sessionManagedBean");
-            }
-        if (selectedDoctor == 0 || selectedSections == 0) {
-                        
+            sessionManagedBean = new SessionManagedBean();
+        } else {
+            sessionManagedBean = (SessionManagedBean) session.getAttribute("sessionManagedBean");
+        }
+        int selectedDoc = 0, selectedSec = 0;
+        selectedDoc = Integer.parseInt(selectedDoctor);
+        selectedSec = Integer.parseInt(selectedSections);
+        if (selectedDoc == 0 || selectedSec == 0) {
+
             sessionManagedBean.setErrorMessage("请选择要预约的科室和医生");
             return "";
         }
+        passDocId();
         Date today = new Date();
         List<PreRegistration> pre;
         Query query = em.createQuery("SELECT pre FROM PreRegistration pre WHERE PRE.doctor.id=?1 ORDER BY pre.preTime DESC");
-        query.setParameter(1, selectedDoctor);
+        query.setParameter(1, selectedDoc);
         pre = query.getResultList();
         Iterator iterator = pre.iterator();
         // has preRegistration record
@@ -84,11 +98,11 @@ public class SectionBean {
             // add at most five record at once
             if (DateOperator.isAfterDate(DateOperator.addDay(today, 5), lastPreTime)) {
                 for (int i = 0; i <= 5; i++) {
-                    if(DateOperator.isBeforeDate(DateOperator.addDay(today, i), lastPreTime)){
+                    if (DateOperator.isBeforeDate(DateOperator.addDay(today, i), lastPreTime)) {
                         continue;
                     }
                     PreRegistration newPreRegistration = new PreRegistration();
-                    Doctor doc = preRegistration.getDoctor();
+                    Doctor doc = em.find(Doctor.class, Long.parseLong(selectedDoctor));
                     newPreRegistration.setByInternet(doc.getByInternet());
                     newPreRegistration.setByInternetReal(0);
                     newPreRegistration.setByLive(doc.getByLive());
@@ -109,16 +123,53 @@ public class SectionBean {
                 }
             }
         }
+        else{//如果不存在记录，则直接新增5条记录
+            for(int i=1;i<=5;i++){
+                PreRegistration preReg2 = new PreRegistration();
+                Doctor doc = em.find(Doctor.class, Long.parseLong(selectedDoctor));
+                //设置值
+                preReg2.setByInternet(doc.getByInternet());
+                preReg2.setByInternetReal(0);
+                preReg2.setByLive(doc.getByLive());
+                preReg2.setByLiveReal(0);
+                preReg2.setCount(0);
+                preReg2.setCreateTime(new Date());
+                preReg2.setDoctor(doc);
+                preReg2.setLastUpdateTime(new Date());
+                preReg2.setPreResgistrationDetails(null);
+                preReg2.setPreTime(DateOperator.addDay(new Date(), i));
+                try {
+                    utx.begin();
+                    em.persist(preReg2);
+                    utx.commit();
+                } catch (Exception e) {
+                    sessionManagedBean.setErrorMessage(e.getMessage());
+                }
+            }
+        }
         return "patientRegistrationInformation";
     }
 
+    @PostConstruct
+    public void initSection() {
+        Query query = em.createQuery("SELECT s FROM Sections s");
+        section = query.getResultList();
+        //Sections sections = em.find(Sections.class, 1L);
+        //doctor = sections.getDoctors();
+    }
+
+    //pass docId to next page
+    public void passDocId(){
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        ExternalContext externalContext = facesContext.getExternalContext();
+        externalContext.getFlash().put("docId", selectedDoctor);
+    }
+    
+    
     /*
         getter and setter
      */
     public List<Sections> getSection() {
-
-        Query query = em.createQuery("SELECT s FROM Sections s");
-        section = query.getResultList();
         return section;
     }
 
@@ -127,6 +178,7 @@ public class SectionBean {
     }
 
     public List<Doctor> getDoctor() {
+        
         return doctor;
     }
 
@@ -134,20 +186,21 @@ public class SectionBean {
         this.doctor = doctor;
     }
 
-    public int getSelectedDoctor() {
+    public String getSelectedDoctor() {
         return selectedDoctor;
     }
 
-    public void setSelectedDoctor(int selectedDoctor) {
+    public void setSelectedDoctor(String selectedDoctor) {
         this.selectedDoctor = selectedDoctor;
     }
 
-    public int getSelectedSections() {
+    public String getSelectedSections() {
         return selectedSections;
     }
 
-    public void setSelectedSections(int selectedSections) {
+    public void setSelectedSections(String selectedSections) {
         this.selectedSections = selectedSections;
     }
 
+    
 }

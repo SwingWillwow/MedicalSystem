@@ -35,12 +35,12 @@ public class Department implements Serializable {
     private Long id;
     @Column(name="DeptName",nullable = false,unique = true)
     private String name;
-    @OneToOne(fetch= FetchType.LAZY,cascade={CascadeType.ALL})//必须存在负责人
+    @OneToOne(fetch= FetchType.LAZY)//必须存在负责人
     @JoinColumn(name="ManagerId")
     private Employee manager;//管理人,医生的部门是院长，前台部门是前台，药房是药房，管理员是管理员部
     @Column(name="Number")
     private int number;//人数
-    @OneToMany(fetch= FetchType.LAZY,cascade={CascadeType.ALL})
+    @OneToMany(fetch= FetchType.LAZY)
     @JoinColumn(name="DeptId")
     private List<Employee> employees;//保存该部门的所有人
     @Temporal(TemporalType.TIMESTAMP)

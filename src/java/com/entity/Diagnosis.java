@@ -15,6 +15,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -40,10 +41,10 @@ public class Diagnosis implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @OneToOne(fetch= FetchType.LAZY,cascade={CascadeType.ALL},optional=false)
+    @ManyToOne(fetch= FetchType.LAZY,optional=false)
     @JoinColumn(name="PatientId")
     private Patient patient;
-    @OneToOne(fetch= FetchType.LAZY,cascade={CascadeType.ALL},optional=false)
+    @ManyToOne(fetch= FetchType.LAZY,optional=false)
     @JoinColumn(name="DocId")
     private Doctor doctor;
     @Column(name="DiagFee",nullable=false)
@@ -52,7 +53,7 @@ public class Diagnosis implements Serializable {
     private int payType;//支付手段（1-现金，2-支付宝，3-微信，4-银行卡）
     @Column(name="DiagNumber",nullable=false)
     private int diagNumber;//排号（是今天对应医生的第几个病人，查预约人数登记表）
-    @OneToOne(fetch= FetchType.LAZY,cascade={CascadeType.ALL},optional=false)
+    @ManyToOne(fetch= FetchType.LAZY,optional=false)
     @JoinColumn(name="OperatorId")
     private Employee operator;//挂号创建人，某前台小姐姐
     @Column(name="Valid",nullable=false)
@@ -61,13 +62,13 @@ public class Diagnosis implements Serializable {
     private String symtom;//症状描述
     @Column(name="Diagnosis")
     private String diagnosis;//诊断结果
-    @OneToMany(fetch= FetchType.LAZY,cascade={CascadeType.ALL})
+    @OneToMany(fetch= FetchType.LAZY,cascade = CascadeType.REMOVE)
     @JoinColumn(name="DiagId")
     private List<DiagnosisDetail> diagnosisDetails;//药单
-    @OneToOne(fetch= FetchType.LAZY,cascade={CascadeType.ALL})
+    @OneToOne(fetch= FetchType.LAZY)
     @JoinColumn(name="FeeId")
     private Fee fee;//药费单
-    @OneToOne(fetch= FetchType.LAZY,cascade={CascadeType.ALL})
+    @ManyToOne(fetch= FetchType.LAZY)
     private Employee lastOperator;//最后操作人Id，比如把挂号单取消（当然不退钱），收账。
     @Temporal(TemporalType.TIMESTAMP)
     private Date createTime;

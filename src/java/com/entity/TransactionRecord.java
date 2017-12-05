@@ -14,6 +14,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -39,10 +40,10 @@ public class TransactionRecord implements Serializable {
     private Double money;//金额
     @Column(name="PayType",nullable=false)
     private int payType;//支付手段（1-现金，2-支付宝，3-微信，4-银行卡）
-    @OneToOne(fetch= FetchType.LAZY,cascade={CascadeType.ALL},optional=false)
+    @ManyToOne(fetch= FetchType.LAZY,optional=false)
     @JoinColumn(name="PatientId")
     private Patient patient;//病人
-    @OneToOne(fetch= FetchType.LAZY,cascade={CascadeType.ALL},optional=false)
+    @ManyToOne(fetch= FetchType.LAZY,optional=false)
     @JoinColumn(name="OperatorId")
     private Employee operator;//账单处理人
     @Temporal(TemporalType.TIMESTAMP)

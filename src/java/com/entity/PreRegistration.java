@@ -15,6 +15,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -36,14 +37,14 @@ public class PreRegistration implements Serializable {
     @Column(name="PreTime",nullable=false)
     @Temporal(TemporalType.DATE)
     private Date preTime;//预约的日期
-    @OneToOne(fetch= FetchType.LAZY,cascade={CascadeType.ALL},optional=false)
+    @ManyToOne(fetch= FetchType.LAZY)
     @JoinColumn(name="DocId")
     private Doctor doctor;//所预约医生
     @Column(name="ByInternet",nullable=false)
     private int byInternet;//可预约人数
     @Column(name="ByInternetReal")
     private int byInternetReal;//已预约人数
-    @OneToMany(fetch= FetchType.LAZY,cascade={CascadeType.ALL})
+    @OneToMany(fetch= FetchType.LAZY,cascade = {CascadeType.REMOVE},mappedBy = "preRegistrationId")
     @JoinColumn(name="PreRegistrationId")
     private List<PreRegistrationDetail> preResgistrationDetails;//预约的详细人
     @Column(name="ByLive",nullable=false)

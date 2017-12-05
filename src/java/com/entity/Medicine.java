@@ -14,6 +14,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -41,7 +42,7 @@ public class Medicine implements Serializable {
     private Double price;//单价
     @Column(name="Inventory",nullable=false)
     private int inventory;//库存
-    @OneToOne(fetch= FetchType.LAZY,cascade={CascadeType.ALL},optional=false)
+    @ManyToOne(fetch= FetchType.LAZY,optional=false)
     @JoinColumn(name="OperatorId")
     private Employee operator;//操作人，其实就是管理员id，怀疑可以不要这个字段
     @Temporal(TemporalType.TIMESTAMP)

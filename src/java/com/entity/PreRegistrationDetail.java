@@ -14,6 +14,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -31,7 +32,7 @@ public class PreRegistrationDetail implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @OneToOne(fetch= FetchType.LAZY,cascade={CascadeType.ALL},optional=false)
+    @ManyToOne(fetch= FetchType.LAZY,optional=false)
     @JoinColumn(name="PatientId")
     private Patient patient;//预约的病人
     @Column(name="Valid",nullable=false)
@@ -40,7 +41,10 @@ public class PreRegistrationDetail implements Serializable {
     private Date createTime;
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastUpdateTime;
-
+    @ManyToOne
+    @JoinColumn(name = "PreRegistrationId")
+    private PreRegistration preRegistrationId;
+    
     public PreRegistrationDetail() {
     }
 
@@ -89,6 +93,14 @@ public class PreRegistrationDetail implements Serializable {
 
     public void setLastUpdateTime(Date lastUpdateTime) {
         this.lastUpdateTime = lastUpdateTime;
+    }
+
+    public PreRegistration getPreRegistrationId() {
+        return preRegistrationId;
+    }
+
+    public void setPreRegistrationId(PreRegistration preRegistrationId) {
+        this.preRegistrationId = preRegistrationId;
     }
 
     

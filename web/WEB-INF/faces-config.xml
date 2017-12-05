@@ -65,11 +65,19 @@
     <managed-bean>
         <managed-bean-name>sectionBean</managed-bean-name>
         <managed-bean-class>com.jsfbean.SectionBean</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
+        <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
     <managed-bean>
         <managed-bean-name>patientRegistrationBean</managed-bean-name>
         <managed-bean-class>com.jsfbean.patientRegistrationBean</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <lifecycle>  
+        <phase-listener>com.test.PhaseValidateListener</phase-listener>
+    </lifecycle>
+    <managed-bean>
+        <managed-bean-name>patientPreRegistrationBean</managed-bean-name>
+        <managed-bean-class>com.jsfbean.patientPreRegistrationBean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
 </faces-config>

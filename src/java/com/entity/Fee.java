@@ -14,6 +14,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -37,10 +38,10 @@ public class Fee implements Serializable {
     private int status;//账单状态（1-待交、2-已交、3-未领药、4-已领药）
     @Column(name="PayType")
     private int payType;//支付手段（1-现金，2-支付宝，3-微信，4-银行卡）
-    @OneToOne(fetch= FetchType.LAZY,cascade={CascadeType.ALL})
+    @ManyToOne(fetch= FetchType.LAZY)
     @JoinColumn(name="FeeOperatorId")
     private Employee feeOperator;//外键收钱人ID
-    @OneToOne(fetch= FetchType.LAZY,cascade={CascadeType.ALL})
+    @ManyToOne(fetch= FetchType.LAZY)
     @JoinColumn(name="MedicineOperatorId")
     private Employee medicineOperator;//外键捡药人ID
     @Temporal(TemporalType.TIMESTAMP)

@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+    <ui:composition template="/templates/default/main.xhtml">
+        <ui:define name="title">
+            <title>治疗预约</title>
+        </ui:define>
+        <ui:define name="leftmenu"></ui:define>
+        <ui:define name="contentWithoutLeftMenu">
+            <div class="ContentContainedPage col-lg-11">
+                <div class="col-lg-4 col-lg-offset-4"><h1>预约详情</h1></div>
+                <h:panelGroup rendered="#{sessionManagedBean.hasErrorMessage()}">
+                    <div class="col-lg-11">
+                        <div class="alert alert-danger"><p align="center">#{sessionManagedBean.errorMessage}</p></div>
+                    </div>
+                </h:panelGroup>
+                <h:dataTable styleClass="table table-striped" value="#{patientRegistrationBean.preList}" var="preList">
+                    <h:column>
+                        <f:facet name="header">预约医生</f:facet>
+                        #{preList.doctor.name}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">预约日期</f:facet>
+                        <h:outputText id ="preTime" value="#{preList.preTime}">
+                            <f:convertDateTime pattern="yyyy/MM/dd" timeZone="GMT+8"/>
+                        </h:outputText> 
+                        
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">可预约人数</f:facet>
+                        #{preList.byInternet}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">已预约人数</f:facet>
+                        #{preList.byInternetReal}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">预约治疗</f:facet>
+                        <h:form>
+                            <h:commandLink action="#{patientRegistrationBean.preRegist}">点击预约
+                                <f:param name="preId" value="#{preList.id}"></f:param>
+                            </h:commandLink>
+                        </h:form>
+                    </h:column>
+                </h:dataTable>
+            </div>
+        </ui:define>
+    </ui:composition>
+</html>
+

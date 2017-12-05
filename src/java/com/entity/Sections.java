@@ -34,12 +34,12 @@ public class Sections implements Serializable {
     private Long id;
     @Column(name="SectionsName",nullable = false,unique = true)
     private String name;
-    @OneToOne(fetch= FetchType.LAZY,cascade={CascadeType.ALL})//必须存在负责人
+    @OneToOne(fetch= FetchType.LAZY)//必须存在负责人
     @JoinColumn(name="ManagerId")
     private Doctor manager;//对应科室管理人
     @Column(name="Number")
     private int number;//人数
-    @OneToMany(fetch= FetchType.LAZY,cascade={CascadeType.ALL})
+    @OneToMany(fetch= FetchType.LAZY)
     @JoinColumn(name="SectionsId")
     private List<Doctor> doctors;//保存该部门的所有人
     @Temporal(TemporalType.TIMESTAMP)

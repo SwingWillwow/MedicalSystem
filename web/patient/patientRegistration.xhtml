@@ -21,11 +21,13 @@
                 <h:form>
                     <div class="col-lg-3 col-lg-offset-4">
                         <label>预约科室</label>
-                        <h:selectOneMenu styleClass="form-control" id ="section" onchange="submit();" valueChangeListener="#{sectionBean.initDoctor}" value="#{sectionBean.selectedSections}">
+                        <h:selectOneMenu styleClass="form-control" id ="section" value="#{sectionBean.selectedSections}">
                             <f:selectItem  itemValue="" itemLabel="请选择"/>
                             <f:selectItems value="#{sectionBean.section}" var="section" itemLabel="#{section.name}" itemValue="#{section.id}"/>
+                            <f:ajax event="valueChange" execute="@this" render="doctor" listener="#{sectionBean.initDoctor}"/>
                         </h:selectOneMenu>
                     </div>
+                    <h:message for="section"/>
                     <div class="col-lg-3 col-lg-offset-4">
                         <label>所选医师</label>
                         <h:selectOneMenu styleClass="form-control" id ="doctor" value="#{sectionBean.selectedDoctor}">
@@ -33,12 +35,12 @@
                             <f:selectItems value="#{sectionBean.doctor}" var="doctor" itemLabel="#{doctor.name}" itemValue="#{doctor.id}"/>
                         </h:selectOneMenu>
                     </div>
-                    
+                    <h:message for="doctor"/>
                     <div class="space"></div>
                     
                     <div class="row btnGroup">
                         <div class="col-lg-2">
-                            <h:commandButton styleClass="btn btn-success" value="查询预约情况" action="#{sectionBean.toPatientRegistrationInformation}"/>
+                            <h:commandButton styleClass="btn btn-success" value="查询预约情况" action="#{sectionBean.toPatientRegistrationInformation}" />
                         </div>
                     </div>
                 </h:form>
