@@ -5,6 +5,7 @@
  */
 package com.jsfbean;
 
+import com.entity.DiagnosisDetail;
 import com.entity.Medicine;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.event.ValueChangeEvent;
@@ -36,12 +38,13 @@ public class doctorHealBean {
     @Resource
     UserTransaction utx;
     
-    List<Medicine> allMedicines;
+    List<Medicine> allMedicines;//所有符合搜索条件的药品
     static int pageSize = 2;//每页的数据数目，根据实际情况设置
     int pageCount;
     int currentPage;
     List<String> pageNumber = new ArrayList<>();
     String searchInfo;
+    ArrayList<DiagnosisDetail> details = new ArrayList<>();//将要生效的药品
     @PostConstruct
     public void initDocHealBean(){
         Query query = em.createQuery("SELECT m FROM Medicine m");
@@ -65,6 +68,7 @@ public class doctorHealBean {
         Query query = em.createQuery("SELECT m FROM Medicine m WHERE m.name LIKE ?1");
         UIComponent uIComponent = event.getComponent();
         String medicineInfo = uIComponent.getAttributes().get("value").toString();
+        searchInfo = medicineInfo;
         medicineInfo = "%"+medicineInfo+"%";
         query.setParameter(1, medicineInfo);
         allMedicines = query.getResultList();
@@ -78,15 +82,55 @@ public class doctorHealBean {
         }
         return;
     }
-    
+    //更换页码
     public String changePage(){
         HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
         Integer tmp = Integer.parseInt(request.getParameter("currentPage"));
         currentPage = tmp;
-        Query query = em.createQuery("SELECT m FROM Medicine m");
+        Query query;
+        if(searchInfo==null){
+            query = em.createQuery("SELECT m FROM Medicine m");
+        }else{
+            query = em.createQuery("SELECT m FROM Medicine m WHERE m.name LIKE ?1");
+            query.setParameter(1, "%"+searchInfo+"%");
+        }
         allMedicines.clear();
         allMedicines = query.setMaxResults(pageSize).setFirstResult(pageSize*(currentPage-1)).getResultList();
         return "";
+    }
+    
+    /*
+        添加药品
+    */
+    public void addMedicine(ValueChangeEvent event){
+        //HttpServletRequest request = (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        UIComponent component = event.getComponent();
+        String id = component.getAttributes().get("MedicineId").toString();
+        Long mediId = Long.parseLong(id);
+        String mediNum = event.getNewValue().toString();
+        Integer medicineNumber = Integer.parseInt(mediNum);
+        Medicine medi = em.find(Medicine.class, mediId);
+        DiagnosisDetail detail = null;
+        boolean hasDetail = false;
+        for (DiagnosisDetail singleDetail : details) {
+            if(singleDetail.getMedicine().equals(medi)){
+                detail = singleDetail;
+                details.remove(singleDetail);
+                hasDetail = true;
+                break;
+            }
+        }
+        if(hasDetail){
+            detail.setCount(detail.getCount()+medicineNumber);
+            detail.setItemSum(detail.getItemSum()+medicineNumber*medi.getPrice());
+            detail.setMedicine(medi);
+        }else{
+            detail = new DiagnosisDetail();
+            detail.setCount(medicineNumber);
+            detail.setItemSum(medicineNumber*medi.getPrice());
+            detail.setMedicine(medi);
+        }
+        details.add(detail);
     }
     
     
@@ -98,11 +142,11 @@ public class doctorHealBean {
         this.allMedicines = allMedicines;
     }
 
-    public static int getPageSize() {
+    public int getPageSize() {
         return pageSize;
     }
 
-    public static void setPageSize(int pageSize) {
+    public void setPageSize(int pageSize) {
         doctorHealBean.pageSize = pageSize;
     }
 

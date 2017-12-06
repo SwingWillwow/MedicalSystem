@@ -22,11 +22,16 @@
                     <h:outputLabel value="药物名称"/>
                     <h:form>
                         <h:inputText id="searchContext" styleClass="form-control" value="#{doctorHealBean.searchInfo}">
-                        <f:ajax render="medicineTable" listener="#{doctorHealBean.searchMedicine}"/>
-                    </h:inputText>
+                            <f:ajax render="medicineTable" listener="#{doctorHealBean.searchMedicine}" execute="@form"/>
+                            
+                        </h:inputText>
                     </h:form>
                 </div>
                 <h:dataTable id="medicineTable" styleClass="table table-striped" value="#{doctorHealBean.allMedicines}" var="medicines">
+                    <h:column>
+                        <f:facet name="header">Id</f:facet>
+                            #{medicines.id}
+                    </h:column> 
                     <h:column>
                         <f:facet name="header">药名</f:facet>
                             #{medicines.name}
@@ -41,11 +46,13 @@
                     </h:column>
                     <h:column>
                         <f:facet name="header">添加</f:facet>
-                        <h:form>
-                            <h:commandLink value="添加">
+                        <h:form id="hiddenForm">
+                            <h:inputHidden id="hiddenNumber" valueChangeListener="#{doctorHealBean.addMedicine}">
+                                <f:attribute name="MedicineId" value="#{medicines.id}"/>  
+                            </h:inputHidden>
 
-                            </h:commandLink>
                         </h:form>
+                        <button onclick="myfun();" name="button">添加</button>
                     </h:column>
                 </h:dataTable>
                 <div class="col-lg-4 col-lg-offset-4">
@@ -62,7 +69,9 @@
                     </ul>
                 </div>
             </div>
+
         </ui:define>
+
     </ui:composition>
 </html>
 
