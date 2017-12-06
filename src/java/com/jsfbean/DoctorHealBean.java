@@ -27,10 +27,10 @@ import javax.transaction.UserTransaction;
  *
  * @author qiuyukun
  */
-public class doctorHealBean {
+public class DoctorHealBean {
 
     /**
-     * Creates a new instance of doctorHealBean
+     * Creates a new instance of DoctorHealBean
      */
     
     @PersistenceContext(unitName = "MedicalSystemPU")
@@ -59,7 +59,7 @@ public class doctorHealBean {
         }
     }
     
-    public doctorHealBean() {
+    public DoctorHealBean() {
         
     }
 
@@ -147,7 +147,7 @@ public class doctorHealBean {
     }
 
     public void setPageSize(int pageSize) {
-        doctorHealBean.pageSize = pageSize;
+        DoctorHealBean.pageSize = pageSize;
     }
 
     public int getPageCount() {

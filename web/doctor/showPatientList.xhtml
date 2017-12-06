@@ -12,7 +12,7 @@
         <ui:define name="leftmenu"></ui:define>
         <ui:define name="contentWithoutLeftMenu">
             <div class="ContentContainedPage col-lg-11">
-                <div class="col-lg-4 col-lg-offset-4"><h1>等待中病人</h1></div>
+                <div class="col-lg-4 col-lg-offset-4"><h1>病人列表</h1></div>
                 
                 <h:panelGroup rendered="#{sessionManagedBean.hasErrorMessage()}">
                     <div class="col-lg-11">
@@ -20,21 +20,14 @@
                     </div>
                 </h:panelGroup>
                 
-                <h:dataTable styleClass="table table-striped" value="#{patientPreRegistrationBean.patientRegistDetails}" var="preDetailList">
+                <h:dataTable styleClass="table table-striped" value="#{showPatientBean.patients}" var="patient">
                     <h:column>
-                        <f:facet name="header">预约医生</f:facet>
-                        #{preDetailList.preRegistrationId.doctor.name}
+                        <f:facet name="header">序号</f:facet>
+                        #{showPatientBean.patients.indexOf(patient)+1}
                     </h:column>
                     <h:column>
-                        <f:facet name="header">预约日期</f:facet>
-                        <h:outputText id ="preTime" value="#{preDetailList.preRegistrationId.preTime}">
-                            <f:convertDateTime pattern="yyyy/MM/dd" timeZone="GMT+8"/>
-                        </h:outputText> 
-                        
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">未挂号/未过期</f:facet>
-                        #{preDetailList.valid}
+                        <f:facet name="header">病人姓名</f:facet>
+                            #{patient.name}
                     </h:column>
                 </h:dataTable>
             </div>

@@ -19,17 +19,17 @@ import javax.transaction.UserTransaction;
  *
  * @author qiuyukun
  */
-public class patientPreRegistrationBean {
+public class PatientPreRegistrationBean {
 
     /**
-     * Creates a new instance of patientPreRegistrationBean
+     * Creates a new instance of PatientPreRegistrationBean
      */
     List<PreRegistrationDetail> patientRegistDetails;
     @PersistenceContext
     EntityManager em;
     @Resource
     UserTransaction utx;
-    public patientPreRegistrationBean() {
+    public PatientPreRegistrationBean() {
         
     }
     

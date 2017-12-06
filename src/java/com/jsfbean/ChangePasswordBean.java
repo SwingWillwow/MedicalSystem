@@ -19,10 +19,10 @@ import javax.transaction.UserTransaction;
  *
  * @author qiuyukun
  */
-public class changePasswordBean {
+public class ChangePasswordBean {
 
     /**
-     * Creates a new instance of changePasswordBean
+     * Creates a new instance of ChangePasswordBean
      */
     private String oldPassword;
     private String newPassword;
@@ -31,7 +31,7 @@ public class changePasswordBean {
     private UserTransaction utx;
     @PersistenceContext(unitName = "MedicalSystemPU")
     EntityManager em;
-    public changePasswordBean() {
+    public ChangePasswordBean() {
         
     }
 

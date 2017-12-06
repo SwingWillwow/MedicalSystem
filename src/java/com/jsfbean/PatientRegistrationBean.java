@@ -26,10 +26,10 @@ import jdk.nashorn.internal.objects.annotations.Constructor;
  *
  * @author qiuyukun
  */
-public class patientRegistrationBean {
+public class PatientRegistrationBean {
 
     /**
-     * Creates a new instance of patientRegistrationBean
+     * Creates a new instance of PatientRegistrationBean
      */
     
     private List<PreRegistration> preList;
@@ -37,7 +37,7 @@ public class patientRegistrationBean {
     private EntityManager em;
     @Resource
     private UserTransaction utx;
-    public patientRegistrationBean() {
+    public PatientRegistrationBean() {
         
     }
     

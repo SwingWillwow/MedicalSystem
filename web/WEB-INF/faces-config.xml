@@ -54,9 +54,9 @@
     </managed-bean>
     <managed-bean>
         <managed-bean-name>changePasswordBean</managed-bean-name>
-        <managed-bean-class>com.jsfbean.changePasswordBean</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
-    </managed-bean>
+        <managed-bean-class>com.jsfbean.ChangePasswordBean</managed-bean-class>
+    
+        <managed-bean-scope>request</managed-bean-scope></managed-bean>
     <managed-bean>
         <managed-bean-name>diagnosisBean</managed-bean-name>
         <managed-bean-class>com.jsfbean.DiagnosisBean</managed-bean-class>
@@ -69,20 +69,25 @@
     </managed-bean>
     <managed-bean>
         <managed-bean-name>patientRegistrationBean</managed-bean-name>
-        <managed-bean-class>com.jsfbean.patientRegistrationBean</managed-bean-class>
-        <managed-bean-scope>view</managed-bean-scope>
-    </managed-bean>
+        <managed-bean-class>com.jsfbean.PatientRegistrationBean</managed-bean-class>
+    
+        <managed-bean-scope>view</managed-bean-scope></managed-bean>
     <lifecycle>  
         <phase-listener>com.test.PhaseValidateListener</phase-listener>
     </lifecycle>
     <managed-bean>
         <managed-bean-name>patientPreRegistrationBean</managed-bean-name>
-        <managed-bean-class>com.jsfbean.patientPreRegistrationBean</managed-bean-class>
-        <managed-bean-scope>view</managed-bean-scope>
-    </managed-bean>
+        <managed-bean-class>com.jsfbean.PatientPreRegistrationBean</managed-bean-class>
+    
+        <managed-bean-scope>view</managed-bean-scope></managed-bean>
     <managed-bean>
         <managed-bean-name>doctorHealBean</managed-bean-name>
-        <managed-bean-class>com.jsfbean.doctorHealBean</managed-bean-class>
-        <managed-bean-scope>view</managed-bean-scope>
-    </managed-bean>
+        <managed-bean-class>com.jsfbean.DoctorHealBean</managed-bean-class>
+    
+        <managed-bean-scope>view</managed-bean-scope></managed-bean>
+    <managed-bean>
+        <managed-bean-name>showPatientBean</managed-bean-name>
+        <managed-bean-class>com.jsfbean.ShowPatientBean</managed-bean-class>
+    
+        <managed-bean-scope>view</managed-bean-scope></managed-bean>
 </faces-config>
