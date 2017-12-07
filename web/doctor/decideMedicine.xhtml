@@ -12,21 +12,29 @@
         <ui:define name="leftmenu"></ui:define>
         <ui:define name="contentWithoutLeftMenu">
             <div class="ContentContainedPage col-lg-11">
-                <div class="col-lg-4 col-lg-offset-4"><h1>搜索药物</h1></div>
+                <div class="row">
+                    <div class="col-lg-4 col-lg-offset-4">
+                        <h1>搜索药物</h1>
+                    </div>
+                </div>
                 <h:panelGroup rendered="#{sessionManagedBean.hasErrorMessage()}">
                     <div class="col-lg-11">
                         <div class="alert alert-danger"><p align="center">#{sessionManagedBean.errorMessage}</p></div>
                     </div>
                 </h:panelGroup>
-                <div class="col-lg-4 col-lg-offset-4">
-                    <h:outputLabel value="药物名称"/>
                     <h:form>
-                        <h:inputText id="searchContext" styleClass="form-control" value="#{doctorHealBean.searchInfo}">
-                            <f:ajax render="medicineTable" listener="#{doctorHealBean.searchMedicine}" execute="@form"/>
-                            
+                        <div class="row form-group">
+                            <h:outputLabel value="药物名称" styleClass="control-label col-lg-1 col-lg-offset-2"/>
+                            <div class ="col-lg-4">
+                                <h:inputText id="searchContext" styleClass="form-control" value="#{doctorHealBean.searchInfo}">
                         </h:inputText>
+                            </div>
+                            <div class ="col-lg-2">
+                                <h:commandButton id="search" styleClass="btn btn-success" value="搜索" action="#{doctorHealBean.searchMedicine}"/>
+                            </div>
+                        </div>
+                        
                     </h:form>
-                </div>
                 <h:dataTable id="medicineTable" styleClass="table table-striped" value="#{doctorHealBean.allMedicines}" var="medicines">
                     <h:column>
                         <f:facet name="header">Id</f:facet>
@@ -55,7 +63,8 @@
                         <button onclick="myfun();" name="button">添加</button>
                     </h:column>
                 </h:dataTable>
-                <div class="col-lg-4 col-lg-offset-4">
+                <h:panelGroup id="pageination">
+                    <div class="col-lg-4 col-lg-offset-4">
                     <ul class="pagination">
                         <ui:repeat value="#{doctorHealBean.pageNumber}" var="page" size="#{doctorHealBean.pageCount}">
                             <li>
@@ -68,6 +77,14 @@
                         </ui:repeat>
                     </ul>
                 </div>
+                </h:panelGroup>
+                <div class="row btnGroup">
+                        <div class="col-lg-2 col-lg-offset-4">
+                            <h:form>
+                                <h:commandButton styleClass="btn btn-success" value="确认药物" action="#{doctorHealBean.toConfirmMedicine}"/>
+                            </h:form>
+                        </div>
+                    </div>
             </div>
 
         </ui:define>

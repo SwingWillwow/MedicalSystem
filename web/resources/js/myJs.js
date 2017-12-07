@@ -9,25 +9,31 @@ function myfun() {
     layer.prompt({
         title: '请输入数量'
     }, function (value, index, elem) {
-        var child = parent.childNodes;
-        var number;
-        for (i = 0; i < child.length; i++) {
+        if (value < 0 || value > 15) {
+            layer.alert('输入数量要在0到15之间');
+            layer.close(index);
+        } else {
+            var child = parent.childNodes;
+            var number;
+            for (i = 0; i < child.length; i++) {
 
-            var str = child[i].id;
-            if (str === undefined || str === "") {
-                continue;
-            } else {
-                if (str.indexOf("hiddenForm") !== 0) {
-                    number = str.substring(str.indexOf(":") + 1, str.lastIndexOf(":"));
+                var str = child[i].id;
+                if (str === undefined || str === "") {
+                    continue;
+                } else {
+                    if (str.indexOf("hiddenForm") !== 0) {
+                        number = str.substring(str.indexOf(":") + 1, str.lastIndexOf(":"));
+                    }
                 }
             }
+            var hidden = document.getElementById("medicineTable:" + number + ":hiddenForm:hiddenNumber");
+            hidden.value = value;
+            var hiddenForm = document.getElementById("medicineTable:" + number + ":hiddenForm");
+            alert('添加成功');
+            layer.close(index);
+            hiddenForm.submit();
         }
-        var hidden = document.getElementById("medicineTable:" + number + ":hiddenForm:hiddenNumber");
-        hidden.value = value;
-        var hiddenForm = document.getElementById("medicineTable:" + number + ":hiddenForm");
-        hiddenForm.submit();
-        alert('添加成功');
-        layer.close(index);
+
     });
 }
 

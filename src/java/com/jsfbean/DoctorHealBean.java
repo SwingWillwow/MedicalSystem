@@ -7,6 +7,7 @@ package com.jsfbean;
 
 import com.entity.DiagnosisDetail;
 import com.entity.Medicine;
+import com.entity.Patient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -15,12 +16,14 @@ import javax.annotation.Resource;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
+import javax.faces.context.Flash;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.event.ValueChangeEvent;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.transaction.UserTransaction;
 
 /**
@@ -29,15 +32,14 @@ import javax.transaction.UserTransaction;
  */
 public class DoctorHealBean {
 
-    /**
-     * Creates a new instance of DoctorHealBean
-     */
-    
+    /*
+        EntityManager and UserTransaction
+    */
     @PersistenceContext(unitName = "MedicalSystemPU")
     EntityManager em;
     @Resource
     UserTransaction utx;
-    
+    //  properties
     List<Medicine> allMedicines;//所有符合搜索条件的药品
     static int pageSize = 2;//每页的数据数目，根据实际情况设置
     int pageCount;
@@ -45,8 +47,13 @@ public class DoctorHealBean {
     List<String> pageNumber = new ArrayList<>();
     String searchInfo;
     ArrayList<DiagnosisDetail> details = new ArrayList<>();//将要生效的药品
+    Patient currentPatient;
+    private Long diagId;
     @PostConstruct
     public void initDocHealBean(){
+        HttpSession session = (HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+        currentPatient = (Patient)session.getAttribute("currentPatient");
+        diagId = Long.parseLong(session.getAttribute("diagId").toString());
         Query query = em.createQuery("SELECT m FROM Medicine m");
         allMedicines = query.getResultList();
         pageCount = (allMedicines.size()+pageSize-1)/pageSize;
@@ -58,18 +65,24 @@ public class DoctorHealBean {
             pageNumber.add(i.toString());
         }
     }
-    
+       /**
+     * Creates a new instance of DoctorHealBean
+     */
     public DoctorHealBean() {
         
     }
 
-    
-    public void searchMedicine(AjaxBehaviorEvent event){
+    /**
+     * This method used to get all the medicine fit the condition
+     * 
+     */
+    public void searchMedicine(){
         Query query = em.createQuery("SELECT m FROM Medicine m WHERE m.name LIKE ?1");
-        UIComponent uIComponent = event.getComponent();
-        String medicineInfo = uIComponent.getAttributes().get("value").toString();
-        searchInfo = medicineInfo;
-        medicineInfo = "%"+medicineInfo+"%";
+//        UIComponent uIComponent = event.getComponent();
+//        String medicineInfo = uIComponent.getAttributes().get("value").toString();
+//        searchInfo = medicineInfo;
+//        medicineInfo = "%"+medicineInfo+"%";
+        String medicineInfo = "%"+searchInfo+"%";
         query.setParameter(1, medicineInfo);
         allMedicines = query.getResultList();
         pageCount = (allMedicines.size()+pageSize-1)/pageSize;
@@ -129,11 +142,23 @@ public class DoctorHealBean {
             detail.setCount(medicineNumber);
             detail.setItemSum(medicineNumber*medi.getPrice());
             detail.setMedicine(medi);
+            Integer tmpId = details.size()+1;
+            detail.setId(tmpId.longValue());
         }
         details.add(detail);
     }
     
+    public String toConfirmMedicine(){
+        //pass parameters
+        HttpSession session = (HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+        session.setAttribute("diagnosisDetails", details);
+        return "/doctor/confirmMedicine";
+    }
     
+    
+    /*
+        setters and getters 
+    */
     public List<Medicine> getAllMedicines() {
         return allMedicines;
     }

@@ -8,6 +8,7 @@ package com.jsfbean;
 import com.entity.Diagnosis;
 import com.entity.Doctor;
 import com.entity.Patient;
+import java.io.Serializable;
 import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -16,6 +17,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.faces.context.FacesContext;
+import javax.faces.context.Flash;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContexts;
@@ -28,16 +30,18 @@ import javax.transaction.UserTransaction;
  *
  * @author qiuyukun
  */
-public class ShowPatientBean {
+public class ShowPatientBean implements Serializable{
 
     /**
      * Creates a new instance of ShowPatientBean
      */
-    ArrayList<Patient> patients = new ArrayList<>();
+    
+    private ArrayList<Patient> patients = new ArrayList<>();
     @PersistenceContext(unitName = "MedicalSystemPU")
-    EntityManager em;
+    private EntityManager em;
     @Resource
-    UserTransaction utx;
+    private UserTransaction utx;
+    private Long diagId;
     public ShowPatientBean() {
     }
     
@@ -48,7 +52,7 @@ public class ShowPatientBean {
     public void initShowPatientBean(){
         HttpSession session = (HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(true);
         Doctor doctor = (Doctor)session.getAttribute("userInfo");
-        Query query = em.createQuery("SELECT diag FROM Diagnosis diag WHERE diag.doctor=?1 AND DIAG.valid=?2 AND diag.createTime BETWEEN ?3 AND ?4");
+        Query query = em.createQuery("SELECT diag FROM Diagnosis diag WHERE diag.doctor=?1 AND DIAG.valid=?2 AND diag.createTime BETWEEN ?3 AND ?4 ORDER BY DIAG.createTime ASC");
         query.setParameter(1, doctor);
         query.setParameter(2, 'Y');
         query.setParameter(3, new Date(),TemporalType.DATE);
@@ -56,6 +60,10 @@ public class ShowPatientBean {
         c.add(Calendar.DAY_OF_MONTH, 1);
         query.setParameter(4, c ,TemporalType.DATE);
         List<Diagnosis> diagnosises = query.getResultList();
+        if(diagnosises.size()==0){
+            return;
+        }
+        diagId = diagnosises.get(0).getId();
         for(Diagnosis diag : diagnosises){
             patients.add(diag.getPatient());
         }
@@ -68,6 +76,14 @@ public class ShowPatientBean {
 
     public void setPatients(ArrayList<Patient> patients) {
         this.patients = patients;
+    }
+    //跳转到诊断病症界面
+    public String toJudgeSymptom(){
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession)facesContext.getExternalContext().getSession(true);
+        session.setAttribute("currentPatient", patients.get(0));//patients.get(0)表示最早挂号的病人
+        session.setAttribute("diagId", diagId);
+        return "/doctor/judgeSymptom";
     }
     
 }

@@ -10,6 +10,7 @@ import com.entity.Employee;
 import com.entity.Patient;
 import com.entity.Users;
 import com.util.PasswordManager;
+import java.io.Serializable;
 import javax.annotation.Resource;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -24,7 +25,7 @@ import javax.transaction.UserTransaction;
  * @author qiuyukun
  */
 @SessionScoped
-public class SessionManagedBean {
+public class SessionManagedBean implements Serializable{
 
     /**
      * Creates a new instance of SessionManagedBean
@@ -32,7 +33,6 @@ public class SessionManagedBean {
      * this bean may be lead to some mistake please be carefully.
      * if meet some bugs about session, check this bean first.
      */
-    private String hello = "hello world!";
     private HttpSession session;
     @PersistenceContext(unitName = "MedicalSystemPU")
     private EntityManager em;
@@ -40,7 +40,10 @@ public class SessionManagedBean {
     private UserTransaction utx;
     private String errorMessage;
     private String successMessage;
-    
+    private boolean doc = false;
+    private boolean pat = false;
+    private boolean clk = false;
+    private boolean phar = false;
     
     public SessionManagedBean() {
         initalSession();
@@ -118,7 +121,9 @@ public class SessionManagedBean {
     public boolean isPaitent(long id){
         Patient p=em.find(Patient.class, id);
         if (p!=null) {
-            session.setAttribute("userInfo", p);
+            session.setAttribute("userInfo", p); 
+            pat = true;
+            session.setAttribute("pat", pat);
             return true;
         }
         else{
@@ -130,6 +135,8 @@ public class SessionManagedBean {
         Doctor d = em.find(Doctor.class, id);
         if(d!=null){
             session.setAttribute("userInfo", d);
+            doc=true;
+            session.setAttribute("doc", doc);
             return true;
         }
         else{
@@ -141,12 +148,28 @@ public class SessionManagedBean {
         Employee e = em.find(Employee.class, id);
         if(e!=null){
             session.setAttribute("userInfo", e);
+            Long departId = e.getDepartment().getId();
+            if(departId == 2L){
+                clk = true;
+                session.setAttribute("clk", clk);
+            }
+            else if (departId == 3L) {
+                phar = true;
+                session.setAttribute("phar", phar);
+            }
             return true;
         }
         else{
             return false;
         }
     }
+    
+        public void initalSession(){
+        if(session == null){
+            session = (HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+        }
+    }
+
     
     public boolean hasErrorMessage(){
         return errorMessage!=null;
@@ -180,18 +203,37 @@ public class SessionManagedBean {
     
     
     
-    public void initalSession(){
-        if(session == null){
-            session = (HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(true);
-        }
+
+    public boolean isDoc() {
+        return doc;
     }
 
-    public String getHello() {
-        return hello;
+    public void setDoc(boolean doc) {
+        this.doc = doc;
     }
 
-    public void setHello(String hello) {
-        hello = hello;
+    public boolean isPat() {
+        return pat;
+    }
+
+    public void setPat(boolean pat) {
+        this.pat = pat;
+    }
+
+    public boolean isClk() {
+        return clk;
+    }
+
+    public void setClk(boolean clk) {
+        this.clk = clk;
+    }
+
+    public boolean isPhar() {
+        return phar;
+    }
+
+    public void setPhar(boolean phar) {
+        this.phar = phar;
     }
     
     
