@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition template="/templates/default/main.xhtml">
+        <ui:define name="title">
+            <title>查看医生信息</title>
+        </ui:define>
+        <ui:define name="leftmenu"></ui:define>
+        <ui:define name="contentWithoutLeftMenu">
+            <div class="ContentContainedPage row">
+                <div class="row">
+                    <div class="col-lg-4 col-lg-offset-4">
+                        <h1>查看个人信息</h1>
+                    </div>
+                </div>
+                <h:form styleClass="form-horizontal">
+
+
+                    <div class="col-lg-3 col-lg-offset-4">
+                        <label class="control-label" for="userName">用户名:</label>
+                        <h:outputText styleClass="form-control" id="userName" value='#{session.getAttribute("userInfo").userName}'>
+
+                        </h:outputText>
+                    </div>
+
+
+                    <div class="space"></div>
+                    <div class="col-lg-3 col-lg-offset-4">
+                        <label class="control-label">姓名:</label>
+                        <h:outputText styleClass="form-control" id="name" value='#{session.getAttribute("userInfo").name}'>
+                        </h:outputText>
+                    </div>
+                    <div class="space"></div>
+                    <div class="col-lg-3 col-lg-offset-4">
+                        <label>性别:</label>
+                        <h:outputText styleClass="form-control" id="sex" value='#{session.getAttribute("userInfo").sex}'>
+
+                        </h:outputText>
+                    </div>
+
+                    <div class="space"></div>
+                    <div class="col-lg-3 col-lg-offset-4">
+                        <label>身份证:</label>
+                        <h:outputText styleClass="form-control" id="idCard" value='#{session.getAttribute("userInfo").idCard}'>
+
+                        </h:outputText>
+                    </div>
+                    <div class="space"></div>
+                    <div class="col-lg-3 col-lg-offset-4">
+                        <label>生日:</label>
+
+                        <h:outputText styleClass="form-control" id="birthday" value='#{session.getAttribute("userInfo").birthday}'>
+                            <f:convertDateTime pattern="yyyy/MM/dd" timeZone="GMT+8"/>
+                        </h:outputText>
+                    </div>
+                    <div class="space"></div>
+                    <div class="col-lg-3 col-lg-offset-4">
+                        <label>医龄:</label>
+
+                        <h:outputText styleClass="form-control" id="age" value='#{session.getAttribute("userInfo").age}'>
+
+                        </h:outputText>
+                    </div>
+                    <div class="space"></div>
+                    <div class="col-lg-3 col-lg-offset-4">
+                        <label>所属部门:</label>
+
+                        <h:outputText styleClass="form-control" id="department" value='#{session.getAttribute("userInfo").department.name}'>
+
+                        </h:outputText>
+                    </div>
+                    <div class="space"></div>
+                    <div class="col-lg-3 col-lg-offset-4">
+                        <label>个人简介:</label>
+                        <h:form>
+                            <h:inputTextarea styleClass="form-control" id='description' value='#{session.getAttribute("userInfo").description}' readonly="true"/>
+                        </h:form>
+                    </div>
+
+                    <div class="space"></div>
+
+                </h:form>
+            </div>
+        </ui:define>
+    </ui:composition>
+</html>
+

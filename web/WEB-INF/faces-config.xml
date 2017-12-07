@@ -100,4 +100,14 @@
         <managed-bean-class>com.jsfbean.ConfirmMedicineBean</managed-bean-class>
         <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
+    <managed-bean>
+        <managed-bean-name>changeDocInfoBean</managed-bean-name>
+        <managed-bean-class>com.jsfbean.ChangeDocInfoBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>changeDocPwd</managed-bean-name>
+        <managed-bean-class>com.jsfbean.ChangeDocPwd</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
 </faces-config>

@@ -31,7 +31,24 @@
                         <li><h:link outcome="/register" rendered="#{!sessionManagedBean.login}">用户注册</h:link></li>
                         <li><h:link outcome="/login" rendered="#{!sessionManagedBean.login}">用户登录</h:link></li>
                         <li class="dropdown">
-                            <h:panelGroup rendered="#{sessionManagedBean.login}">
+                            <h:panelGroup rendered="#{sessionManagedBean.doc}">
+                                <a class="dropdown-toggle" data-toggle="dropdown">
+                                    #{session.getAttribute("userName")}<span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><h:link outcome="/doctor/showDocInfo">个人信息查看</h:link></li>
+                                    <li><h:link outcome="/doctor/changeDocInfo">个人信息修改</h:link></li>
+                                    <li><h:link outcome="/doctor/changeDocPassword">密码修改</h:link></li>
+                                    <li>
+                                        <h:form>
+                                            <h:commandLink action="#{sessionManagedBean.userLogout}" value="用户登出"/>
+                                        </h:form>
+
+                                    </li>
+
+                                </ul>
+                            </h:panelGroup>
+                            <h:panelGroup rendered="#{sessionManagedBean.pat}">
                                 <a class="dropdown-toggle" data-toggle="dropdown">
                                     #{session.getAttribute("userName")}<span class="caret"></span>
                                 </a>
@@ -41,18 +58,18 @@
                                     <li><h:link outcome="/patient/userChangePassword">修改密码</h:link></li>
                                     <li><h:link outcome="/patient/userDiagnosisHistory">历史病历查看</h:link></li>
                                     <li><h:link outcome="/patient/showPatientRegistration">我的预约</h:link></li>
-                                <li>
-                                    <h:form>
-                                        <h:commandLink action="#{sessionManagedBean.userLogout}" value="用户登出"/>
-                                    </h:form>
-                                    
-                                </li>
-                                
-                            </ul>
+                                    <li>
+                                        <h:form>
+                                            <h:commandLink action="#{sessionManagedBean.userLogout}" value="用户登出"/>
+                                        </h:form>
+
+                                    </li>
+
+                                </ul>
                             </h:panelGroup>
-                            
-                            
-                            
+
+
+
                         </li>
                     </ul>
 
@@ -60,7 +77,7 @@
             </div>
         </div>
         <script lang="javascript">
-            function 
+            function
         </script>
     </ui:composition>
 </html>
