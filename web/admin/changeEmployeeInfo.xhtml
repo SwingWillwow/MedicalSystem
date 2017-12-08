@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+    <ui:composition template="/templates/default/main.xhtml">
+        <ui:define name="title">
+            <title>员工信息修改</title>
+        </ui:define>
+        <ui:define name="leftmenu"></ui:define>
+        <ui:define name="contentWithoutLeftMenu">
+            <div class="ContentContainedPage row">
+                <div class="col-lg-4 col-lg-offset-4"><h1>员工信息修改</h1></div>
+                <h:form>
+                    <div class="space"></div>
+
+                    <div class="col-lg-3 col-lg-offset-4">
+                        <label>姓名:</label>
+                        <h:inputText styleClass="form-control" id="name" value="#{changeEmployeeInfoBean.currentEmployee.name}" required="true" requiredMessage="姓名必填">
+                        </h:inputText>
+                        <h:message for="name"/>
+                    </div>
+
+                    <div class="space"></div>
+
+                    <div class="col-lg-8 col-lg-offset-4">
+                        <label>性别:</label>
+                        <h:selectOneRadio  id="sex" value="#{changeEmployeeInfoBean.currentEmployee.sex}" required="true" requiredMessage="性别不能为空">
+                            <f:selectItem itemLabel="男" itemValue="M" class="radio-inline"/>
+                            <f:selectItem itemLabel="女" itemValue="F" class="radio-inline"/>
+                        </h:selectOneRadio>
+                        <h:message for="sex"/>
+                    </div>
+
+                    <div class="space"></div>
+
+                    <div class="col-lg-3 col-lg-offset-4">
+                        <label>身份证:</label>
+                        <h:inputText styleClass="form-control" id="idCard" value="#{changeEmployeeInfoBean.currentEmployee.idCard}" required="true" requiredMessage="身份证必填">
+                            <f:validateRegex pattern="(\d{15})|(\d{18})|(\d{17}(X|x))"/>
+                        </h:inputText>
+                        <h:message for="idCard"/>
+                    </div>
+
+                    <div class="space"></div>
+
+                    <div class="col-lg-3 col-lg-offset-4">
+                        <label>生日:</label>
+
+                        <h:inputText styleClass="form-control" id="birthday" value="#{changeEmployeeInfoBean.currentEmployee.birthday}" required="true" requiredMessage="生日必填" converterMessage="生日格式错误">
+                            <f:convertDateTime pattern="yyyy/MM/dd" timeZone="GMT+8"/>
+                        </h:inputText>    
+                        <label>(yyyy/MM/dd)</label>
+                        <h:message for="birthday"/>
+                    </div>
+
+                    <div class="space"></div>
+
+                    <div class="col-lg-3 col-lg-offset-4">
+                        <label>部门:</label>
+                        <h:selectOneMenu styleClass="form-control" value="#{changeEmployeeInfoBean.departId}">
+                            <f:selectItems var="dept" value="#{changeEmployeeInfoBean.allDepart}" itemLabel="#{dept.name}" itemValue="#{dept.id}"/>
+                        </h:selectOneMenu>
+                    </div>
+
+                    <h:panelGroup rendered="#{changeEmployeeInfoBean.currentEmployee.department.id==4}">
+                        <div class="space"></div>
+
+                        <div class="col-lg-3 col-lg-offset-4">
+                            <label>职位:</label>
+                            <h:selectOneMenu styleClass="form-control" value="#{changeEmployeeInfoBean.registration.id}">
+                                <f:selectItems var="registration" value="#{changeEmployeeInfoBean.allRegistrations}" itemLabel="#{registration.name}" itemValue="#{registration.id}"/>
+                            </h:selectOneMenu>
+                        </div>
+                    </h:panelGroup>
+
+                    <div class="space"></div>
+
+                    <div class="row">
+                        <div class="col-lg-2 col-lg-offset-4">
+                            <h:commandButton styleClass="btn btn-success" value="修改信息" action="#{changeEmployeeInfoBean.changeInfo}"/>
+
+                        </div>
+                    </div>
+                </h:form>
+            </div>
+        </ui:define>
+    </ui:composition>
+</html>
+

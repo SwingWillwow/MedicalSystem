@@ -110,4 +110,15 @@
         <managed-bean-class>com.jsfbean.ChangeDocPwd</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
+    <managed-bean>
+        <managed-bean-name>manageEmployee</managed-bean-name>
+        <managed-bean-class>com.jsfbean.admin.manageEmployee</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>changeEmployeeInfoBean</managed-bean-name>
+        <managed-bean-class>com.jsfbean.admin.changeEmployeeInfoBean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+
 </faces-config>

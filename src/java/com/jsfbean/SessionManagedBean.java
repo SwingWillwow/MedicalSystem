@@ -44,6 +44,7 @@ public class SessionManagedBean implements Serializable{
     private boolean pat = false;
     private boolean clk = false;
     private boolean phar = false;
+    private boolean admin = false;
     
     public SessionManagedBean() {
         initalSession();
@@ -157,6 +158,10 @@ public class SessionManagedBean implements Serializable{
                 phar = true;
                 session.setAttribute("phar", phar);
             }
+            else if(departId == 1L){
+                admin = true;
+                session.setAttribute("admin", admin);
+            }
             return true;
         }
         else{
@@ -234,6 +239,14 @@ public class SessionManagedBean implements Serializable{
 
     public void setPhar(boolean phar) {
         this.phar = phar;
+    }
+
+    public boolean isAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
     }
     
     
