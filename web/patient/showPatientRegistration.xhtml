@@ -18,21 +18,39 @@
                         <div class="alert alert-danger"><p align="center">#{sessionManagedBean.errorMessage}</p></div>
                     </div>
                 </h:panelGroup>
-                <h:dataTable styleClass="table table-striped" value="#{patientPreRegistrationBean.patientRegistDetails}" var="preDetailList">
+                <h:panelGroup rendered="#{sessionManagedBean.hasSuccessMessage()}">
+                    <div class="col-lg-11">
+                        <div class="alert alert-success"><p align="center">#{sessionManagedBean.successMessage}</p></div>
+                    </div>
+                </h:panelGroup>
+                <h:dataTable styleClass="table table-striped" value="#{patientPreRegistrationBean.patientRegistDetails}" var="preDetail">
                     <h:column>
                         <f:facet name="header">预约医生</f:facet>
-                        #{preDetailList.preRegistrationId.doctor.name}
+                        #{preDetail.preRegistrationId.doctor.name}
                     </h:column>
                     <h:column>
                         <f:facet name="header">预约日期</f:facet>
-                        <h:outputText id ="preTime" value="#{preDetailList.preRegistrationId.preTime}">
+                        <h:outputText id ="preTime" value="#{preDetail.preRegistrationId.preTime}">
                             <f:convertDateTime pattern="yyyy/MM/dd" timeZone="GMT+8"/>
                         </h:outputText> 
                         
                     </h:column>
                     <h:column>
-                        <f:facet name="header">未挂号/未过期</f:facet>
-                        #{preDetailList.valid}
+                        <f:facet name="header">是否过期</f:facet>
+                        <h:panelGroup rendered="#{preDetail.valid=='Y'}">
+                            未过期
+                        </h:panelGroup>
+                        <h:panelGroup rendered="#{preDetail.valid=='N'}">
+                            已过期
+                        </h:panelGroup>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">取消预约</f:facet>
+                        <h:form>
+                            <h:commandLink value="取消" action="#{patientPreRegistrationBean.cancelRegist}">
+                                <f:param name="preRegistId" value="#{preDetail.id}"></f:param>
+                            </h:commandLink>
+                        </h:form>
                     </h:column>
                 </h:dataTable>
             </div>

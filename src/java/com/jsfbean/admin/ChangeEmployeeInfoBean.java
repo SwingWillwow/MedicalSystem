@@ -24,7 +24,7 @@ import javax.transaction.UserTransaction;
  *
  * @author qiuyukun
  */
-public class changeEmployeeInfoBean implements Serializable{
+public class ChangeEmployeeInfoBean implements Serializable{
 
     //properties
     private Employee currentEmployee;
@@ -39,7 +39,7 @@ public class changeEmployeeInfoBean implements Serializable{
     /**
      * Creates a new instance of changeEmployeeInfoBean
      */
-    public changeEmployeeInfoBean() {
+    public ChangeEmployeeInfoBean() {
         
     }
     /*

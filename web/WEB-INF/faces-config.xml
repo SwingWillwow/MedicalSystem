@@ -24,11 +24,6 @@
     
         <managed-bean-scope>none</managed-bean-scope></managed-bean>
     <managed-bean>
-        <managed-bean-name>tableTest</managed-bean-name>
-        <managed-bean-class>com.jsfbean.TableTest</managed-bean-class>
-    
-        <managed-bean-scope>session</managed-bean-scope></managed-bean>
-    <managed-bean>
         <managed-bean-name>patientManagedBean</managed-bean-name>
         <managed-bean-class>com.jsfbean.patient.PatientManagedBean</managed-bean-class>
     
@@ -112,17 +107,22 @@
         <managed-bean-scope>request</managed-bean-scope></managed-bean>
     <managed-bean>
         <managed-bean-name>manageEmployee</managed-bean-name>
-        <managed-bean-class>com.jsfbean.admin.manageEmployee</managed-bean-class>
-        <managed-bean-scope>view</managed-bean-scope>
-    </managed-bean>
+        <managed-bean-class>com.jsfbean.admin.ManageEmployeeBean</managed-bean-class>
+    
+        <managed-bean-scope>view</managed-bean-scope></managed-bean>
     <managed-bean>
         <managed-bean-name>changeEmployeeInfoBean</managed-bean-name>
-        <managed-bean-class>com.jsfbean.admin.changeEmployeeInfoBean</managed-bean-class>
-        <managed-bean-scope>view</managed-bean-scope>
-    </managed-bean>
+        <managed-bean-class>com.jsfbean.admin.ChangeEmployeeInfoBean</managed-bean-class>
+    
+        <managed-bean-scope>view</managed-bean-scope></managed-bean>
     <managed-bean>
         <managed-bean-name>showDocInfoBean</managed-bean-name>
         <managed-bean-class>com.jsfbean.showDocInfoBean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>addEmployeeBean</managed-bean-name>
+        <managed-bean-class>com.jsfbean.admin.addEmployeeBean</managed-bean-class>
         <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
 </faces-config>

@@ -10,29 +10,27 @@ import com.entity.PreRegistration;
 import com.entity.Sections;
 import com.jsfbean.SessionManagedBean;
 import com.util.DateOperator;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.util.Calendar;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
-import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
-import javax.faces.component.UIComponent;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.Flash;
 import javax.faces.event.AjaxBehaviorEvent;
-import javax.faces.event.ValueChangeEvent;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.transaction.HeuristicMixedException;
+import javax.transaction.HeuristicRollbackException;
+import javax.transaction.NotSupportedException;
+import javax.transaction.RollbackException;
+import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
 
 /**
@@ -40,7 +38,7 @@ import javax.transaction.UserTransaction;
  * @author qiuyukun
  */
 @ViewScoped
-public class SectionBean {
+public class SectionBean implements Serializable{
 
     /**
      * Creates a new instance of SectionBean
@@ -78,14 +76,14 @@ public class SectionBean {
         } else {
             sessionManagedBean = (SessionManagedBean) session.getAttribute("sessionManagedBean");
         }
-        int selectedDoc = 0, selectedSec = 0;
-        selectedDoc = Integer.parseInt(selectedDoctor);
-        selectedSec = Integer.parseInt(selectedSections);
-        if (selectedDoc == 0 || selectedSec == 0) {
+        int selectedDoc;
+        
+        if (selectedDoctor == null || selectedSections == null) {
 
             sessionManagedBean.setErrorMessage("请选择要预约的科室和医生");
             return "";
         }
+        selectedDoc = Integer.parseInt(selectedDoctor);
         passDocId();
         Date today = new Date();
         List<PreRegistration> pre;
@@ -119,7 +117,7 @@ public class SectionBean {
                         utx.begin();
                         em.persist(newPreRegistration);
                         utx.commit();
-                    } catch (Exception e) {
+                    } catch (IllegalStateException | SecurityException | HeuristicMixedException | HeuristicRollbackException | NotSupportedException | RollbackException | SystemException e) {
                         sessionManagedBean.setErrorMessage(e.getMessage());
                     }
                 }
@@ -144,7 +142,7 @@ public class SectionBean {
                     utx.begin();
                     em.persist(preReg2);
                     utx.commit();
-                } catch (Exception e) {
+                } catch (IllegalStateException | SecurityException | HeuristicMixedException | HeuristicRollbackException | NotSupportedException | RollbackException | SystemException e) {
                     sessionManagedBean.setErrorMessage(e.getMessage());
                 }
             }

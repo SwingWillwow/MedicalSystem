@@ -1,0 +1,176 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+    <ui:composition template="/templates/default/main.xhtml">
+        <ui:define name="title">
+            <title>添加新雇员</title>
+        </ui:define>
+        <ui:define name="leftmenu"></ui:define>
+        <ui:define name="contentWithoutLeftMenu">
+            <div class="ContentContainedPage row">
+                <h:panelGroup rendered="#{sessionManagedBean.hasErrorMessage()}">
+                    <div class="row">
+                        <div class="alert alert-danger"><p align="center">#{sessionManagedBean.errorMessage}</p></div>
+                    </div>
+                </h:panelGroup>
+                <h:panelGroup rendered="#{sessionManagedBean.hasSuccessMessage()}">
+                    <div class="row">
+                        <div class="alert alert-success"><p align="center">#{sessionManagedBean.successMessage}</p></div>
+                    </div>
+                </h:panelGroup>
+                <div class="col-lg-4 col-lg-offset-4"><h1>新雇员添加</h1></div>
+                <h:form styleClass="form-horizontal">
+                    <div class="row form-group">
+                        <div class="col-lg-3 col-lg-offset-4">
+                            <label>用户名:</label>
+                            <h:inputText styleClass="form-control" id="userName" value="#{addEmployeeBean.employee.userName}" required="true" requiredMessage="必须输入用户名" validatorMessage="用户名为6~16位的大小写字母、下划线、数字和减号">
+                                <f:validateRegex pattern="[a-zA-Z0-9_-]{6,16}" for="userName"/>
+                            </h:inputText>
+
+                            <h:message for="userName"/>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-lg-3 col-lg-offset-4">
+                            <label>密码:</label>
+                            <h:inputSecret styleClass="form-control" id="password" value="#{addEmployeeBean.employee.password}" required="true" requiredMessage="必须输入密码" validatorMessage="密码为6~16位的大小写字母、下划线、数字和减号">
+                                <f:validateRegex pattern="[a-zA-Z0-9_-]{6,16}" for="password"/>
+                            </h:inputSecret>
+                            <h:message for="password"/>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-lg-3 col-lg-offset-4">
+                            <label>姓名:</label>
+                            <h:inputText styleClass="form-control" id="name" value="#{addEmployeeBean.employee.name}" required="true" requiredMessage="姓名必填">
+                            </h:inputText>
+                            <h:message for="name"/>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-lg-8 col-lg-offset-4">
+                            <label>性别:</label>
+                            <h:selectOneRadio  id="sex" value="#{addEmployeeBean.employee.sex}" required="true" requiredMessage="性别不能为空">
+                                <f:selectItem itemLabel="男" itemValue="M" class="radio-inline"/>
+                                <f:selectItem itemLabel="女" itemValue="F" class="radio-inline"/>
+
+                            </h:selectOneRadio>
+                            <h:message for="sex"/>
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+                        <div class="col-lg-3 col-lg-offset-4">
+                            <label>身份证:</label>
+                            <h:inputText styleClass="form-control" id="idCard" value="#{addEmployeeBean.employee.idCard}" required="true" requiredMessage="身份证必填">
+                                <f:validateRegex pattern="(\d{15})|(\d{18})|(\d{17}(X|x))"/>
+                            </h:inputText>
+                            <h:message for="idCard"/>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-lg-3 col-lg-offset-4">
+                            <label>生日:</label>
+
+                            <h:inputText styleClass="form-control" id="birthday" value="#{addEmployeeBean.employee.birthday}" required="true" requiredMessage="生日必填" converterMessage="生日格式错误">
+                                <f:convertDateTime pattern="yyyy/MM/dd"/>
+                            </h:inputText>    
+                            <label>(yyyy/MM/dd)</label>
+                            <h:message for="birthday"/>
+                        </div>
+                    </div>
+
+
+
+                    <div class="row form-group">
+                        <div class="col-lg-3 col-lg-offset-4">
+                            <label>部门:</label>
+                            <h:selectOneMenu styleClass="form-control" value="#{addEmployeeBean.employee.department.id}" id="dept">
+                                <f:selectItems value="#{addEmployeeBean.allDepts}" var="dept" itemLabel="#{dept.name}" itemValue="#{dept.id}"></f:selectItems>
+                                <f:ajax execute="@this" event="valueChange" render="docPanel" listener="#{addEmployeeBean.changeDepart}">
+
+                                </f:ajax>
+                            </h:selectOneMenu>
+
+                            <h:message for="dept"/>
+                        </div>
+                    </div>
+                    <h:panelGroup id="docPanel">
+                        <h:panelGroup rendered="#{addEmployeeBean.employee.department.id==4}">
+                            <div class="row form-group">
+                                <div class="col-lg-3 col-lg-offset-4">
+                                    <label>科室:</label>
+                                    <h:selectOneMenu styleClass="form-control" value="#{addEmployeeBean.doctor.sections.id}" id="section">
+                                        <f:selectItems value="#{addEmployeeBean.sections}" var="section" itemLabel="#{section.name}" itemValue="#{section.id}"></f:selectItems>
+
+                                    </h:selectOneMenu>
+                                    <h:message for="section"/>
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col-lg-3 col-lg-offset-4">
+                                    <label>职位:</label>
+                                    <h:selectOneMenu styleClass="form-control" value="#{addEmployeeBean.doctor.registration.id}" id="registration">
+                                        <f:selectItems value="#{addEmployeeBean.registrations}" var="registration" itemLabel="#{registration.name}" itemValue="#{registration.id}"></f:selectItems>
+
+                                    </h:selectOneMenu>
+                                    <h:message for="registration"/>
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col-lg-3 col-lg-offset-4">
+                                    <label>医龄:</label>
+
+                                    <h:inputText styleClass="form-control" id="age" value="#{addEmployeeBean.doctor.age}" required="true" requiredMessage="医龄必填" converterMessage="医龄必须为整数">
+                                        <f:convertNumber integerOnly="true"></f:convertNumber>
+                                    </h:inputText>    
+                                    <h:message for="age"/>
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col-lg-3 col-lg-offset-4">
+                                    <label>可网络预约人数:</label>
+
+                                    <h:inputText styleClass="form-control" id="byInternet" value="#{addEmployeeBean.doctor.byInternet}" required="true" requiredMessage="网约人数必填" converterMessage="必须为整数">
+                                        <f:convertNumber integerOnly="true"></f:convertNumber>
+                                    </h:inputText>    
+                                    <h:message for="byInternet"/>
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col-lg-3 col-lg-offset-4">
+                                    <label>可现场预约人数:</label>
+
+                                    <h:inputText styleClass="form-control" id="byLive" value="#{addEmployeeBean.doctor.byLive}" required="true" requiredMessage="现场预约人数必填" converterMessage="必须为整数">
+                                        <f:convertNumber integerOnly="true"></f:convertNumber>
+                                    </h:inputText>    
+                                    <h:message for="byLive"/>
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col-lg-3 col-lg-offset-4">
+                                    <label>个人简介:</label>
+                                    <h:inputTextarea id="description" styleClass="form-control" value="#{addEmployeeBean.doctor.description}" required="既往病史不能为空，没有则填无"></h:inputTextarea>
+                                    <h:message for="description"/>
+                                </div>
+                            </div>
+                        </h:panelGroup>
+                    </h:panelGroup>
+
+                    <div class="space"></div>
+                    <div class="row">
+                        <div class="col-lg-5 col-lg-offset-4">
+                            <h:commandButton styleClass="btn btn-success" value="添加" action="#{addEmployeeBean.newEmployee}"/>
+
+                        </div>
+                    </div>
+                </h:form>
+            </div>
+        </ui:define>
+    </ui:composition>
+</html>
+

@@ -10,24 +10,27 @@ import com.entity.PreRegistration;
 import com.entity.PreRegistrationDetail;
 import com.jsfbean.SessionManagedBean;
 import com.util.DateOperator;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import javax.transaction.HeuristicMixedException;
+import javax.transaction.HeuristicRollbackException;
+import javax.transaction.NotSupportedException;
+import javax.transaction.RollbackException;
+import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
-import jdk.nashorn.internal.objects.annotations.Constructor;
 
 /**
  *
  * @author qiuyukun
  */
-public class PatientRegistrationBean {
+public class PatientRegistrationBean implements Serializable{
 
     /**
      * Creates a new instance of PatientRegistrationBean
@@ -48,32 +51,32 @@ public class PatientRegistrationBean {
 //    }
     
     public String preRegist(){
-        SessionManagedBean sessionManagedBean;
-            HttpSession session = (HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(true);
-            if(session.getAttribute("sessionManagedBean")==null){
-                sessionManagedBean = new SessionManagedBean();
-            }
-            else{
-                sessionManagedBean=(SessionManagedBean)session.getAttribute("sessionManagedBean");
-            }
+        SessionManagedBean sessionManagedBean = SessionManagedBean.getInstance();
         HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
         Long preId = Long.parseLong(request.getParameter("preId"));
         PreRegistration pre = em.find(PreRegistration.class, preId);
         //判断预约人数，即能否预约
         if(pre.getByInternetReal()>=pre.getByInternet()){
             sessionManagedBean.setErrorMessage("预约人数过多，预约失败。");
-            return "/index";
+            return "";
+        }
+        Patient p = (Patient)sessionManagedBean.getSession().getAttribute("userInfo");
+        List<PreRegistrationDetail> preDetailList = pre.getPreResgistrationDetails();
+        if(isPreRegist(p, preDetailList)){
+            sessionManagedBean.setErrorMessage("您已经预约过这个时段了，请不要重复预约");
+            return "";
+        }
+        if(!isPreLessThanThree(p)){
+            sessionManagedBean.setErrorMessage("您同时预约超过三次，无法预约");
+            return "";
         }
         pre.setByInternetReal(pre.getByInternetReal()+1);
-        pre.setCount(pre.getCount());
         PreRegistrationDetail preRegistrationDetail = new PreRegistrationDetail();
         preRegistrationDetail.setCreateTime(new Date());
         preRegistrationDetail.setLastUpdateTime(new Date());
-        Patient p = (Patient)sessionManagedBean.getSession().getAttribute("userInfo");
         preRegistrationDetail.setPatient(p);
         preRegistrationDetail.setValid('Y');
         preRegistrationDetail.setPreRegistrationId(pre);
-        List<PreRegistrationDetail> preDetailList = pre.getPreResgistrationDetails();
         preDetailList.add(preRegistrationDetail);
         pre.setPreResgistrationDetails(preDetailList);
         try{
@@ -82,8 +85,7 @@ public class PatientRegistrationBean {
             em.merge(pre);
             utx.commit();
         }
-        catch(Exception e){
-            
+        catch(IllegalStateException | SecurityException | HeuristicMixedException | HeuristicRollbackException | NotSupportedException | RollbackException | SystemException e){
             sessionManagedBean.setErrorMessage(e.getMessage());
         }
         sessionManagedBean.setSuccessMessage("预约成功");
@@ -113,6 +115,22 @@ public class PatientRegistrationBean {
     public void setPreList(List<PreRegistration> preList) {
         this.preList = preList;
     }
-    
-    
+    //判断该病人的预约次数是否小于三
+    private boolean isPreLessThanThree(Patient p){
+    List<PreRegistrationDetail> patientDetails;
+        Query query2 = em.createQuery("SELECT pre FROM PreRegistrationDetail pre WHERE pre.patient = ?1 AND pre.valid=?2");
+        query2.setParameter(1, p);
+        query2.setParameter(2, 'Y');
+        patientDetails = query2.getResultList();
+        return patientDetails.size()<3;
+    }
+    //判断是否预约过了
+    private boolean isPreRegist(Patient p,List<PreRegistrationDetail> preDetailList){
+        for(PreRegistrationDetail detail : preDetailList){
+            if(detail.getPatient().equals(p)){
+                return true;
+            }
+        }
+        return false;
+    }
 }

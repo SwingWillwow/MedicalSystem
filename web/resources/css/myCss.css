@@ -51,7 +51,8 @@ body{
     text-indent:2em;
 }
 .space{
-    height: 10px;
+    height: 5px;
+    width: 100%;
 }
 .btnGroup{
     margin:20px;

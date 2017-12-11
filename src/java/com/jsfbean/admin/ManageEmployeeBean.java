@@ -23,7 +23,7 @@ import javax.transaction.UserTransaction;
  *
  * @author qiuyukun
  */
-public class manageEmployee implements Serializable{
+public class ManageEmployeeBean implements Serializable{
 
     //properties
     private List<Employee> employeeList;
@@ -34,7 +34,7 @@ public class manageEmployee implements Serializable{
     /**
      * Creates a new instance of manageEmployee
      */
-    public manageEmployee() {
+    public ManageEmployeeBean() {
         
     }
     /*
