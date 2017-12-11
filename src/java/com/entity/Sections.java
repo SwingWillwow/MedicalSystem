@@ -46,7 +46,7 @@ public class Sections implements Serializable {
     private Date createTime;
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastUpdateTime;
-
+    private String description;
     public Sections() {
     }
 
@@ -115,6 +115,14 @@ public class Sections implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override

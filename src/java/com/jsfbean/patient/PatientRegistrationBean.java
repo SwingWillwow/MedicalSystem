@@ -3,11 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.jsfbean;
+package com.jsfbean.patient;
 
 import com.entity.Patient;
 import com.entity.PreRegistration;
 import com.entity.PreRegistrationDetail;
+import com.jsfbean.SessionManagedBean;
 import com.util.DateOperator;
 import java.util.Date;
 import java.util.List;

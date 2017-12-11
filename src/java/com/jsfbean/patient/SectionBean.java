@@ -3,11 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.jsfbean;
+package com.jsfbean.patient;
 
 import com.entity.Doctor;
 import com.entity.PreRegistration;
 import com.entity.Sections;
+import com.jsfbean.SessionManagedBean;
 import com.util.DateOperator;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -24,6 +25,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.faces.context.Flash;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.event.ValueChangeEvent;
 import javax.persistence.EntityManager;
@@ -165,6 +167,14 @@ public class SectionBean {
         externalContext.getFlash().put("docId", selectedDoctor);
     }
     
+    public String toDocList(){
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        Flash flash = facesContext.getExternalContext().getFlash();
+        HttpServletRequest request = (HttpServletRequest) facesContext.getExternalContext().getRequest();
+        String id = request.getParameter("sectionId");
+        request.getSession(false).setAttribute("sectionId", id);
+        return "/showDocList";
+    }
     
     /*
         getter and setter

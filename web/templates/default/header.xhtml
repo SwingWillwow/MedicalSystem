@@ -20,7 +20,7 @@
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav navbar-left">
                         <li><h:link outcome="/index">医院首页</h:link></li>
-                        <li><a href="#">医疗团队</a></li>
+                        <li><h:link outcome="showHospitalConstruct">医疗团队</h:link></li>
                         <li><h:link outcome="/patient/patientRegistration" rendered="#{sessionManagedBean.pat}">治疗预约</h:link></li>
                         <li><h:link outcome="/doctor/showPatientList"  rendered="#{sessionManagedBean.doc}">今日病患</h:link></li>
                     </ul>

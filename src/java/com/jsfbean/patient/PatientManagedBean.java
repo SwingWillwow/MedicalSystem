@@ -3,9 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.jsfbean;
+package com.jsfbean.patient;
 
 import com.entity.Patient;
+import com.jsfbean.CaptchaBean;
+import com.jsfbean.SessionManagedBean;
 import com.util.PasswordManager;
 import java.time.Instant;
 import java.util.Date;

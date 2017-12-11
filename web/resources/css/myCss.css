@@ -202,3 +202,13 @@ body{
     margin: 10px;
     width: 100%;
 }
+
+.sectionBlock{
+    margin-left: 5%;
+    margin-right: 5%;
+    height: 400px;
+    border-style: ridge;
+    border-radius: 10px;
+    border-width: 5px;
+    border-color: #337ab7;
+}

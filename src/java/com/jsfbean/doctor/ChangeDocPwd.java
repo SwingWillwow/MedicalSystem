@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.jsfbean;
+package com.jsfbean.doctor;
 
 import com.entity.Doctor;
+import com.jsfbean.SessionManagedBean;
 import com.util.PasswordManager;
 import javax.annotation.Resource;
 import javax.faces.context.FacesContext;
