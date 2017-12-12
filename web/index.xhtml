@@ -10,18 +10,8 @@
         <ui:define name="leftmenu"></ui:define>
         <ui:define name="contentWithoutLeftMenu">
             <div class="ContentContainedPage">
-                <h:panelGroup rendered="#{sessionManagedBean.hasErrorMessage()}">
-                    <div class="col-lg-11">
-                        <div class="alert alert-danger"><p style="align-content: center">#{sessionManagedBean.errorMessage}</p></div>
-                    </div>
-                </h:panelGroup>
-
                 <h1>J2EE医院简介</h1>
-                <h:panelGroup rendered="#{sessionManagedBean.hasSuccessMessage()}">
-                    <div class="row">
-                        <div class="alert alert-success"><p align="center">#{sessionManagedBean.successMessage}</p></div>
-                    </div>
-                </h:panelGroup>
+                <ui:include src="/templates/default/msgPanel.xhtml"/>
                 <p class="mainContentFont">本医院成立于2017年，是一间新建立的医院。截止至目前，本医院共设有：内科、外科、耳鼻喉科、儿科、神经内科等共计7个科室。每位科室都有数位专业的医生为各位病人提供治疗服务。</p>
                 <p class="mainContentFont">
                     同时，本院还引进了最先进的J2EE编程技术，设计了该一体化系统，用户可以通过该一体化系统及时的查看个人的诊疗信息、可以不用排队就在网上完成预约、也可以查询各位医生的诊疗历史等。

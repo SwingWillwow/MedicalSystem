@@ -11,13 +11,11 @@
         </ui:define>
         <ui:define name="leftmenu"></ui:define>
         <ui:define name="contentWithoutLeftMenu">
-            <div class="ContentContainedPage col-lg-11">
-                <div class="col-lg-4 col-lg-offset-4"><h1>员工列表</h1></div>
-                <h:panelGroup rendered="#{sessionManagedBean.hasErrorMessage()}">
-                    <div class="col-lg-11">
-                        <div class="alert alert-danger"><p align="center">#{sessionManagedBean.errorMessage}</p></div>
-                    </div>
-                </h:panelGroup>
+            <div class="ContentContainedPage row">
+                <ui:include src="/templates/default/msgPanel.xhtml"/>
+                <div class="col-lg-8 col-lg-offset-4">
+                    <h1>员工列表</h1>
+                </div>
                 <h:dataTable styleClass="table table-striped" value="#{manageEmployee.employeeList}" var="employee">
                     <h:column>
                         <f:facet name="header">Id</f:facet>
@@ -60,8 +58,15 @@
                             </h:commandLink>
                         </h:form>
                     </h:column>
+                    <h:column>
+                        <f:facet name="header">删除</f:facet>
+                        <h:form>
+                            <h:commandLink id="delete" value="删除员工信息" action="#{manageEmployee.deleteEmployee}">
+                                <f:param name="employeeId" value="#{employee.id}"/>
+                            </h:commandLink>
+                        </h:form>
+                    </h:column>
                 </h:dataTable>
-                <h:outputText rendered="#{employee.sex=='F'}">女</h:outputText>
             </div>
         </ui:define>
     </ui:composition>
