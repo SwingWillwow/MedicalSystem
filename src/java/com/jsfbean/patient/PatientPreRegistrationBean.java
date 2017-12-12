@@ -54,6 +54,7 @@ public class PatientPreRegistrationBean implements Serializable{
         PreRegistrationDetail detail = em.find(PreRegistrationDetail.class, preRegistId);
         if(detail.getValid()=='N'){
             sessionManagedBean.setErrorMessage("过期记录，无法取消");
+            return "";
         }
         if(deleteRegistRecord(detail)){
             sessionManagedBean.setSuccessMessage("取消成功");

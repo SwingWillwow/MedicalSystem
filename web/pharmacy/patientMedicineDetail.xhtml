@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+    <ui:composition template="/templates/default/main.xhtml">
+        <ui:define name="title">
+            <title>用户诊疗记录细节查询</title>
+        </ui:define>
+        <ui:define name="leftmenu"></ui:define>
+        <ui:define name="contentWithoutLeftMenu">
+            <h:panelGroup rendered="#{sessionManagedBean.hasSuccessMessage()}">
+                <div class="col-lg-11">
+                    <div class="alert alert-danger"><p align="center">#{sessionManagedBean.successMessage}</p></div>
+                </div>
+            </h:panelGroup>
+            <h:panelGroup rendered="#{sessionManagedBean.hasErrorMessage()}">
+                <div class="col-lg-11">
+                    <div class="alert alert-danger"><p align="center">#{sessionManagedBean.errorMessage}</p></div>
+                </div>
+            </h:panelGroup>
+            <div class="ContentContainedPage col-lg-11">
+                <div class="col-lg-4 col-lg-offset-4"><h1>诊疗记录细节查询</h1></div>
+                <h:dataTable styleClass="table table-striped" value="#{pharmacyOperateBean.userDiagnosisDetails()}" var="diagDetail">
+                    <h:column>
+                        <f:facet name="header">药品项ID</f:facet>
+                        #{diagDetail.id}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">药物ID</f:facet>
+                        #{diagDetail.medicine.id}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">药名</f:facet>
+                        #{diagDetail.medicine.name}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">数量</f:facet>
+                        #{diagDetail.count}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">计量单位</f:facet>
+                        #{diagDetail.medicine.unite}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">药品单价</f:facet>
+                        #{diagDetail.medicine.price}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">药品总价</f:facet>
+                        #{diagDetail.itemSum}
+                    </h:column>
+                </h:dataTable>
+                <h:form>
+                    <h:commandButton action="#{pharmacyOperateBean.medicineFinish()}" rendered="#{pharmacyOperateBean.canClick}" value="拣药完成"/>
+                </h:form>                
+            </div>
+        </ui:define>
+    </ui:composition>
+</html>

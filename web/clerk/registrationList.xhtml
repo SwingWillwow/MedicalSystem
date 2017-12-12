@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <ui:composition template="/templates/default/main.xhtml">
+        <ui:define name="title">
+            <title>今日已挂号列表</title>
+        </ui:define>
+        <ui:define name="leftmenu"></ui:define>
+        <ui:define name="contentWithoutLeftMenu">
+            <h:form>
+            <div class="ContentContainedPage col-lg-11">
+                <div class="col-lg-4 col-lg-offset-4"><h1>今日挂号列表</h1></div>
+                <h:dataTable styleClass="table table-striped" value="#{clerkOperateBean.diagnosisList()}" var="diagnosis">
+                    <h:column>
+                        <f:facet name="header">诊单ID</f:facet>
+                        #{diagnosis.id}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">挂号人姓名</f:facet>
+                        #{diagnosis.patient.name}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">医生姓名</f:facet>
+                        #{diagnosis.doctor.name}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">挂号有效状态</f:facet>
+                        #{diagnosis.valid}
+                    </h:column>
+                </h:dataTable>
+            </div>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>

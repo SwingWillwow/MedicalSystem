@@ -106,7 +106,8 @@ public class PatientRegistrationBean implements Serializable{
         }
         Query query = em.createQuery("SELECT pre FROM PreRegistration pre WHERE pre.doctor.id = ?1 AND pre.preTime BETWEEN ?2 AND ?3");
         query.setParameter(1, docId);
-        query.setParameter(2, DateOperator.addDay(new Date(), 1));
+        query.setParameter(2, DateOperator.addDay(new Date(), 0));
+        //query.setParameter(2, DateOperator.addDay(new Date(), 1));
         query.setParameter(3, DateOperator.addDay(new Date(), 5));
         preList = query.getResultList();
         return preList;

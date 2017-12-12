@@ -23,6 +23,12 @@
                         <li><h:link outcome="/showHospitalConstruct">医疗团队</h:link></li>
                         <li><h:link outcome="/patient/patientRegistration" rendered="#{sessionManagedBean.pat}">治疗预约</h:link></li>
                         <li><h:link outcome="/doctor/showPatientList"  rendered="#{sessionManagedBean.doc}">今日病患</h:link></li>
+                        <li><h:link outcome="/clerk/liveRegistration" rendered="#{sessionManagedBean.clk}">现场挂号</h:link></li>
+                        <li><h:link outcome="/clerk/preRegistration" rendered="#{sessionManagedBean.clk}">预约查询</h:link></li>
+                        <li><h:link outcome="/clerk/registrationList" rendered="#{sessionManagedBean.clk}">已挂号查询</h:link></li>
+                        <li><h:link outcome="/clerk/payPage" rendered="#{sessionManagedBean.clk}">药费支付</h:link></li>
+                        <li><h:link outcome="/pharmacy/patientMedicineList" rendered="#{sessionManagedBean.phar}">查看药单</h:link></li>
+                        <li><h:link outcome="/pharmacy/waitForPatient" rendered="#{sessionManagedBean.phar}">待取药名单</h:link></li>
                     </ul>
                     <form class="navbar-form navbar-right">
                         <input type="text" class="form-control" placeholder="站内搜索..." />
@@ -42,6 +48,41 @@
                                     <li><h:link outcome="/admin/addDepartment">新增部门</h:link></li>
                                     <li><h:link outcome="/admin/manageSection">管理科室</h:link></li>
                                     <li><h:link outcome="/admin/addSection">新增科室</h:link></li>
+                                    <li><h:link outcome="/admin/showTransaction">显示交易记录</h:link></li>
+                                    <li>
+                                        <h:form>
+                                            <h:commandLink action="#{sessionManagedBean.userLogout}" value="用户登出"/>
+                                        </h:form>
+
+                                    </li>
+
+                                </ul>
+                            </h:panelGroup>
+                            <h:panelGroup rendered="#{sessionManagedBean.clk}">
+                                <a class="dropdown-toggle" data-toggle="dropdown">
+                                    #{session.getAttribute("userName")}<span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+<!--                                    <li><h:link outcome="/doctor/showDocInfo">个人信息查看</h:link></li>
+                                    <li><h:link outcome="/doctor/changeDocInfo">个人信息修改</h:link></li>
+                                    <li><h:link outcome="/doctor/changeDocPassword">密码修改</h:link></li>-->
+                                    <li>
+                                        <h:form>
+                                            <h:commandLink action="#{sessionManagedBean.userLogout}" value="用户登出"/>
+                                        </h:form>
+
+                                    </li>
+
+                                </ul>
+                            </h:panelGroup>
+                            <h:panelGroup rendered="#{sessionManagedBean.phar}">
+                                <a class="dropdown-toggle" data-toggle="dropdown">
+                                    #{session.getAttribute("userName")}<span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+<!--                                    <li><h:link outcome="/doctor/showDocInfo">个人信息查看</h:link></li>
+                                    <li><h:link outcome="/doctor/changeDocInfo">个人信息修改</h:link></li>
+                                    <li><h:link outcome="/doctor/changeDocPassword">密码修改</h:link></li>-->
                                     <li>
                                         <h:form>
                                             <h:commandLink action="#{sessionManagedBean.userLogout}" value="用户登出"/>

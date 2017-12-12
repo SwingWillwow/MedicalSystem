@@ -41,7 +41,7 @@ public class DoctorHealBean {
     UserTransaction utx;
     //  properties
     List<Medicine> allMedicines;//所有符合搜索条件的药品
-    static int pageSize = 2;//每页的数据数目，根据实际情况设置
+    static final int PAGESIZE = 2;//每页的数据数目，根据实际情况设置
     int pageCount;
     int currentPage;
     List<String> pageNumber = new ArrayList<>();
@@ -56,10 +56,11 @@ public class DoctorHealBean {
         diagId = Long.parseLong(session.getAttribute("diagId").toString());
         Query query = em.createQuery("SELECT m FROM Medicine m");
         allMedicines = query.getResultList();
-        pageCount = (allMedicines.size()+pageSize-1)/pageSize;
+        pageCount = (allMedicines.size()+PAGESIZE-1)/PAGESIZE;
         currentPage=1;
         allMedicines.clear();
-        allMedicines = query.setMaxResults(pageSize).setFirstResult(pageSize*(currentPage-1)).getResultList();
+        allMedicines = query.setMaxResults(PAGESIZE).setFirstResult(PAGESIZE*(currentPage-1)).getResultList();
+        pageNumber.clear();
         for(Integer i=1;i<=pageCount;i++){
             
             pageNumber.add(i.toString());
@@ -85,10 +86,11 @@ public class DoctorHealBean {
         String medicineInfo = "%"+searchInfo+"%";
         query.setParameter(1, medicineInfo);
         allMedicines = query.getResultList();
-        pageCount = (allMedicines.size()+pageSize-1)/pageSize;
+        pageCount = (allMedicines.size()+PAGESIZE-1)/PAGESIZE;
         currentPage=1;
         allMedicines.clear();
-        allMedicines = query.setMaxResults(pageSize).setFirstResult(pageSize*(currentPage-1)).getResultList();
+        allMedicines = query.setMaxResults(PAGESIZE).setFirstResult(PAGESIZE*(currentPage-1)).getResultList();
+        pageNumber.clear();
         for(Integer i=1;i<=pageCount;i++){
             
             pageNumber.add(i.toString());
@@ -108,7 +110,7 @@ public class DoctorHealBean {
             query.setParameter(1, "%"+searchInfo+"%");
         }
         allMedicines.clear();
-        allMedicines = query.setMaxResults(pageSize).setFirstResult(pageSize*(currentPage-1)).getResultList();
+        allMedicines = query.setMaxResults(PAGESIZE).setFirstResult(PAGESIZE*(currentPage-1)).getResultList();
         return "";
     }
     
@@ -167,12 +169,8 @@ public class DoctorHealBean {
         this.allMedicines = allMedicines;
     }
 
-    public int getPageSize() {
-        return pageSize;
-    }
-
-    public void setPageSize(int pageSize) {
-        DoctorHealBean.pageSize = pageSize;
+    public int getPAGESIZE() {
+        return PAGESIZE;
     }
 
     public int getPageCount() {

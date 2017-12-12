@@ -10,6 +10,7 @@ import com.entity.Doctor;
 import com.entity.Employee;
 import com.entity.Registration;
 import com.entity.Sections;
+import com.util.PasswordManager;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -95,7 +96,7 @@ public class AddEmployeeBean {
     }
     private void setDoctorBasedOnEmployee(){
         doctor.setUserName(employee.getUserName());
-        doctor.setPassword(employee.getPassword());
+        doctor.setPassword(PasswordManager.getMD5(employee.getPassword()));
         doctor.setName(employee.getName());
         doctor.setIdCard(employee.getIdCard());
         doctor.setSex(employee.getSex());
@@ -110,6 +111,7 @@ public class AddEmployeeBean {
         basicSetForEmployee();
         try {
             utx.begin();
+            employee.setPassword(PasswordManager.getMD5(employee.getPassword()));
             em.persist(employee);
             Department dept = em.find(Department.class, employee.getDepartment().getId());
             dept.setNumber(dept.getNumber()+1);

@@ -147,7 +147,7 @@ public class SectionBean implements Serializable{
                 }
             }
         }
-        return "patientRegistrationInformation";
+        return "/patient/patientRegistrationInformation";
     }
 
     @PostConstruct

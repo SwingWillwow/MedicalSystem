@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition template="/templates/default/main.xhtml">
+        <ui:define name="title">
+            <title>领药系统</title>
+        </ui:define>
+        <ui:define name="leftmenu"></ui:define>
+        <ui:define name="contentWithoutLeftMenu">
+            <ui:include src="/templates/default/msgPanel.xhtml"/>
+            <div class="ContentContainedPage col-lg-11">
+                <div class="col-lg-4 col-lg-offset-4"><h1>待取药名单</h1></div>
+                <h:dataTable styleClass="table table-striped" value="#{pharmacyOperateBean.waitPatientList()}" var="diag">
+                    <h:column>
+                        <f:facet name="header">诊单ID</f:facet>
+                        #{diag.id}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">药费单号</f:facet>
+                        #{diag.fee.id}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">药费</f:facet>
+                        #{diag.fee.totalSum}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">主治医师</f:facet>
+                        #{diag.doctor.name}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">用户姓名</f:facet>
+                        #{diag.patient.name}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">确认领取</f:facet>
+                        <h:form>
+                            <h:commandLink action="#{pharmacyOperateBean.commitFinish()}">点击确认领取
+                                <f:param name="feeId" value="#{diag.fee.id}"></f:param>
+                            </h:commandLink>
+                        </h:form>
+                    </h:column>
+                </h:dataTable>
+            </div>
+        </ui:define>
+    </ui:composition>
+</html>

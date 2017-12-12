@@ -33,7 +33,7 @@ public class TransactionRecord implements Serializable {
     private Long id;
     @Column(name="Type",nullable=false)
     private int type;//支付种类（1-挂号费、2-药费）
-    @OneToOne(fetch= FetchType.LAZY,cascade={CascadeType.ALL},optional=false)
+    @OneToOne(fetch= FetchType.LAZY,cascade={CascadeType.REMOVE},optional=false)
     @JoinColumn(name="DiagId")
     private Diagnosis diagnosis;//直接对应诊单，诊单中可查到挂号费，也可查到Fee表中的费用
     @Column(name="Money",nullable=false,precision=10,scale=2)
