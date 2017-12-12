@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+    <ui:composition template="/templates/default/main.xhtml">
+        <ui:define name="title">
+            <title>科室管理</title>
+        </ui:define>
+        <ui:define name="leftmenu"></ui:define>
+        <ui:define name="contentWithoutLeftMenu">
+            <div class="ContentContainedPage row">
+                <ui:include src="/templates/default/msgPanel.xhtml"/>
+                <div class="col-lg-8 col-lg-offset-4">
+                    <h1>科室列表</h1>
+                </div>
+                <h:dataTable styleClass="table table-striped" value="#{manageSectionBean.allSections}" var="section">
+                    <h:column>
+                        <f:facet name="header">Id</f:facet>
+                        #{section.id}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">科室名称</f:facet>
+                        #{section.name}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">负责人</f:facet>
+                        #{section.manager.name}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">科室人数</f:facet>
+                        #{section.number}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">修改科室信息</f:facet>
+                        <h:form>
+                            <h:commandLink id="change" value="修改" action="#{manageSectionBean.toChangeSection}">
+                                <f:param name="sectionId" value="#{section.id}"/>
+                            </h:commandLink>
+                        </h:form>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">查看科室成员</f:facet>
+                        <h:form>
+                            <h:commandLink id="show" value="查看" action="#{manageSectionBean.toShowSectionEmp}">
+                                <f:param name="sectionId" value="#{section.id}"/>
+                            </h:commandLink>
+                        </h:form>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">删除科室</f:facet>
+                        <h:form>
+                            <h:commandLink id="delete" value="删除" action="#{manageSectionBean.deleteSection}">
+                                <f:param name="sectionId" value="#{section.id}"/>
+                            </h:commandLink>
+                        </h:form>
+                    </h:column>
+                </h:dataTable>
+            </div>
+        </ui:define>
+    </ui:composition>
+</html>
+

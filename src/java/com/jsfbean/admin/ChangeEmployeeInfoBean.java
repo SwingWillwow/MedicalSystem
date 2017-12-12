@@ -9,6 +9,7 @@ import com.entity.Department;
 import com.entity.Doctor;
 import com.entity.Employee;
 import com.entity.Registration;
+import com.entity.Sections;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -35,7 +36,9 @@ public class ChangeEmployeeInfoBean implements Serializable{
     private List<Department> allDepart; 
     private Registration registration;
     private List<Registration> allRegistrations;
+    private List<Sections> allSections;
     private Long departId;
+    private Long secId;
     /**
      * Creates a new instance of changeEmployeeInfoBean
      */
@@ -55,6 +58,12 @@ public class ChangeEmployeeInfoBean implements Serializable{
         Query query = em.createQuery("SELECT dept FROM Department dept");
         departId = currentEmployee.getDepartment().getId();
         allDepart = query.getResultList();
+        if(currentEmployee.getDepartment().getId()==4L){
+            Doctor d = em.find(Doctor.class, currentEmployee.getId());
+            secId = d.getSections().getId();
+        }
+        query = em.createQuery("SELECT s FROM Sections s");
+        allSections=query.getResultList();
         if(currentEmployee.getDepartment().getId()==4L){
             Doctor doc = em.find(Doctor.class, currentEmployee.getId());
             registration = doc.getRegistration();
@@ -78,6 +87,11 @@ public class ChangeEmployeeInfoBean implements Serializable{
             if(currentEmployee.getDepartment().getId()==4L){
                 Doctor d = em.find(Doctor.class, currentEmployee.getId());
                 registration = em.find(Registration.class, registration.getId());
+                Sections section = em.find(Sections.class, secId);
+                Sections oldSection = em.find(Sections.class, d.getSections().getId());
+                oldSection.setNumber(oldSection.getNumber()-1);
+                section.setNumber(section.getNumber()+1);
+                d.setSections(section);
                 d.setRegistration(registration);
                 em.merge(d);
             }
@@ -126,6 +140,22 @@ public class ChangeEmployeeInfoBean implements Serializable{
 
     public void setDepartId(Long departId) {
         this.departId = departId;
+    }
+
+    public List<Sections> getAllSections() {
+        return allSections;
+    }
+
+    public void setAllSections(List<Sections> allSections) {
+        this.allSections = allSections;
+    }
+
+    public Long getSecId() {
+        return secId;
+    }
+
+    public void setSecId(Long secId) {
+        this.secId = secId;
     }
     
 }

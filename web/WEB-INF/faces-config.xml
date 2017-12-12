@@ -4,25 +4,10 @@
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
               xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
     <managed-bean>
-        <managed-bean-name>message</managed-bean-name>
-        <managed-bean-class>com.demo.jsf.Message</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
-    </managed-bean>
-    <managed-bean>
-        <managed-bean-name>dateBean</managed-bean-name>
-        <managed-bean-class>com.jsfbean.dateBean</managed-bean-class>
-    
-        <managed-bean-scope>request</managed-bean-scope></managed-bean>
-    <managed-bean>
         <managed-bean-name>captchaBean</managed-bean-name>
         <managed-bean-class>com.jsfbean.CaptchaBean</managed-bean-class>
     
         <managed-bean-scope>request</managed-bean-scope></managed-bean>
-    <managed-bean>
-        <managed-bean-name>nameBean</managed-bean-name>
-        <managed-bean-class>com.jsfbean.NameBean</managed-bean-class>
-    
-        <managed-bean-scope>none</managed-bean-scope></managed-bean>
     <managed-bean>
         <managed-bean-name>patientManagedBean</managed-bean-name>
         <managed-bean-class>com.jsfbean.patient.PatientManagedBean</managed-bean-class>
@@ -122,7 +107,42 @@
     </managed-bean>
     <managed-bean>
         <managed-bean-name>addEmployeeBean</managed-bean-name>
-        <managed-bean-class>com.jsfbean.admin.addEmployeeBean</managed-bean-class>
+        <managed-bean-class>com.jsfbean.admin.AddEmployeeBean</managed-bean-class>
+    
+        <managed-bean-scope>view</managed-bean-scope></managed-bean>
+    <managed-bean>
+        <managed-bean-name>manageDepartmentBean</managed-bean-name>
+        <managed-bean-class>com.jsfbean.admin.ManageDepartmentBean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>changeDepartmentBean</managed-bean-name>
+        <managed-bean-class>com.jsfbean.admin.ChangeDepartmentBean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>addDepartBean</managed-bean-name>
+        <managed-bean-class>com.jsfbean.admin.AddDepartBean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>manageSectionBean</managed-bean-name>
+        <managed-bean-class>com.jsfbean.admin.ManageSectionBean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>changeSectionBean</managed-bean-name>
+        <managed-bean-class>com.jsfbean.admin.ChangeSectionBean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>showSecDoc</managed-bean-name>
+        <managed-bean-class>com.jsfbean.admin.ShowSecDoc</managed-bean-class>
+    
+        <managed-bean-scope>view</managed-bean-scope></managed-bean>
+    <managed-bean>
+        <managed-bean-name>addSectionBean</managed-bean-name>
+        <managed-bean-class>com.jsfbean.admin.AddSectionBean</managed-bean-class>
         <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
 </faces-config>

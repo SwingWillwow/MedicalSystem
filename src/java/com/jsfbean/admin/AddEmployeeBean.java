@@ -27,10 +27,10 @@ import javax.transaction.UserTransaction;
  *
  * @author qiuyukun
  */
-public class addEmployeeBean {
+public class AddEmployeeBean {
 
     /**
-     * Creates a new instance of addEmployeeBean
+     * Creates a new instance of AddEmployeeBean
      */
     @PersistenceContext(unitName = "MedicalSystemPU")
     private EntityManager em;
@@ -42,7 +42,7 @@ public class addEmployeeBean {
     private List<Sections> sections;
     private List<Registration> registrations;
     private int deptId;
-    public addEmployeeBean() {
+    public AddEmployeeBean() {
         
     }
 

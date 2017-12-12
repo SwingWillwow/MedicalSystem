@@ -74,6 +74,12 @@
                                 <f:selectItems var="registration" value="#{changeEmployeeInfoBean.allRegistrations}" itemLabel="#{registration.name}" itemValue="#{registration.id}"/>
                             </h:selectOneMenu>
                         </div>
+                        <div class="col-lg-3 col-lg-offset-4">
+                            <label>科室:</label>
+                        <h:selectOneMenu styleClass="form-control" value="#{changeEmployeeInfoBean.secId}">
+                            <f:selectItems var="sec" value="#{changeEmployeeInfoBean.allSections}" itemLabel="#{sec.name}" itemValue="#{sec.id}"/>
+                        </h:selectOneMenu>
+                        </div>
                     </h:panelGroup>
 
                     <div class="space"></div>

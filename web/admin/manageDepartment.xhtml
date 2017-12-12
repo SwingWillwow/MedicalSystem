@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+    <ui:composition template="/templates/default/main.xhtml">
+        <ui:define name="title">
+            <title>部门管理</title>
+        </ui:define>
+        <ui:define name="leftmenu"></ui:define>
+        <ui:define name="contentWithoutLeftMenu">
+            <div class="ContentContainedPage row">
+                <ui:include src="/templates/default/msgPanel.xhtml"/>
+                <div class="col-lg-8 col-lg-offset-4">
+                    <h1>部门列表</h1>
+                </div>
+                <h:dataTable styleClass="table table-striped" value="#{manageDepartmentBean.allDepartments}" var="dept">
+                    <h:column>
+                        <f:facet name="header">Id</f:facet>
+                        #{dept.id}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">部门名称</f:facet>
+                        #{dept.name}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">负责人</f:facet>
+                        #{dept.manager.name}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">部门人数</f:facet>
+                        #{dept.number}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">修改</f:facet>
+                        <h:form>
+                            <h:commandLink id="change" value="修改部门信息" action="#{manageDepartmentBean.tochangedept}">
+                                <f:param name="deptId" value="#{dept.id}"/>
+                            </h:commandLink>
+                        </h:form>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">查看部门成员</f:facet>
+                        <h:form>
+                            <h:commandLink id="show" value="查看" action="#{manageDepartmentBean.showEmployeeList}">
+                                <f:param name="deptId" value="#{dept.id}"/>
+                            </h:commandLink>
+                        </h:form>
+                    </h:column>
+                </h:dataTable>
+            </div>
+        </ui:define>
+    </ui:composition>
+</html>
+

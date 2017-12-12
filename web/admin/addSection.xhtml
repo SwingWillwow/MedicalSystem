@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+    <ui:composition template="/templates/default/main.xhtml">
+        <ui:define name="title">
+            <title>添加新科室</title>
+        </ui:define>
+        <ui:define name="leftmenu"></ui:define>
+        <ui:define name="contentWithoutLeftMenu">
+            <div class="ContentContainedPage row">
+                <ui:include src="/templates/default/msgPanel.xhtml"/>
+                <div class="col-lg-4 col-lg-offset-4"><h1>新科室添加</h1></div>
+                <h:form styleClass="form-horizontal">
+                    <div class="row form-group">
+                        <div class="col-lg-3 col-lg-offset-4">
+                            <label>科室名称:</label>
+                            <h:inputText styleClass="form-control" id="name" value="#{addSectionBean.newSec.name}" required="true" requiredMessage="必须输入科室名称">
+                                
+                            </h:inputText>
+
+                            <h:message for="name"/>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-lg-3 col-lg-offset-4">
+                            <label>科室负责人:</label>
+                            <h:selectOneMenu value="#{addSectionBean.newSec.manager.id}" styleClass="form-control">
+                                <f:selectItems value="#{addSectionBean.allDoctor}" var="employee" itemLabel="#{employee.name}" itemValue="#{employee.id}"/>
+                            </h:selectOneMenu>
+                            <h:message for="manger"/>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-lg-3 col-lg-offset-4">
+                            <label>科室简介:</label>
+                            <h:inputTextarea styleClass="form-control" id="description" value="#{addSectionBean.newSec.description}" required="true" requiredMessage="必须输入科室简介">
+                                
+                            </h:inputTextarea>
+
+                           
+                            <h:message for="description"/>
+                        </div>
+                    </div>
+                    
+                    <div class="space"></div>
+                    <div class="row">
+                        <div class="col-lg-5 col-lg-offset-4">
+                            <h:commandButton styleClass="btn btn-success" value="添加" action="#{addSectionBean.addSec}"/>
+
+                        </div>
+                    </div>
+                </h:form>
+            </div>
+        </ui:define>
+    </ui:composition>
+</html>
+

@@ -207,6 +207,7 @@ body{
 .sectionBlock{
     margin-left: 5%;
     margin-right: 5%;
+    margin-top: 5%;
     height: 400px;
     border-style: ridge;
     border-radius: 10px;

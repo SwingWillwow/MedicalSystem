@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+    <ui:composition template="/templates/default/main.xhtml">
+        <ui:define name="title">
+            <title>部门信息修改</title>
+        </ui:define>
+        <ui:define name="leftmenu"></ui:define>
+        <ui:define name="contentWithoutLeftMenu">
+            <div class="ContentContainedPage row">
+                <div class="col-lg-4 col-lg-offset-4"><h1>部门信息修改</h1></div>
+                <h:form styleClass="form-horizontal">
+                    <div class="row form-group">
+                        <div class="col-lg-3 col-lg-offset-4">
+                            <label>部门名称:</label>
+                            <h:inputText styleClass="form-control" id="name" value="#{changeDepartmentBean.currentDept.name}" required="true" requiredMessage="部门名称">
+                            </h:inputText>
+                            <h:message for="name"/>
+                        </div>
+
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-lg-3 col-lg-offset-4">
+                            <label>部门负责人:</label>
+                            <h:selectOneMenu styleClass="form-control" value="#{changeDepartmentBean.currentDept.manager.id}">
+                                <f:selectItems value="#{changeDepartmentBean.allEmployees}" var="employee" itemLabel="#{employee.name}" itemValue="#{employee.id}">
+                                    
+                                </f:selectItems>
+                            </h:selectOneMenu>
+                            <h:message for="name"/>
+                        </div>
+
+                    </div>
+
+                    <div class="space"></div>
+
+                    <div class="row form-group">
+                        <div class="col-lg-2 col-lg-offset-4">
+                            <h:commandButton styleClass="btn btn-success" value="修改信息" action="#{changeDepartmentBean.changeDeptInfo}"/>
+
+                        </div>
+                    </div>
+                </h:form>
+            </div>
+        </ui:define>
+    </ui:composition>
+</html>
+

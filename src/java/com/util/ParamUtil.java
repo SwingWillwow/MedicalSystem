@@ -28,4 +28,8 @@ public class ParamUtil {
     public static String getComponentAttrByName(UIComponent component,String paramName){
         return component.getAttributes().get(paramName).toString();
     }
+    public static void setParamIntoFlash(FacesContext facesContext,String key,Object value){
+        Flash flash = facesContext.getExternalContext().getFlash();
+        flash.put(key, value);
+    }
 }
