@@ -42,6 +42,7 @@ public class ShowPatientBean implements Serializable{
     @Resource
     private UserTransaction utx;
     private Long diagId;
+    private boolean hasPatient;
     public ShowPatientBean() {
     }
     
@@ -61,13 +62,31 @@ public class ShowPatientBean implements Serializable{
         query.setParameter(4, c ,TemporalType.DATE);
         List<Diagnosis> diagnosises = query.getResultList();
         if(diagnosises.size()==0){
+            hasPatient=false;
             return;
         }
         diagId = diagnosises.get(0).getId();
         for(Diagnosis diag : diagnosises){
             patients.add(diag.getPatient());
         }
+        hasPatient=true;
         return;
+    }
+
+    public Long getDiagId() {
+        return diagId;
+    }
+
+    public void setDiagId(Long diagId) {
+        this.diagId = diagId;
+    }
+
+    public boolean isHasPatient() {
+        return hasPatient;
+    }
+
+    public void setHasPatient(boolean hasPatient) {
+        this.hasPatient = hasPatient;
     }
 
     public ArrayList<Patient> getPatients() {

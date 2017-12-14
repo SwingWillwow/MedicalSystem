@@ -15,6 +15,16 @@ and open the template in the editor.
         <ui:define name="leftmenu"></ui:define>
         <ui:define name="contentWithoutLeftMenu">
             <ui:include src="/templates/default/msgPanel.xhtml"/>
+            <h:panelGroup rendered="#{sessionManagedBean.hasSuccessMessage()}">
+                <div class="col-lg-11">
+                    <div class="alert alert-success"><p align="center">#{sessionManagedBean.successMessage}</p></div>
+                </div>
+            </h:panelGroup>
+            <h:panelGroup rendered="#{sessionManagedBean.hasErrorMessage()}">
+                <div class="col-lg-11">
+                    <div class="alert alert-danger"><p align="center">#{sessionManagedBean.errorMessage}</p></div>
+                </div>
+            </h:panelGroup>
             <h:form>
             <div class="ContentContainedPage col-lg-11">
                 <div class="col-lg-4 col-lg-offset-4"><h1>待结账清单</h1></div>

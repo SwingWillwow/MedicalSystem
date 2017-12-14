@@ -32,8 +32,7 @@
                 </h:dataTable>
                 <div class="col-lg-4 col-lg-offset-4 btn-group">
                     <h:form>
-                        <h:commandButton value="诊断下一位病人" class="btn btn-success" action="#{showPatientBean.toJudgeSymptom}">
-                        
+                        <h:commandButton value="诊断下一位病人" rendered="#{showPatientBean.hasPatient}" class="btn btn-success" action="#{showPatientBean.toJudgeSymptom}">
                     </h:commandButton>
                     </h:form>
                 </div>

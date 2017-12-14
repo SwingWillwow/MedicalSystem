@@ -108,7 +108,8 @@ public class ClerkOperateBean {
          //检查身份证是否存在
         Query query2=em.createQuery("SELECT p FROM Patient p where p.idCard=?1");
         query2.setParameter(1, idCard);
-        if(null==query2.getSingleResult()){
+        List<Patient> temps=query2.getResultList();
+        if(temps.isEmpty()){
             sessionManagedBean.setErrorMessage("该用户未注册！");
             return "";
         }
@@ -198,7 +199,7 @@ public class ClerkOperateBean {
         Query query1 = em.createQuery("SELECT pr FROM PreRegistration pr WHERE pr.preTime=?1 AND pr.doctor.id=?2");
         query1.setParameter(1, today, TemporalType.DATE);
         query1.setParameter(2, selectedDoc);
-        pr = (PreRegistration) query1.getSingleResult();
+        pr = (PreRegistration) query1.getSingleResult();//这里一定能找到
         for(PreRegistrationDetail prd:pr.getPreResgistrationDetails()){
             if(idCard.equals(prd.getPatient())&&prd.getValid()=='Y'){
                 String tips="【预约单号:"+prd.getId()+"预约人ID:"+prd.getPatient().getId()+"预约人姓名:"+prd.getPatient().getName()+"】";
@@ -237,11 +238,11 @@ public class ClerkOperateBean {
         pr.setLastUpdateTime(createDate);
         Query query=em.createQuery("SELECT p FROM Patient p WHERE p.idCard=?1");
         query.setParameter(1, idCard);
-        Patient patient=(Patient)query.getSingleResult();
+        Patient patient=(Patient)query.getSingleResult();//有过上一步的检查，这里一定查的到
         Doctor doctor=pr.getDoctor();
         Double diagFee=doctor.getRegistration().getDiagFee();
-//        Employee operator=(Employee)session.getAttribute("userInfo");
-        Employee operator=(Employee)em.find(Employee.class, 2L);
+        Employee operator=(Employee)session.getAttribute("userInfo");
+//        Employee operator=(Employee)em.find(Employee.class, 2L);
         Diagnosis diagnosis=new Diagnosis(patient, doctor, diagFee,Integer.parseInt(payType) ,pr.getCount(), operator, 'Y', null, null, null, null, null, createDate,createDate );
         try{
             utx.begin();
