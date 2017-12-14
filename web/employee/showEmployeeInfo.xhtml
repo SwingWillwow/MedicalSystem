@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition template="/templates/default/main.xhtml">
+        <ui:define name="title">
+            <title>查看个人信息</title>
+        </ui:define>
+        <ui:define name="leftmenu"></ui:define>
+        <ui:define name="contentWithoutLeftMenu">
+            <div class="ContentContainedPage row">
+                <div class="row">
+                    <div class="col-lg-4 col-lg-offset-4">
+                        <h1>查看个人信息</h1>
+                    </div>
+                </div>
+                <h:panelGroup rendered="#{sessionManagedBean.hasErrorMessage()}">
+                    <div class="row">
+                        <div class="alert alert-danger"><p align="center">#{sessionManagedBean.errorMessage}</p></div>
+                    </div>
+                </h:panelGroup>
+                <h:panelGroup rendered="#{sessionManagedBean.hasSuccessMessage()}">
+                    <div class="row">
+                        <div class="alert alert-success"><p align="center">#{sessionManagedBean.successMessage}</p></div>
+                    </div>
+                </h:panelGroup>
+                <h:form styleClass="form-horizontal">
+                    <div class="space"></div>
+                    <div class="col-lg-3 col-lg-offset-4">
+                        <label class="control-label">登录名:</label>
+                        <h:outputText styleClass="form-control" id="userName" value='#{showEmployeeInfoBean.employee.userName}'>
+                        </h:outputText>
+                    </div>
+                    <div class="space"></div>
+                    <div class="col-lg-3 col-lg-offset-4">
+                        <label class="control-label">姓名:</label>
+                        <h:outputText styleClass="form-control" id="name" value='#{showEmployeeInfoBean.employee.name}'>
+                        </h:outputText>
+                    </div>
+                    <div class="space"></div>
+                    <div class="col-lg-3 col-lg-offset-4">
+                        <label>性别:</label>
+                        <c:set var="sex" value='#{session.getAttribute("userInfo").sex}' scope="request"/>
+                        <h:outputText styleClass="form-control" id="sex1" value="男" rendered="#{sex=='M'}">
+                        </h:outputText>
+                        <h:outputText styleClass="form-control" id="sex2" value="女" rendered="#{sex=='F'}">
+                        </h:outputText>
+                    </div>
+                    
+                    <div class="space"></div>
+                    <div class="col-lg-3 col-lg-offset-4">
+                        <label>身份证号:</label>
+                        <h:outputText styleClass="form-control" id="idCard" value='#{showEmployeeInfoBean.employee.idCard}'>
+                        </h:outputText>
+                    </div>
+                    <div class="space"></div>
+                    <div class="col-lg-3 col-lg-offset-4">
+                        <label>生日:</label>
+                        <h:outputText styleClass="form-control" id="birthday" value='#{showEmployeeInfoBean.employee.birthday}'>
+                            <f:convertDateTime pattern="yyyy/MM/dd" timeZone="GMT+8"/>
+                        </h:outputText>
+                    </div>
+                    <div class="space"></div>
+                    <div class="col-lg-3 col-lg-offset-4">
+                        <label>部门:</label>
+                        <h:outputText styleClass="form-control" id="department" value='#{showEmployeeInfoBean.employee.department.name}'>
+                        </h:outputText>
+                    </div>
+                    <div class="space"></div>
+                </h:form>
+            </div>
+        </ui:define>
+    </ui:composition>
+</html>

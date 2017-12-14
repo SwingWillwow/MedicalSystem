@@ -18,7 +18,7 @@ and open the template in the editor.
         <ui:define name="contentWithoutLeftMenu">
             <h:panelGroup rendered="#{sessionManagedBean.hasSuccessMessage()}">
                 <div class="col-lg-11">
-                    <div class="alert alert-danger"><p align="center">#{sessionManagedBean.successMessage}</p></div>
+                    <div class="alert alert-success"><p align="center">#{sessionManagedBean.successMessage}</p></div>
                 </div>
             </h:panelGroup>
             <h:panelGroup rendered="#{sessionManagedBean.hasErrorMessage()}">

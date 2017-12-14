@@ -22,19 +22,19 @@
                         <div class="alert alert-danger"><p align="center">#{sessionManagedBean.errorMessage}</p></div>
                     </div>
                 </h:panelGroup>
-                    <h:form>
-                        <div class="row form-group">
-                            <h:outputLabel value="药物名称" styleClass="control-label col-lg-1 col-lg-offset-2"/>
-                            <div class ="col-lg-4">
-                                <h:inputText id="searchContext" styleClass="form-control" value="#{doctorHealBean.searchInfo}">
-                        </h:inputText>
-                            </div>
-                            <div class ="col-lg-2">
-                                <h:commandButton id="search" styleClass="btn btn-success" value="搜索" action="#{doctorHealBean.searchMedicine}"/>
-                            </div>
+                <h:form>
+                    <div class="row form-group">
+                        <h:outputLabel value="药物名称" styleClass="control-label col-lg-1 col-lg-offset-2"/>
+                        <div class ="col-lg-4">
+                            <h:inputText id="searchContext" styleClass="form-control" value="#{doctorHealBean.searchInfo}">
+                            </h:inputText>
                         </div>
-                        
-                    </h:form>
+                        <div class ="col-lg-2">
+                            <h:commandButton id="search" styleClass="btn btn-success" value="搜索" action="#{doctorHealBean.searchMedicine}"/>
+                        </div>
+                    </div>
+
+                </h:form>
                 <h:dataTable id="medicineTable" styleClass="table table-striped" value="#{doctorHealBean.allMedicines}" var="medicines">
                     <h:column>
                         <f:facet name="header">Id</f:facet>
@@ -65,26 +65,25 @@
                 </h:dataTable>
                 <h:panelGroup id="pageination">
                     <div class="col-lg-4 col-lg-offset-4">
-                    <ul class="pagination">
-                        <ui:repeat value="#{doctorHealBean.pageNumber}" var="page" size="#{doctorHealBean.pageCount}">
-                            <li>
-                                <h:form><h:commandLink action="#{doctorHealBean.changePage}" value="#{page}">
-                                        <f:param name="currentPage" value="#{page}"/>
-                                    </h:commandLink>
-                                </h:form>
-
-                            </li>
-                        </ui:repeat>
-                    </ul>
-                </div>
+                        <ul class="pagination">
+                            <ui:repeat value="#{doctorHealBean.pageNumber}" var="page" size="#{doctorHealBean.pageCount}">
+                                <li>
+                                    <h:form><h:commandLink action="#{doctorHealBean.changePage}" value="#{page}">
+                                            <f:param name="currentPage" value="#{page}"/>
+                                        </h:commandLink>
+                                    </h:form>
+                                </li>
+                            </ui:repeat>
+                        </ul>
+                    </div>
                 </h:panelGroup>
                 <div class="row btnGroup">
-                        <div class="col-lg-2 col-lg-offset-4">
-                            <h:form>
-                                <h:commandButton styleClass="btn btn-success" value="确认药物" action="#{doctorHealBean.toConfirmMedicine}"/>
-                            </h:form>
-                        </div>
+                    <div class="col-lg-2 col-lg-offset-4">
+                        <h:form>
+                            <h:commandButton styleClass="btn btn-success" value="确认药物" action="#{doctorHealBean.toConfirmMedicine}"/>
+                        </h:form>
                     </div>
+                </div>
             </div>
 
         </ui:define>

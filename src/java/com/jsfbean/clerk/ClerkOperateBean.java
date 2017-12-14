@@ -189,7 +189,8 @@ public class ClerkOperateBean {
         query3.setParameter(1, idCard);
         query3.setParameter(2, selectedDoc);
         query3.setParameter(3, 'Y');
-        if(null!=query3.getResultList()){
+        List<Diagnosis> diagTemps=query3.getResultList();
+        if(!diagTemps.isEmpty()){
             sessionManagedBean.setErrorMessage("该用户已挂号此医生，请不要重复挂号");
             return "";
         }

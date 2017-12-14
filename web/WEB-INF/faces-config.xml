@@ -179,4 +179,18 @@
         <managed-bean-class>com.jsfbean.admin.ShowTransactionBean</managed-bean-class>
         <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
+    <managed-bean>
+        <managed-bean-name>showEmployeeInfoBean</managed-bean-name>
+        <managed-bean-class>com.jsfbean.employee.ShowEmployeeInfoBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope></managed-bean>
+    <managed-bean>
+        <managed-bean-name>changeEmployeeInfoBean1</managed-bean-name>
+        <managed-bean-class>com.jsfbean.employee.ChangeEmployeeInfoBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>changeEmployeePasswordBean</managed-bean-name>
+        <managed-bean-class>com.jsfbean.employee.ChangeEmployeePasswordBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
 </faces-config>
