@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <ui:composition template="/templates/default/main.xhtml">
+        <ui:define name="title">
+            <title>添加新药物</title>
+        </ui:define>
+        <ui:define name="leftmenu"></ui:define>
+        <ui:define name="contentWithoutLeftMenu">
+            <div class="ContentContainedPage row">
+                <ui:include src="/templates/default/msgPanel.xhtml"/>
+                <h:panelGroup rendered="#{sessionManagedBean.hasSuccessMessage()}">
+                    <div class="col-lg-11">
+                        <div class="alert alert-success"><p align="center">#{sessionManagedBean.successMessage}</p></div>
+                    </div>
+                </h:panelGroup>
+                <h:panelGroup rendered="#{sessionManagedBean.hasErrorMessage()}">
+                    <div class="col-lg-11">
+                        <div class="alert alert-danger"><p align="center">#{sessionManagedBean.errorMessage}</p></div>
+                    </div>
+                </h:panelGroup>
+                <div class="col-lg-4 col-lg-offset-4"><h1>新药物添加</h1></div>
+                <h:form styleClass="form-horizontal">
+                    <div class="row form-group">
+                        <div class="col-lg-3 col-lg-offset-4">
+                            <label>药物名称:</label>
+                            <h:inputText styleClass="form-control" id="name" value="#{addMedicine.medicine.name}" required="true" requiredMessage="必须输入药物名称">
+                            </h:inputText>
+                            <h:message for="name"/>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-lg-3 col-lg-offset-4">
+                            <label>药物单价:</label>
+                            <h:inputText styleClass="form-control" id="price" value="#{addMedicine.medicine.price}" required="true" requiredMessage="必须输入药物单价">
+                            </h:inputText>
+                            <h:message for="price"/>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-lg-3 col-lg-offset-4">
+                            <label>药物计量单位:</label>
+                            <h:inputText styleClass="form-control" id="unite" value="#{addMedicine.medicine.unite}" required="true" requiredMessage="必须输入药物计量单位">
+                            </h:inputText>
+                            <h:message for="unite"/>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-lg-3 col-lg-offset-4">
+                            <label>药物初始库存:</label>
+                            <h:inputText styleClass="form-control" id="inventory" value="#{addMedicine.medicine.inventory}" required="true" requiredMessage="必须输入药品单价">
+                            </h:inputText>
+                            <h:message for="inventory"/>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-lg-3 col-lg-offset-4">
+                            <label>药物类型(外用，内用):</label>
+                            <h:inputText styleClass="form-control" id="type" value="#{addMedicine.medicine.type}" required="true" requiredMessage="必须输入药物类型">
+                            </h:inputText>
+                            <h:message for="type"/>
+                        </div>
+                    </div>
+                    <div class="space"></div>
+                    <div class="row">
+                        <div class="col-lg-5 col-lg-offset-4">
+                            <h:commandButton styleClass="btn btn-success" value="添加" action="#{addMedicine.addMedicine()}"/>
+                        </div>
+                    </div>
+                </h:form>
+            </div>
+        </ui:define>
+    </ui:composition>
+</html>
+

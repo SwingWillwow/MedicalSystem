@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <ui:composition template="/templates/default/main.xhtml">
+        <ui:define name="title">
+            <title>药物信息修改</title>
+        </ui:define>
+        <ui:define name="leftmenu"></ui:define>
+        <ui:define name="contentWithoutLeftMenu">
+            <h:panelGroup rendered="#{sessionManagedBean.hasSuccessMessage()}">
+                <div class="col-lg-11">
+                    <div class="alert alert-success"><p align="center">#{sessionManagedBean.successMessage}</p></div>
+                </div>
+            </h:panelGroup>
+            <h:panelGroup rendered="#{sessionManagedBean.hasErrorMessage()}">
+                <div class="col-lg-11">
+                    <div class="alert alert-danger"><p align="center">#{sessionManagedBean.errorMessage}</p></div>
+                </div>
+            </h:panelGroup>
+            <div class="ContentContainedPage col-lg-11">
+                <div class="col-lg-4 col-lg-offset-4"><h1>药物信息修改</h1></div>
+                <h:form>         
+                    <div class="col-lg-3 col-lg-offset-4">
+                        <label>药名:</label>
+                        <h:inputText styleClass="form-control" id="name" value='#{changeMedicineInfoBean.medicine.name}' required="true" requiredMessage="药名必填">
+                        </h:inputText>
+                        <h:message for="name"/>
+                    </div>
+                    <div class="space"></div>
+                    <div class="col-lg-3 col-lg-offset-4">
+                        <label>单价:</label>
+                        <h:inputText styleClass="form-control" id="price" value='#{changeMedicineInfoBean.medicine.price}' required="true" requiredMessage="药价必填">
+                        </h:inputText>
+                        <h:message for="price"/>
+                    </div>
+                    <div class="space"></div>
+                    <div class="col-lg-3 col-lg-offset-4">
+                        <label>药物类型:</label>
+                        <h:inputText styleClass="form-control" id="type" value='#{changeMedicineInfoBean.medicine.type}' required="true" requiredMessage="药物类型必填">
+                        </h:inputText>
+                        <h:message for="type"/>
+                    </div>
+                    <div class="space"></div>
+                    <div class="col-lg-3 col-lg-offset-4">
+                        <label>计价单位:</label>
+                        <h:inputText styleClass="form-control" id="unite" value='#{changeMedicineInfoBean.medicine.unite}' required="true" requiredMessage="计量方式必填">
+                        </h:inputText>
+                        <h:message for="unite"/>
+                    </div>
+                    <div class="space"></div>
+                    <div class="col-lg-3 col-lg-offset-4">
+                        <label>库存:</label>
+                        <h:inputText styleClass="form-control" id="inventory" value='#{changeMedicineInfoBean.medicine.inventory}' required="true" requiredMessage="库存必填">
+                        </h:inputText>
+                        <h:message for="inventory"/>
+                    </div>
+                    <div class="space"></div>
+                    <div class="row">
+                        <div class="col-lg-2 col-lg-offset-4">
+                            <h:commandButton styleClass="btn btn-success" value="保存" action="#{changeMedicineInfoBean.changeMedicineInfo()}"/>
+                        </div>
+                    </div>
+                    <div class="space"></div>
+                    <div class="row">
+                        <div class="col-lg-2 col-lg-offset-4">
+                            <h:commandButton styleClass="btn btn-success" value="返回" action="/admin/editMedicine"/>
+                        </div>
+                    </div>
+                </h:form>
+            </div>
+        </ui:define>
+    </ui:composition>
+</html>

@@ -31,7 +31,7 @@ public class ShowTransactionBean {
     @Resource
     private UserTransaction utx;
     private List<TransactionRecord> trans;
-    static final int PAGESIZE = 1;//每页的数据数目，根据实际情况设置
+    static final int PAGESIZE = 10;//每页的数据数目，根据实际情况设置
     int pageCount;
     int currentPage;
     List<String> pageNumber = new ArrayList<>();
@@ -48,7 +48,6 @@ public class ShowTransactionBean {
         trans = query.setMaxResults(PAGESIZE).setFirstResult(PAGESIZE*(currentPage-1)).getResultList();
         pageNumber.clear();
         for(Integer i=1;i<=pageCount;i++){
-            
             pageNumber.add(i.toString());
         }
         

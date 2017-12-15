@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition template="/templates/default/main.xhtml">
+        <ui:define name="title">
+            <title>选择药物</title>
+        </ui:define>
+        <ui:define name="leftmenu"></ui:define>
+        <ui:define name="contentWithoutLeftMenu">
+            <div class="ContentContainedPage col-lg-11">
+                <div class="row">
+                    <div class="col-lg-4 col-lg-offset-4">
+                        <h1>搜索药物</h1>
+                    </div>
+                </div>
+                <h:panelGroup rendered="#{sessionManagedBean.hasSuccessMessage()}">
+                    <div class="col-lg-11">
+                        <div class="alert alert-success"><p align="center">#{sessionManagedBean.successMessage}</p></div>
+                    </div>
+                </h:panelGroup>
+                <h:panelGroup rendered="#{sessionManagedBean.hasErrorMessage()}">
+                    <div class="col-lg-11">
+                        <div class="alert alert-danger"><p align="center">#{sessionManagedBean.errorMessage}</p></div>
+                    </div>
+                </h:panelGroup>
+                <h:form>
+                    <div class="row form-group">
+                        <h:outputLabel value="药物名称" styleClass="control-label col-lg-1 col-lg-offset-2"/>
+                        <div class ="col-lg-4">
+                            <h:inputText id="searchContext" styleClass="form-control" value="#{editMedicineBean.searchInfo}">
+                            </h:inputText>
+                        </div>
+                        <div class ="col-lg-2">
+                            <h:commandButton id="search" styleClass="btn btn-success" value="搜索" action="#{editMedicineBean.searchMedicine}"/>
+                        </div>
+                    </div>
+                </h:form>
+                <h:dataTable id="medicineTable" styleClass="table table-striped" value="#{editMedicineBean.allMedicines}" var="medicines">
+                    <h:column>
+                        <f:facet name="header">Id</f:facet>
+                            #{medicines.id}
+                    </h:column> 
+                    <h:column>
+                        <f:facet name="header">药名</f:facet>
+                            #{medicines.name}
+                    </h:column> 
+                    <h:column>
+                        <f:facet name="header">库存剩余</f:facet>
+                            #{medicines.inventory}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">剂量</f:facet>
+                            #{medicines.unite}
+                    </h:column> 
+                    <h:column>
+                        <f:facet name="header">类型</f:facet>
+                            #{medicines.type}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">增加库存</f:facet>
+                        <h:form>
+                            <h:commandButton styleClass="btn btn-success" value="增加库存" action="#{editMedicineBean.addMedicineInventory}">
+                                <f:param name="MedicineId" value="#{medicines.id}"/>
+                            </h:commandButton>
+                        </h:form>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">修改药物信息</f:facet>
+                        <h:form>
+                            <h:commandButton styleClass="btn btn-success" value="修改药物信息" action="#{editMedicineBean.changeMedicineInfo}">
+                                <f:param name="MedicineId" value="#{medicines.id}"/>
+                            </h:commandButton>
+                        </h:form>
+                    </h:column>
+                </h:dataTable>
+                <h:panelGroup id="pageination">
+                    <div class="col-lg-4 col-lg-offset-4">
+                        <ul class="pagination">
+                            <ui:repeat value="#{editMedicineBean.pageNumber}" var="page" size="#{editMedicineBean.pageCount}">
+                                <li>
+                                    <h:form><h:commandLink action="#{editMedicineBean.changePage}" value="#{page}">
+                                            <f:param name="currentPage" value="#{page}"/>
+                                        </h:commandLink>
+                                    </h:form>
+                                </li>
+                            </ui:repeat>
+                        </ul>
+                    </div>
+                </h:panelGroup>
+            </div>
+
+        </ui:define>
+
+    </ui:composition>
+</html>
+

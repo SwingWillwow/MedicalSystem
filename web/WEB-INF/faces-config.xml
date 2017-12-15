@@ -72,7 +72,6 @@
     <managed-bean>
         <managed-bean-name>doctorHealBean</managed-bean-name>
         <managed-bean-class>com.jsfbean.doctor.DoctorHealBean</managed-bean-class>
-    
         <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
     <managed-bean>
@@ -192,5 +191,30 @@
         <managed-bean-name>changeEmployeePasswordBean</managed-bean-name>
         <managed-bean-class>com.jsfbean.employee.ChangeEmployeePasswordBean</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>showMedicineRecordBean</managed-bean-name>
+        <managed-bean-class>com.jsfbean.admin.ShowMedicineRecordBean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>addMedicine</managed-bean-name>
+        <managed-bean-class>com.jsfbean.admin.AddMedicine</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>editMedicineBean</managed-bean-name>
+        <managed-bean-class>com.jsfbean.admin.EditMedicineBean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>addMedicineInventoryBean</managed-bean-name>
+        <managed-bean-class>com.jsfbean.admin.AddMedicineInventoryBean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>changeMedicineInfoBean</managed-bean-name>
+        <managed-bean-class>com.jsfbean.admin.ChangeMedicineInfoBean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
 </faces-config>

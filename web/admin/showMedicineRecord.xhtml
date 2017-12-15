@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition template="/templates/default/main.xhtml">
+        <ui:define name="title">
+            <title>药物流水一览</title>
+        </ui:define>
+        <ui:define name="leftmenu"></ui:define>
+        <ui:define name="contentWithoutLeftMenu">
+            <div class="ContentContainedPage row">
+                <ui:include src="/templates/default/msgPanel.xhtml"/>
+                <div class="col-lg-8 col-lg-offset-4">
+                    <h1>药物流水列表</h1>
+                </div>
+                <h:dataTable styleClass="table table-striped" value="#{showMedicineRecordBean.medicineRecords}" var="medicineRecord">
+                    <h:column>
+                        <f:facet name="header">药物流水Id</f:facet>
+                        #{medicineRecord.id}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">对应挂号单号</f:facet>
+                        #{medicineRecord.diagnosis.id}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">药物Id</f:facet>
+                        #{medicineRecord.medicine.id}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">药物名字</f:facet>
+                        #{medicineRecord.medicine.name}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">用量</f:facet>
+                        #{medicineRecord.dosage}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">使用日期</f:facet>
+                        <h:outputText id ="createTime" value="#{medicineRecord.createTime}">
+                            <f:convertDateTime pattern="yyyy/MM/dd" timeZone="GMT+8"/>
+                        </h:outputText>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">拣药人</f:facet>
+                        #{medicineRecord.medicineOperator.name}
+                    </h:column>   
+                </h:dataTable>
+                <h:panelGroup id="pageination">
+                    <div class="col-lg-4 col-lg-offset-4">
+                    <ul class="pagination">
+                        <ui:repeat value="#{showMedicineRecordBean.pageNumber}" var="page" size="#{showMedicineRecordBean.pageCount}">
+                            <li>
+                                <h:form>
+                                    <h:commandLink action="#{showMedicineRecordBean.changePage}" value="#{page}">
+                                        <f:param name="currentPage" value="#{page}"/>
+                                    </h:commandLink>
+                                </h:form>
+                            </li>
+                        </ui:repeat>
+                    </ul>
+                </div>
+                </h:panelGroup>
+            </div>
+        </ui:define>
+    </ui:composition>
+</html>
