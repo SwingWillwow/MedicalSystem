@@ -33,7 +33,6 @@
                             <h:commandButton id="search" styleClass="btn btn-success" value="搜索" action="#{doctorHealBean.searchMedicine}"/>
                         </div>
                     </div>
-
                 </h:form>
                 <h:dataTable id="medicineTable" styleClass="table table-striped" value="#{doctorHealBean.allMedicines}" var="medicines">
                     <h:column>
@@ -58,7 +57,6 @@
                             <h:inputHidden id="hiddenNumber" valueChangeListener="#{doctorHealBean.addMedicine}">
                                 <f:attribute name="MedicineId" value="#{medicines.id}"/>  
                             </h:inputHidden>
-
                         </h:form>
                         <button onclick="myfun();" name="button">添加</button>
                     </h:column>
@@ -85,9 +83,7 @@
                     </div>
                 </div>
             </div>
-
         </ui:define>
-
     </ui:composition>
 </html>
 

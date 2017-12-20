@@ -5,7 +5,6 @@
  */
 package com.jsfbean.admin;
 
-import com.entity.DiagnosisDetail;
 import com.entity.Medicine;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +15,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import javax.transaction.UserTransaction;
 
 /**
@@ -24,7 +22,7 @@ import javax.transaction.UserTransaction;
  * @author lmh
  */
 public class EditMedicineBean {
-    
+
     @PersistenceContext(unitName = "MedicalSystemPU")
     EntityManager em;
     @Resource
@@ -39,84 +37,89 @@ public class EditMedicineBean {
 //    ArrayList<DiagnosisDetail> details = new ArrayList<>();//将要生效的药品
 //    Patient currentPatient;
 //    private Long diagId;
+
     @PostConstruct
-    public void initDocHealBean(){
+    public void initDocHealBean() {
 //        HttpSession session = (HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(true);
 //        currentPatient = (Patient)session.getAttribute("currentPatient");
 //        diagId = Long.parseLong(session.getAttribute("diagId").toString());
         Query query = em.createQuery("SELECT m FROM Medicine m");
         allMedicines = query.getResultList();
-        pageCount = (allMedicines.size()+PAGESIZE-1)/PAGESIZE;
-        currentPage=1;
+        pageCount = (allMedicines.size() + PAGESIZE - 1) / PAGESIZE;
+        currentPage = 1;
         allMedicines.clear();
-        allMedicines = query.setMaxResults(PAGESIZE).setFirstResult(PAGESIZE*(currentPage-1)).getResultList();
+        allMedicines = query.setMaxResults(PAGESIZE).setFirstResult(PAGESIZE * (currentPage - 1)).getResultList();
         pageNumber.clear();
-        for(Integer i=1;i<=pageCount;i++){
-            
+        for (Integer i = 1; i <= pageCount; i++) {
+
             pageNumber.add(i.toString());
         }
     }
-       /**
+
+    /**
      * Creates a new instance of DoctorHealBean
      */
     public EditMedicineBean() {
-        
+
     }
 
     /**
      * This method used to get all the medicine fit the condition
-     * 
+     *
      */
-    public void searchMedicine(){
+    public void searchMedicine() {
         Query query = em.createQuery("SELECT m FROM Medicine m WHERE m.name LIKE ?1");
 //        UIComponent uIComponent = event.getComponent();
 //        String medicineInfo = uIComponent.getAttributes().get("value").toString();
 //        searchInfo = medicineInfo;
 //        medicineInfo = "%"+medicineInfo+"%";
-        String medicineInfo = "%"+searchInfo+"%";
+        String medicineInfo = "%" + searchInfo + "%";
         query.setParameter(1, medicineInfo);
         allMedicines = query.getResultList();
-        pageCount = (allMedicines.size()+PAGESIZE-1)/PAGESIZE;
-        currentPage=1;
+        pageCount = (allMedicines.size() + PAGESIZE - 1) / PAGESIZE;
+        currentPage = 1;
         allMedicines.clear();
-        allMedicines = query.setMaxResults(PAGESIZE).setFirstResult(PAGESIZE*(currentPage-1)).getResultList();
+        allMedicines = query.setMaxResults(PAGESIZE).setFirstResult(PAGESIZE * (currentPage - 1)).getResultList();
         pageNumber.clear();
-        for(Integer i=1;i<=pageCount;i++){
+        for (Integer i = 1; i <= pageCount; i++) {
             pageNumber.add(i.toString());
         }
         return;
     }
+
     //更换页码
-    public String changePage(){
+    public String changePage() {
         HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
         Integer tmp = Integer.parseInt(request.getParameter("currentPage"));
         currentPage = tmp;
         Query query;
-        if(searchInfo==null){
+        if (searchInfo == null) {
             query = em.createQuery("SELECT m FROM Medicine m");
-        }else{
+        } else {
             query = em.createQuery("SELECT m FROM Medicine m WHERE m.name LIKE ?1");
-            query.setParameter(1, "%"+searchInfo+"%");
+            query.setParameter(1, "%" + searchInfo + "%");
         }
         allMedicines.clear();
-        allMedicines = query.setMaxResults(PAGESIZE).setFirstResult(PAGESIZE*(currentPage-1)).getResultList();
+        allMedicines = query.setMaxResults(PAGESIZE).setFirstResult(PAGESIZE * (currentPage - 1)).getResultList();
         return "";
     }
+
     //跳转增加库存界面
-    public String addMedicineInventory(){
-        HttpServletRequest request=(HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
-        String medicineId=request.getParameter("MedicineId");
+    public String addMedicineInventory() {
+        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        String medicineId = request.getParameter("MedicineId");
         FacesContext.getCurrentInstance().getExternalContext().getFlash().put("MedicineId", medicineId);
         return "/admin/addMedicineInventory";
     }
+
     //跳转修改药品信息界面
-    public String changeMedicineInfo(){
-        HttpServletRequest request=(HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
-        String medicineId=request.getParameter("MedicineId");
+    public String changeMedicineInfo() {
+        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        String medicineId = request.getParameter("MedicineId");
         FacesContext.getCurrentInstance().getExternalContext().getFlash().put("MedicineId", medicineId);
         return "/admin/changeMedicineInfo";
     }
-    
+
 //    
 //    /*
 //        添加药品
@@ -153,19 +156,15 @@ public class EditMedicineBean {
 //        }
 //        details.add(detail);
 //    }
-    
 //    public String toConfirmMedicine(){
 //        //pass parameters
 //        HttpSession session = (HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(true);
 //        session.setAttribute("diagnosisDetails", details);
 //        return "/doctor/confirmMedicine";
 //    }
-    
-    
     /*
         setters and getters 
-    */
-    
+     */
     public List<Medicine> getAllMedicines() {
         return allMedicines;
     }

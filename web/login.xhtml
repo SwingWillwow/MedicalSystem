@@ -2,9 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <ui:composition template="/templates/default/main.xhtml">
         <ui:define name="title">
             <title>用户登录</title>
@@ -29,7 +27,6 @@
                             <div class="input-group">
                                 <label class="control-label input-group-addon">用户名:</label>
                                 <h:inputText styleClass="form-control" id="userName" value="#{userBean.userName}" required="true" requiredMessage="用户名必填">
-
                                 </h:inputText>
                             </div>
                             <h:message for="userName"/>
@@ -41,7 +38,6 @@
                             <div class="input-group">
                                 <label class="control-label input-group-addon" for="password">密码:</label>
                                 <h:inputSecret styleClass="form-control" id="password" value="#{userBean.password}" required="true" requiredMessage="密码必填">
-
                                 </h:inputSecret>
                             </div>
                             <h:message for="password"/>
@@ -58,7 +54,6 @@
                             <h:inputHidden value="#{userBean.captchaBean.capPath}"/>
                             <div class="space"></div>
                             <h:graphicImage name="test#{userBean.captchaBean.id}.png"/>
-
                             <h:message for="userCaptcha"/>
                         </div>
                     </div>
@@ -70,7 +65,6 @@
                         <div class="col-md-4">
                             <h:commandButton styleClass="btn btn-success" value="登录" action="#{userBean.dealLogin}"/>
                         </div>
-
                     </div>
                 </h:form>
             </div>

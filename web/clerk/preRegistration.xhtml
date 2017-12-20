@@ -25,44 +25,44 @@ and open the template in the editor.
                 </div>
             </h:panelGroup>
             <h:form>
-            <div class="ContentContainedPage col-lg-11">
-                <ui:include src="/templates/default/msgPanel.xhtml"/>
-                <div class="col-lg-4 col-lg-offset-4"><h1>预约挂号</h1></div>
-                <h:dataTable styleClass="table table-striped" value="#{clerkOperateBean.preRegistrationDetails()}" var="preRegistrationDetail">
-                    <h:column>
-                        <f:facet name="header">预约单号</f:facet>
-                        #{preRegistrationDetail.id}
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">预约人id</f:facet>
-                        #{preRegistrationDetail.patient.id}
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">预约人姓名</f:facet>
-                        #{preRegistrationDetail.patient.name}
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">预约医生</f:facet>
-                        #{preRegistrationDetail.preRegistrationId.doctor.name}
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">挂号费</f:facet>
-                        #{preRegistrationDetail.preRegistrationId.doctor.registration.diagFee}
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">确认挂号</f:facet>
+                <div class="ContentContainedPage col-lg-11">
+                    <ui:include src="/templates/default/msgPanel.xhtml"/>
+                    <div class="col-lg-4 col-lg-offset-4"><h1>预约挂号</h1></div>
+                    <h:dataTable styleClass="table table-striped" value="#{clerkOperateBean.preRegistrationDetails()}" var="preRegistrationDetail">
+                        <h:column>
+                            <f:facet name="header">预约单号</f:facet>
+                                #{preRegistrationDetail.id}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">预约人id</f:facet>
+                                #{preRegistrationDetail.patient.id}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">预约人姓名</f:facet>
+                                #{preRegistrationDetail.patient.name}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">预约医生</f:facet>
+                                #{preRegistrationDetail.preRegistrationId.doctor.name}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">挂号费</f:facet>
+                                #{preRegistrationDetail.preRegistrationId.doctor.registration.diagFee}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">确认挂号</f:facet>
                             <h:commandButton value="挂号" action="#{clerkOperateBean.byInternetRegistration()}">
                                 <f:param name="preRegistrationDetailId" value="#{preRegistrationDetail.id}"/>
                             </h:commandButton>
-                    </h:column>
-                </h:dataTable>
-                支付手段：<h:selectOneMenu value="#{clerkOperateBean.payType}" >
-                            <f:selectItem  itemValue="1" itemLabel="现金"/> 
-                            <f:selectItem itemValue = "2" itemLabel = "支付宝" /> 
-                            <f:selectItem itemValue = "3" itemLabel = "微信" /> 
-                            <f:selectItem itemValue = "4" itemLabel = "银行卡" />
-                        </h:selectOneMenu>
-            </div>
+                        </h:column>
+                    </h:dataTable>
+                    支付手段：<h:selectOneMenu value="#{clerkOperateBean.payType}" >
+                        <f:selectItem  itemValue="1" itemLabel="现金"/> 
+                        <f:selectItem itemValue = "2" itemLabel = "支付宝" /> 
+                        <f:selectItem itemValue = "3" itemLabel = "微信" /> 
+                        <f:selectItem itemValue = "4" itemLabel = "银行卡" />
+                    </h:selectOneMenu>
+                </div>
             </h:form>
         </ui:define>
     </ui:composition>

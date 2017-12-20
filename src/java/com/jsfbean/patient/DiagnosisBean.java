@@ -10,7 +10,6 @@ import com.entity.DiagnosisDetail;
 import com.entity.Patient;
 import java.util.List;
 import javax.annotation.Resource;
-import javax.faces.component.UIParameter;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
@@ -29,21 +28,22 @@ public class DiagnosisBean {
     /**
      * Creates a new instance of DiagnosisBean
      */
-    private List<Diagnosis> userDiagnosis; 
+    private List<Diagnosis> userDiagnosis;
     private List<DiagnosisDetail> userDiagnosisDetails;
     @PersistenceContext(unitName = "MedicalSystemPU")
     private EntityManager em;
     @Resource
     private UserTransaction utx;
+
     public DiagnosisBean() {
-        
+
     }
 
     public List<Diagnosis> getUserDiagnosis() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         ExternalContext externalContext = facesContext.getExternalContext();
-        HttpSession session = (HttpSession)externalContext.getSession(true);
-        Patient p = (Patient)session.getAttribute("userInfo");
+        HttpSession session = (HttpSession) externalContext.getSession(true);
+        Patient p = (Patient) session.getAttribute("userInfo");
         Query query = em.createNamedQuery("getDiagnosisByPatientId");
         query.setParameter(1, p);
         userDiagnosis = query.getResultList();
@@ -53,24 +53,20 @@ public class DiagnosisBean {
     public List<DiagnosisDetail> getUserDiagnosisDetails() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         ExternalContext externalContext = facesContext.getExternalContext();
-        HttpServletRequest request = (HttpServletRequest)externalContext.getRequest();
-        if(request.getParameter("diagnosisId")==null){
+        HttpServletRequest request = (HttpServletRequest) externalContext.getRequest();
+        if (request.getParameter("diagnosisId") == null) {
             return userDiagnosisDetails;
         }
         Long diagnosisId = Long.parseLong(request.getParameter("diagnosisId"));
         Query query = em.createNamedQuery("getDiagnosisDetialByDiagnosisId");
         query.setParameter(1, diagnosisId);
-        Diagnosis diagnosis = (Diagnosis)query.getSingleResult();
+        Diagnosis diagnosis = (Diagnosis) query.getSingleResult();
         userDiagnosisDetails = diagnosis.getDiagnosisDetails();
         return userDiagnosisDetails;
     }
-    
-    
-    
-    public String showDiagnosisDetail(){
+
+    public String showDiagnosisDetail() {
         return "/patient/userDiagnosisDetail";
     }
-    
-    
-    
+
 }

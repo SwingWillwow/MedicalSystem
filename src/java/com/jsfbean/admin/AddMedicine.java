@@ -23,34 +23,36 @@ import javax.transaction.UserTransaction;
  * @author Administrator
  */
 public class AddMedicine {
+
     @PersistenceContext(unitName = "MedicalSystemPU")
     private EntityManager em;
     @Resource
     private UserTransaction utx;
     private Medicine medicine;
+
     public AddMedicine() {
-        medicine=new Medicine();
+        medicine = new Medicine();
         medicine.setInventory(0);
     }
 
-    public String addMedicine(){
+    public String addMedicine() {
         SessionManagedBean sessionManagedBean;
-        HttpSession session=(HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
         if (session.getAttribute("sessionManagedBean") == null) {
             sessionManagedBean = new SessionManagedBean();
         } else {
             sessionManagedBean = (SessionManagedBean) session.getAttribute("sessionManagedBean");
         }
-        Query query=em.createQuery("SELECT mdc FROM Medicine mdc where mdc.name=?1");
+        Query query = em.createQuery("SELECT mdc FROM Medicine mdc where mdc.name=?1");
         query.setParameter(1, medicine.getName());
-        List<Medicine> temps=query.getResultList();
-        if(!temps.isEmpty()){
+        List<Medicine> temps = query.getResultList();
+        if (!temps.isEmpty()) {
             sessionManagedBean.setErrorMessage("该药名已存在！");
             return "";
         }
-        Employee employee=(Employee)session.getAttribute("userInfo");
+        Employee employee = (Employee) session.getAttribute("userInfo");
         medicine.setOperator(employee);
-        Date today=new Date();
+        Date today = new Date();
         medicine.setCreateTime(today);
         medicine.setLastUpdateTime(today);
         try {
@@ -61,10 +63,10 @@ public class AddMedicine {
             sessionManagedBean.setErrorMessage(e.getMessage());
             return "";
         }
-        sessionManagedBean.setSuccessMessage("添加药品："+medicine.getName()+"成功！");
+        sessionManagedBean.setSuccessMessage("添加药品：" + medicine.getName() + "成功！");
         return "";
     }
-    
+
     public Medicine getMedicine() {
         return medicine;
     }
@@ -72,5 +74,5 @@ public class AddMedicine {
     public void setMedicine(Medicine medicine) {
         this.medicine = medicine;
     }
-   
+
 }

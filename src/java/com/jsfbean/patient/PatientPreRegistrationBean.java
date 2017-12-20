@@ -24,7 +24,7 @@ import javax.transaction.UserTransaction;
  *
  * @author qiuyukun
  */
-public class PatientPreRegistrationBean implements Serializable{
+public class PatientPreRegistrationBean implements Serializable {
 
     /**
      * Creates a new instance of PatientPreRegistrationBean
@@ -34,53 +34,52 @@ public class PatientPreRegistrationBean implements Serializable{
     EntityManager em;
     @Resource
     UserTransaction utx;
+
     public PatientPreRegistrationBean() {
-        
+
     }
-    
+
     @PostConstruct
-    public void initPatientRegistDetails(){
+    public void initPatientRegistDetails() {
         SessionManagedBean sessionManagedBean = SessionManagedBean.getInstance();
-        Patient p = (Patient)sessionManagedBean.getSession().getAttribute("userInfo");
+        Patient p = (Patient) sessionManagedBean.getSession().getAttribute("userInfo");
         Query query = em.createQuery("SELECT preDetail FROM PreRegistrationDetail preDetail WHERE PREDETAIL.patient=?1");
         query.setParameter(1, p);
         patientRegistDetails = query.getResultList();
     }
-    
+
     //取消预约
-    public String cancelRegist(){
+    public String cancelRegist() {
         SessionManagedBean sessionManagedBean = SessionManagedBean.getInstance();
         Long preRegistId = Long.parseLong(ParamUtil.getParamByName(FacesContext.getCurrentInstance(), "preRegistId"));
         PreRegistrationDetail detail = em.find(PreRegistrationDetail.class, preRegistId);
-        if(detail.getValid()=='N'){
+        if (detail.getValid() == 'N') {
             sessionManagedBean.setErrorMessage("过期记录，无法取消");
             return "";
         }
-        if(deleteRegistRecord(detail)){
+        if (deleteRegistRecord(detail)) {
             sessionManagedBean.setSuccessMessage("取消成功");
             initPatientRegistDetails();
-        }
-        else{
+        } else {
             sessionManagedBean.setErrorMessage("取消失败");
         }
         return "";
     }
-    
+
     //删除预约记录
-    private boolean deleteRegistRecord(PreRegistrationDetail detail){
+    private boolean deleteRegistRecord(PreRegistrationDetail detail) {
         PreRegistration pre;
         pre = em.find(PreRegistration.class, detail.getPreRegistrationId().getId());
-        if(pre==null||!pre.getPreResgistrationDetails().contains(detail)){
+        if (pre == null || !pre.getPreResgistrationDetails().contains(detail)) {
             return false;
-        }
-        else{
+        } else {
             List<PreRegistrationDetail> list = pre.getPreResgistrationDetails();
             list.remove(detail);
             try {
                 utx.begin();
                 pre = em.merge(pre);
-                pre.setPreResgistrationDetails(list); 
-                pre.setByInternetReal(pre.getByInternetReal()-1);
+                pre.setPreResgistrationDetails(list);
+                pre.setByInternetReal(pre.getByInternetReal() - 1);
                 detail = em.merge(detail);
                 em.remove(detail);
                 utx.commit();
@@ -91,7 +90,7 @@ public class PatientPreRegistrationBean implements Serializable{
             return true;
         }
     }
-    
+
     public List<PreRegistrationDetail> getPatientRegistDetails() {
         return patientRegistDetails;
     }
@@ -99,7 +98,5 @@ public class PatientPreRegistrationBean implements Serializable{
     public void setPatientRegistDetails(List<PreRegistrationDetail> patientRegistDetails) {
         this.patientRegistDetails = patientRegistDetails;
     }
-    
-    
-    
+
 }

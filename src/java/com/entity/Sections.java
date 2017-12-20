@@ -7,7 +7,6 @@ package com.entity;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -26,27 +25,29 @@ import javax.persistence.TemporalType;
  * @author Administrator
  */
 @Entity
-@Table(name="Sections")
+@Table(name = "Sections")
 public class Sections implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name="SectionsName",nullable = false,unique = true)
+    @Column(name = "SectionsName", nullable = false, unique = true)
     private String name;
-    @OneToOne(fetch= FetchType.LAZY)//必须存在负责人
-    @JoinColumn(name="ManagerId")
+    @OneToOne(fetch = FetchType.LAZY)//必须存在负责人
+    @JoinColumn(name = "ManagerId")
     private Doctor manager;//对应科室管理人
-    @Column(name="Number")
+    @Column(name = "Number")
     private int number;//人数
-    @OneToMany(fetch= FetchType.LAZY)
-    @JoinColumn(name="SectionsId")
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "SectionsId")
     private List<Doctor> doctors;//保存该部门的所有人
     @Temporal(TemporalType.TIMESTAMP)
     private Date createTime;
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastUpdateTime;
     private String description;
+
     public Sections() {
     }
 
@@ -66,7 +67,6 @@ public class Sections implements Serializable {
     public void setNumber(int number) {
         this.number = number;
     }
-
 
     public String getName() {
         return name;
@@ -108,7 +108,6 @@ public class Sections implements Serializable {
         this.lastUpdateTime = lastUpdateTime;
     }
 
-    
     public Long getId() {
         return id;
     }
@@ -149,5 +148,5 @@ public class Sections implements Serializable {
     public String toString() {
         return "com.entity.Section[ id=" + id + " ]";
     }
-    
+
 }

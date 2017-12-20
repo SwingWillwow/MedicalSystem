@@ -26,49 +26,50 @@ import javax.persistence.TemporalType;
 
 /**
  *
- * @author lmh
- * 就是挂号登记单+诊疗结果
+ * @author lmh 就是挂号登记单+诊疗结果
  */
 @Entity
-@Table(name="Diagnosis")
+@Table(name = "Diagnosis")
 
 @NamedQueries({
-    @NamedQuery(name = "getDiagnosisByPatientId",query = "select d FROM Diagnosis d WHERE d.patient=?1"),
-    @NamedQuery(name = "getDiagnosisDetialByDiagnosisId",query = "SELECT d FROM Diagnosis d WHERE d.id=?1")
+    @NamedQuery(name = "getDiagnosisByPatientId", query = "select d FROM Diagnosis d WHERE d.patient=?1")
+    ,
+    @NamedQuery(name = "getDiagnosisDetialByDiagnosisId", query = "SELECT d FROM Diagnosis d WHERE d.id=?1")
 })
 public class Diagnosis implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToOne(fetch= FetchType.LAZY,optional=false)
-    @JoinColumn(name="PatientId")
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "PatientId")
     private Patient patient;
-    @ManyToOne(fetch= FetchType.LAZY,optional=false)
-    @JoinColumn(name="DocId")
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "DocId")
     private Doctor doctor;
-    @Column(name="DiagFee",nullable=false)
+    @Column(name = "DiagFee", nullable = false)
     private Double diagFee;//挂号费
-    @Column(name="PayType",nullable=false)
+    @Column(name = "PayType", nullable = false)
     private int payType;//支付手段（1-现金，2-支付宝，3-微信，4-银行卡）
-    @Column(name="DiagNumber",nullable=false)
+    @Column(name = "DiagNumber", nullable = false)
     private int diagNumber;//排号（是今天对应医生的第几个病人，查预约人数登记表）
-    @ManyToOne(fetch= FetchType.LAZY,optional=false)
-    @JoinColumn(name="OperatorId")
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "OperatorId")
     private Employee operator;//挂号创建人，某前台小姐姐
-    @Column(name="Valid",nullable=false)
+    @Column(name = "Valid", nullable = false)
     private char valid;//该挂号是否有效
-    @Column(name="Symtom")
+    @Column(name = "Symtom")
     private String symtom;//症状描述
-    @Column(name="Diagnosis")
+    @Column(name = "Diagnosis")
     private String diagnosis;//诊断结果
-    @OneToMany(fetch= FetchType.LAZY,cascade = CascadeType.REMOVE)
-    @JoinColumn(name="DiagId")
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @JoinColumn(name = "DiagId")
     private List<DiagnosisDetail> diagnosisDetails;//药单
-    @OneToOne(fetch= FetchType.LAZY)
-    @JoinColumn(name="FeeId")
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "FeeId")
     private Fee fee;//药费单
-    @ManyToOne(fetch= FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Employee lastOperator;//最后操作人Id，比如把挂号单取消（当然不退钱），收账。
     @Temporal(TemporalType.TIMESTAMP)
     private Date createTime;
@@ -78,11 +79,11 @@ public class Diagnosis implements Serializable {
     public Diagnosis() {
     }
 
-    public Diagnosis(Patient patient, Doctor doctor, Double diagFee, int payType,int diagNumber, Employee operator, char valid, String symtom, String diagnosis, List<DiagnosisDetail> diagnosisDetails, Fee fee, Employee lastOperator, Date createTime, Date lastUpdateTime) {
+    public Diagnosis(Patient patient, Doctor doctor, Double diagFee, int payType, int diagNumber, Employee operator, char valid, String symtom, String diagnosis, List<DiagnosisDetail> diagnosisDetails, Fee fee, Employee lastOperator, Date createTime, Date lastUpdateTime) {
         this.patient = patient;
         this.doctor = doctor;
         this.diagFee = diagFee;
-        this.payType=payType;
+        this.payType = payType;
         this.diagNumber = diagNumber;
         this.operator = operator;
         this.valid = valid;
@@ -215,8 +216,6 @@ public class Diagnosis implements Serializable {
         this.lastUpdateTime = lastUpdateTime;
     }
 
-    
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -241,5 +240,5 @@ public class Diagnosis implements Serializable {
     public String toString() {
         return "com.entity.Diagnosis[ id=" + id + " ]";
     }
-    
+
 }

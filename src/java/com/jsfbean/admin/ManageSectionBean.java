@@ -5,7 +5,6 @@
  */
 package com.jsfbean.admin;
 
-import com.entity.Department;
 import com.entity.Doctor;
 import com.entity.Sections;
 import com.jsfbean.SessionManagedBean;
@@ -33,11 +32,13 @@ public class ManageSectionBean {
     @Resource
     private UserTransaction utx;
     private List<Sections> allSections;
+
     public ManageSectionBean() {
-        
+
     }
+
     @PostConstruct
-    private void init(){
+    private void init() {
         Query query = em.createQuery("SELECT s FROM Sections s");
         allSections = query.getResultList();
     }
@@ -49,40 +50,41 @@ public class ManageSectionBean {
     public void setAllSections(List<Sections> allSections) {
         this.allSections = allSections;
     }
-    
-    public String toChangeSection(){
+
+    public String toChangeSection() {
         String sectionId = ParamUtil.getParamByName(FacesContext.getCurrentInstance(), "sectionId");
         Long id = Long.parseLong(sectionId);
         ParamUtil.setParamIntoFlash(FacesContext.getCurrentInstance(), "sectionId", id);
         return "/admin/changeSection.xhtml";
     }
-    
-    public String toShowSectionEmp(){
+
+    public String toShowSectionEmp() {
         String sectionId = ParamUtil.getParamByName(FacesContext.getCurrentInstance(), "sectionId");
         Long id = Long.parseLong(sectionId);
         ParamUtil.setParamIntoFlash(FacesContext.getCurrentInstance(), "sectionId", id);
         return "/admin/showSecEmp.xhtml";
     }
-    public String deleteSection(){
+
+    public String deleteSection() {
         String sectionId = ParamUtil.getParamByName(FacesContext.getCurrentInstance(), "sectionId");
         Long id = Long.parseLong(sectionId);
-        if(tryDeleteSectionById(id)){
+        if (tryDeleteSectionById(id)) {
             SessionManagedBean.getInstance().setSuccessMessage("成功删除");
-        }
-        else{
-            SessionManagedBean.getInstance().setErrorMessage(SessionManagedBean.getInstance().getErrorMessage()+"删除失败");
+        } else {
+            SessionManagedBean.getInstance().setErrorMessage(SessionManagedBean.getInstance().getErrorMessage() + "删除失败");
         }
         return "/admin/manageSection";
     }
-    private boolean tryDeleteSectionById(Long id){
+
+    private boolean tryDeleteSectionById(Long id) {
         try {
             utx.begin();
             Sections section = em.find(Sections.class, id);
-            List<Doctor> doctors=section.getDoctors();
+            List<Doctor> doctors = section.getDoctors();
             Sections tmpSection = em.find(Sections.class, 9L);
-            for(Doctor d:doctors){
+            for (Doctor d : doctors) {
                 d.setSections(tmpSection);
-                tmpSection.setNumber(tmpSection.getNumber()+1);
+                tmpSection.setNumber(tmpSection.getNumber() + 1);
                 em.merge(d);
             }
             em.remove(section);

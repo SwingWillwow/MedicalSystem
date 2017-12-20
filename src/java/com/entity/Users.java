@@ -23,7 +23,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "USERS")
 @Inheritance(strategy = InheritanceType.JOINED)
-@NamedQuery(name = "getUserByName",query = "select u FROM Users u WHERE U.userName=?1")
+@NamedQuery(name = "getUserByName", query = "select u FROM Users u WHERE U.userName=?1")
 public class Users implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -34,9 +34,10 @@ public class Users implements Serializable {
     protected String userName;
     protected String password;
 
-    public Users(){
-    
+    public Users() {
+
     }
+
     public String getUserName() {
         return userName;
     }
@@ -52,6 +53,7 @@ public class Users implements Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
+
     public Long getId() {
         return id;
     }
@@ -84,5 +86,5 @@ public class Users implements Serializable {
     public String toString() {
         return "com.Entity.Users[ uid=" + id + " ]";
     }
-    
+
 }

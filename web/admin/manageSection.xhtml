@@ -3,8 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:composition template="/templates/default/main.xhtml">
         <ui:define name="title">
             <title>科室管理</title>
@@ -19,19 +18,19 @@
                 <h:dataTable styleClass="table table-striped" value="#{manageSectionBean.allSections}" var="section">
                     <h:column>
                         <f:facet name="header">Id</f:facet>
-                        #{section.id}
+                            #{section.id}
                     </h:column>
                     <h:column>
                         <f:facet name="header">科室名称</f:facet>
-                        #{section.name}
+                            #{section.name}
                     </h:column>
                     <h:column>
                         <f:facet name="header">负责人</f:facet>
-                        #{section.manager.name}
+                            #{section.manager.name}
                     </h:column>
                     <h:column>
                         <f:facet name="header">科室人数</f:facet>
-                        #{section.number}
+                            #{section.number}
                     </h:column>
                     <h:column>
                         <f:facet name="header">修改科室信息</f:facet>

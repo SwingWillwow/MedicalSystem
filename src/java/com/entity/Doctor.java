@@ -6,58 +6,56 @@ package com.entity;
 
 import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
  *
  * @author lmh
- * 
+ *
  * TODO
  */
 @Entity
-@Table(name="Doctor")
+@Table(name = "Doctor")
 public class Doctor extends Employee implements Serializable {
+
     private static final long serialVersionUID = 1L;
-    @ManyToOne(fetch= FetchType.LAZY,optional=false)
-    @JoinColumn(name="SectionsId")
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "SectionsId")
     private Sections sections;
-    @Column(name="Age")
+    @Column(name = "Age")
     private int age;//医龄
-    @ManyToOne(fetch= FetchType.LAZY,optional=false)
-    @JoinColumn(name="RegistrationId")
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "RegistrationId")
     private Registration registration;//医生对应挂号费
-    @Column(name="Description")
+    @Column(name = "Description")
     private String description;//医生事迹
-    @Column(name="ByInternet",nullable=false)
+    @Column(name = "ByInternet", nullable = false)
     private int byInternet;//医生每天可网上预约人数
-    @Column(name="ByLive",nullable=false)
+    @Column(name = "ByLive", nullable = false)
     private int byLive;//医生每天不预约挂号人数
-    
 
     public Doctor() {
     }
 
-    public Doctor(String userName,String password,String name, String idCard, Character sex, Date birthday, Department department,Sections sections,int age, Registration registration, String description, int byInternet, int byLive, Date createTime, Date lastUpdateTime) {
+    public Doctor(String userName, String password, String name, String idCard, Character sex, Date birthday, Department department, Sections sections, int age, Registration registration, String description, int byInternet, int byLive, Date createTime, Date lastUpdateTime) {
         this.age = age;
         this.registration = registration;
         this.description = description;
         this.byInternet = byInternet;
         this.byLive = byLive;
-        this.userName=userName;
-        this.password=password;
+        this.userName = userName;
+        this.password = password;
         this.name = name;
         this.idCard = idCard;
         this.sex = sex;
         this.birthday = birthday;
         this.department = department;
-        this.sections=sections;
+        this.sections = sections;
         this.createTime = createTime;
         this.lastUpdateTime = lastUpdateTime;
     }
@@ -110,7 +108,6 @@ public class Doctor extends Employee implements Serializable {
         this.byLive = byLive;
     }
 
-    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -135,5 +132,5 @@ public class Doctor extends Employee implements Serializable {
     public String toString() {
         return "com.entity.Doctor[ id=" + id + " ]";
     }
-    
+
 }

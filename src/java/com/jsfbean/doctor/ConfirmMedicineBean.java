@@ -10,7 +10,6 @@ import com.entity.DiagnosisDetail;
 import com.entity.Doctor;
 import com.entity.Employee;
 import com.entity.Fee;
-import com.entity.Medicine;
 import com.entity.Patient;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -19,7 +18,6 @@ import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.faces.context.Flash;
 import javax.faces.event.ValueChangeEvent;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -31,9 +29,8 @@ import javax.transaction.UserTransaction;
  *
  * @author qiuyukun
  */
-public class ConfirmMedicineBean implements Serializable{
+public class ConfirmMedicineBean implements Serializable {
 
-    
     /*
         utx and em
      */
@@ -53,14 +50,13 @@ public class ConfirmMedicineBean implements Serializable{
 
     }
 
-    
     /**
-     *  init function
+     * init function
      */
     @PostConstruct
     public void initBean() {
         // init properties from session
-        HttpSession session = (HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
         currentPatient = (Patient) session.getAttribute("currentPatient");
         details = (ArrayList<DiagnosisDetail>) session.getAttribute("diagnosisDetails");
         diagId = Long.parseLong(session.getAttribute("diagId").toString());
@@ -73,13 +69,13 @@ public class ConfirmMedicineBean implements Serializable{
      */
     public String toNextPatient() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
-        HttpSession session = (HttpSession)facesContext.getExternalContext().getSession(true);
+        HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(true);
         try {
             utx.begin();
             Diagnosis diag = em.find(Diagnosis.class, diagId);//找到对应的诊疗记录
-            Doctor doctor = (Doctor)session.getAttribute("userInfo");//当前负责治疗的医生
+            Doctor doctor = (Doctor) session.getAttribute("userInfo");//当前负责治疗的医生
             //把所有的药品费用细节加入到diagnosisDetail表中
-            for(DiagnosisDetail detail:details){
+            for (DiagnosisDetail detail : details) {
                 em.persist(detail);
             }
             diag.setDiagnosisDetails(details);
@@ -90,8 +86,8 @@ public class ConfirmMedicineBean implements Serializable{
             fee.setLastUpdateTime(new Date());
             fee.setStatus(1);//状态设置为未交钱
             Double totalSum = 0.0;
-            for(DiagnosisDetail detail :details){
-                totalSum+=detail.getItemSum();
+            for (DiagnosisDetail detail : details) {
+                totalSum += detail.getItemSum();
             }
             fee.setTotalSum(totalSum);
             em.persist(fee);
@@ -107,20 +103,22 @@ public class ConfirmMedicineBean implements Serializable{
         session.setAttribute("diagnosisDetails", null);
         return "showPatientList";
     }
+
     /**
      * change medicine number. if number equal to 0. delete the item.
-     * @param event 
+     *
+     * @param event
      */
-    public void changeMedicine(ValueChangeEvent event){
+    public void changeMedicine(ValueChangeEvent event) {
         HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
         UIComponent component = event.getComponent();
         Long mediId = Long.parseLong(component.getAttributes().get("MedicineId").toString());
         Integer mediNum = Integer.parseInt(event.getNewValue().toString());
 //        boolean hasMedicine = false;
-        for(DiagnosisDetail detail: details){
-            if(detail.getMedicine().getId().equals(mediId)){
+        for (DiagnosisDetail detail : details) {
+            if (detail.getMedicine().getId().equals(mediId)) {
                 detail.setCount(mediNum);
-                detail.setItemSum(mediNum*detail.getMedicine().getPrice());
+                detail.setItemSum(mediNum * detail.getMedicine().getPrice());
 //                hasMedicine = true;
                 break;
             }
@@ -137,6 +135,7 @@ public class ConfirmMedicineBean implements Serializable{
 //            details.add(newDetail);
 //        }
     }
+
     /*
         setters and getters
      */

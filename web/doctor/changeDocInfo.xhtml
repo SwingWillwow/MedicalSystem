@@ -3,8 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:composition template="/templates/default/main.xhtml">
         <ui:define name="title">
             <title>医生信息修改</title>
@@ -12,10 +11,9 @@
         <ui:define name="leftmenu"></ui:define>
         <ui:define name="contentWithoutLeftMenu">
             <div class="ContentContainedPage row">
-                    <div class="col-lg-4 col-lg-offset-4"><h1>医生信息修改</h1></div>
+                <div class="col-lg-4 col-lg-offset-4"><h1>医生信息修改</h1></div>
                 <h:form>
                     <div class="space"></div>
-                    
                     <div class="col-lg-3 col-lg-offset-4">
                         <label>姓名:</label>
                         <h:inputText styleClass="form-control" id="name" value='#{session.getAttribute("userInfo").name}' required="true" requiredMessage="姓名必填">
@@ -28,13 +26,10 @@
                         <h:selectOneRadio  id="sex" value='#{session.getAttribute("userInfo").sex}' required="true" requiredMessage="性别不能为空">
                             <f:selectItem itemLabel="男" itemValue="M" class="radio-inline"/>
                             <f:selectItem itemLabel="女" itemValue="F" class="radio-inline"/>
-                            
                         </h:selectOneRadio>
                         <h:message for="sex"/>
                     </div>
-                    
                     <div class="space"></div>
-                    
                     <div class="col-lg-3 col-lg-offset-4">
                         <label>身份证:</label>
                         <h:inputText styleClass="form-control" id="idCard" value='#{session.getAttribute("userInfo").idCard}' required="true" requiredMessage="身份证必填">
@@ -42,32 +37,25 @@
                         </h:inputText>
                         <h:message for="idCard"/>
                     </div>
-                    
                     <div class="space"></div>
-                    
                     <div class="col-lg-3 col-lg-offset-4">
                         <label>生日:</label>
-                        
                         <h:inputText styleClass="form-control" id="birthday" value='#{session.getAttribute("userInfo").birthday}' required="true" requiredMessage="生日必填" converterMessage="生日格式错误">
                             <f:convertDateTime pattern="yyyy/MM/dd" timeZone="GMT+8"/>
                         </h:inputText>    
                         <label>(yyyy/MM/dd)</label>
                         <h:message for="birthday"/>
                     </div>
-                    
                     <div class="space"></div>
                     <div class="col-lg-3 col-lg-offset-4">
                         <label>个人简介:</label>
                         <h:inputTextarea id="description" styleClass="form-control" value='#{session.getAttribute("userInfo").description}' required="既往病史不能为空，没有则填无"></h:inputTextarea>
                         <h:message for="description"/>
                     </div>
-                    
                     <div class="space"></div>
-                    
                     <div class="row">
                         <div class="col-lg-2 col-lg-offset-4">
                             <h:commandButton styleClass="btn btn-success" value="修改信息" action="#{changeDocInfoBean.changeInformation}"/>
-                    
                         </div>
                     </div>
                 </h:form>

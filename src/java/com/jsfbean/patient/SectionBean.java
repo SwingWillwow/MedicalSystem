@@ -38,7 +38,7 @@ import javax.transaction.UserTransaction;
  * @author qiuyukun
  */
 @ViewScoped
-public class SectionBean implements Serializable{
+public class SectionBean implements Serializable {
 
     /**
      * Creates a new instance of SectionBean
@@ -57,7 +57,7 @@ public class SectionBean implements Serializable{
     }
 
     public void initDoctor(AjaxBehaviorEvent event) {
-        if (!(selectedSections==null)) {
+        if (!(selectedSections == null)) {
             Long id = Long.parseLong(selectedSections);
             if (id == 0) {
                 doctor = null;
@@ -77,7 +77,7 @@ public class SectionBean implements Serializable{
             sessionManagedBean = (SessionManagedBean) session.getAttribute("sessionManagedBean");
         }
         int selectedDoc;
-        
+
         if (selectedDoctor == null || selectedSections == null) {
 
             sessionManagedBean.setErrorMessage("请选择要预约的科室和医生");
@@ -122,9 +122,8 @@ public class SectionBean implements Serializable{
                     }
                 }
             }
-        }
-        else{//如果不存在记录，则直接新增5条记录
-            for(int i=1;i<=5;i++){
+        } else {//如果不存在记录，则直接新增5条记录
+            for (int i = 1; i <= 5; i++) {
                 PreRegistration preReg2 = new PreRegistration();
                 Doctor doc = em.find(Doctor.class, Long.parseLong(selectedDoctor));
                 //设置值
@@ -159,13 +158,13 @@ public class SectionBean implements Serializable{
     }
 
     //pass docId to next page
-    public void passDocId(){
+    public void passDocId() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         ExternalContext externalContext = facesContext.getExternalContext();
         externalContext.getFlash().put("docId", selectedDoctor);
     }
-    
-    public String toDocList(){
+
+    public String toDocList() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         Flash flash = facesContext.getExternalContext().getFlash();
         HttpServletRequest request = (HttpServletRequest) facesContext.getExternalContext().getRequest();
@@ -173,7 +172,7 @@ public class SectionBean implements Serializable{
         request.getSession(false).setAttribute("sectionId", id);
         return "/showDocList";
     }
-    
+
     /*
         getter and setter
      */
@@ -186,7 +185,7 @@ public class SectionBean implements Serializable{
     }
 
     public List<Doctor> getDoctor() {
-        
+
         return doctor;
     }
 
@@ -210,5 +209,4 @@ public class SectionBean implements Serializable{
         this.selectedSections = selectedSections;
     }
 
-    
 }

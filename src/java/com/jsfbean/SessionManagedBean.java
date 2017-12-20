@@ -25,13 +25,13 @@ import javax.transaction.UserTransaction;
  * @author qiuyukun
  */
 @SessionScoped
-public class SessionManagedBean implements Serializable{
-    private static final long serialVersionUID =1L;
+public class SessionManagedBean implements Serializable {
+
+    private static final long serialVersionUID = 1L;
     /**
-     * Creates a new instance of SessionManagedBean
-     * WARNING!!!!!!!!!!!!
-     * this bean may be lead to some mistake please be carefully.
-     * if meet some bugs about session, check this bean first.
+     * Creates a new instance of SessionManagedBean WARNING!!!!!!!!!!!! this
+     * bean may be lead to some mistake please be carefully. if meet some bugs
+     * about session, check this bean first.
      */
     private HttpSession session;
     @PersistenceContext(unitName = "MedicalSystemPU")
@@ -45,145 +45,140 @@ public class SessionManagedBean implements Serializable{
     private boolean clk = false;
     private boolean phar = false;
     private boolean admin = false;
-    
+
     public SessionManagedBean() {
         initalSession();
-        
+
     }
-    
-    public static SessionManagedBean getInstance(){
-        HttpSession session = (HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(true);
-        if(session.getAttribute("sessionManagedBean")==null){
+
+    public static SessionManagedBean getInstance() {
+        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+        if (session.getAttribute("sessionManagedBean") == null) {
             return new SessionManagedBean();
-        }
-        else{
-            return (SessionManagedBean)session.getAttribute("sessionManagedBean");
+        } else {
+            return (SessionManagedBean) session.getAttribute("sessionManagedBean");
         }
     }
-    
-    public boolean isLogin(){
+
+    public boolean isLogin() {
         initalSession();
-        if(session.getAttribute("userName")!=null){
+        if (session.getAttribute("userName") != null) {
             return true;
-        }
-        else{
+        } else {
             return false;
         }
     }
-    public HttpSession getSession(){
+
+    public HttpSession getSession() {
         return session;
     }
-    
-    public String userLogout(){
+
+    public String userLogout() {
         session.invalidate();
         return "/index";
     }
-    
+
     // 用户登录（传入账号和密码）
-    public boolean userLogin(String userName,String password){
+    public boolean userLogin(String userName, String password) {
         initalSession();
-        if(session.getAttribute("userName")!=null){
+        if (session.getAttribute("userName") != null) {
             return false;
-        }
-        else{
-            Query query=em.createNamedQuery("getUserByName");
+        } else {
+            Query query = em.createNamedQuery("getUserByName");
             query.setParameter(1, userName);
-            Users u=(Users)query.getSingleResult();
-            if(u!=null){
+            Users u = (Users) query.getSingleResult();
+            if (u != null) {
                 try {
                     if (PasswordManager.checkPassword(password, u.getPassword())) {
                         session.setAttribute("userName", userName);
                         session.setAttribute("id", u.getId());
                         setInfo(u.getId());
                         return true;
-                    }
-                    else{
+                    } else {
                         return false;
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-            }
-            else{
+            } else {
                 return false;
             }
-            
+
         }
         return false;
     }
-    
-    public void setInfo(long id){
-        if(isPaitent(id))return;
-        if(isDoctor(id)) return;
+
+    public void setInfo(long id) {
+        if (isPaitent(id)) {
+            return;
+        }
+        if (isDoctor(id)) {
+            return;
+        }
         isEmpolyee(id);
     }
-    
+
     //判断是不是病人，如果是设置它的信息
-    public boolean isPaitent(long id){
-        Patient p=em.find(Patient.class, id);
-        if (p!=null) {
-            session.setAttribute("userInfo", p); 
+    public boolean isPaitent(long id) {
+        Patient p = em.find(Patient.class, id);
+        if (p != null) {
+            session.setAttribute("userInfo", p);
             pat = true;
             session.setAttribute("pat", pat);
             return true;
-        }
-        else{
+        } else {
             return false;
         }
     }
+
     //判断是不是医生，如果是设置它的信息
-    public boolean isDoctor(long id){
+    public boolean isDoctor(long id) {
         Doctor d = em.find(Doctor.class, id);
-        if(d!=null){
+        if (d != null) {
             session.setAttribute("userInfo", d);
-            doc=true;
+            doc = true;
             session.setAttribute("doc", doc);
             return true;
-        }
-        else{
+        } else {
             return false;
         }
     }
+
     //判断是不是其他类型的雇员，如果是，设置它的信息
-    public boolean isEmpolyee(long id){
+    public boolean isEmpolyee(long id) {
         Employee e = em.find(Employee.class, id);
-        if(e!=null){
+        if (e != null) {
             session.setAttribute("userInfo", e);
             Long departId = e.getDepartment().getId();
-            if(departId == 2L){
+            if (departId == 2L) {
                 clk = true;
                 session.setAttribute("clk", clk);
-            }
-            else if (departId == 3L) {
+            } else if (departId == 3L) {
                 phar = true;
                 session.setAttribute("phar", phar);
-            }
-            else if(departId == 1L){
+            } else if (departId == 1L) {
                 admin = true;
                 session.setAttribute("admin", admin);
             }
             return true;
-        }
-        else{
+        } else {
             return false;
         }
     }
-    
-        public void initalSession(){
-        if(session == null){
-            session = (HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+
+    public void initalSession() {
+        if (session == null) {
+            session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
         }
     }
 
-    
-    public boolean hasErrorMessage(){
-        return errorMessage!=null;
+    public boolean hasErrorMessage() {
+        return errorMessage != null;
     }
-    
-    
+
     public String getErrorMessage() {
         String oldStr = errorMessage;
-        errorMessage=null;
+        errorMessage = null;
         return oldStr;
     }
 
@@ -191,23 +186,19 @@ public class SessionManagedBean implements Serializable{
         this.errorMessage = errorMessage;
     }
 
-    
-    public boolean hasSuccessMessage(){
-        return successMessage!=null;
+    public boolean hasSuccessMessage() {
+        return successMessage != null;
     }
-    
+
     public String getSuccessMessage() {
         String oldStr = successMessage;
-        successMessage=null;
+        successMessage = null;
         return oldStr;
     }
 
     public void setSuccessMessage(String successMessage) {
         this.successMessage = successMessage;
     }
-    
-    
-    
 
     public boolean isDoc() {
         return doc;
@@ -248,6 +239,5 @@ public class SessionManagedBean implements Serializable{
     public void setAdmin(boolean admin) {
         this.admin = admin;
     }
-    
-    
+
 }

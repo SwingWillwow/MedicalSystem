@@ -5,9 +5,7 @@
  */
 package com.jsfbean.admin;
 
-import com.entity.Department;
 import com.entity.Doctor;
-import com.entity.Employee;
 import com.entity.Sections;
 import com.jsfbean.SessionManagedBean;
 import java.util.Date;
@@ -27,31 +25,33 @@ public class AddSectionBean {
 
     /**
      * Creates a new instance of AddSectionBean
-     */ 
+     */
     @PersistenceContext(unitName = "MedicalSystemPU")
     private EntityManager em;
     @Resource
     private UserTransaction utx;
     private Sections newSec;
     private List<Doctor> AllDoctor;
+
     public AddSectionBean() {
     }
+
     @PostConstruct
-    private void init(){
+    private void init() {
         newSec = new Sections();
         newSec.setManager(new Doctor());
         Query query = em.createQuery("SELECT d FROM Doctor d");
         AllDoctor = query.getResultList();
         query = em.createQuery("SELECT s FROM Sections s");
         List<Sections> sections = query.getResultList();
-        for(Sections s:sections){
-            if(AllDoctor.contains(s.getManager())){
+        for (Sections s : sections) {
+            if (AllDoctor.contains(s.getManager())) {
                 AllDoctor.remove(s.getManager());
             }
         }
     }
-    
-    public String addSec(){
+
+    public String addSec() {
         try {
             utx.begin();
             newSec.setCreateTime(new Date());
@@ -61,7 +61,7 @@ public class AddSectionBean {
             newSec.setNumber(1);
             em.persist(newSec);
             Sections oldSec = em.find(Sections.class, manager.getSections().getId());
-            oldSec.setNumber(oldSec.getNumber()-1);
+            oldSec.setNumber(oldSec.getNumber() - 1);
             manager.setSections(newSec);
             utx.commit();
         } catch (Exception e) {
@@ -87,6 +87,5 @@ public class AddSectionBean {
     public void setAllDoctor(List<Doctor> AllDoctor) {
         this.AllDoctor = AllDoctor;
     }
-    
 
 }

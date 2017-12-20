@@ -12,7 +12,6 @@ import java.util.Date;
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.faces.context.FacesContext;
-import javax.faces.context.Flash;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.servlet.http.HttpSession;
@@ -40,7 +39,6 @@ public class JudgeSymptomBean {
     /**
      * Creates a new instance of JudgeSymptomBean
      */
-
     public JudgeSymptomBean() {
 
     }
@@ -48,7 +46,7 @@ public class JudgeSymptomBean {
     @PostConstruct
     public void initBean() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
-        HttpSession session = (HttpSession)facesContext.getExternalContext().getSession(true);
+        HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(true);
         currentPatient = (Patient) session.getAttribute("currentPatient");
         Calendar today = Calendar.getInstance();
         today.setTime(new Date());

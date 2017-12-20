@@ -25,7 +25,7 @@ import javax.transaction.UserTransaction;
  *
  * @author qiuyukun
  */
-public class ChangeEmployeeInfoBean implements Serializable{
+public class ChangeEmployeeInfoBean implements Serializable {
 
     //properties
     private Employee currentEmployee;
@@ -33,23 +33,25 @@ public class ChangeEmployeeInfoBean implements Serializable{
     private EntityManager em;
     @Resource
     private UserTransaction utx;
-    private List<Department> allDepart; 
+    private List<Department> allDepart;
     private Registration registration;
     private List<Registration> allRegistrations;
     private List<Sections> allSections;
     private Long departId;
     private Long secId;
+
     /**
      * Creates a new instance of changeEmployeeInfoBean
      */
     public ChangeEmployeeInfoBean() {
-        
+
     }
+
     /*
         初始化方法
-    */
+     */
     @PostConstruct
-    public void init(){
+    public void init() {
         //通过传入的id来定位对应的Employee
         Long employeeId;
         Flash flash = FacesContext.getCurrentInstance().getExternalContext().getFlash();
@@ -58,46 +60,47 @@ public class ChangeEmployeeInfoBean implements Serializable{
         Query query = em.createQuery("SELECT dept FROM Department dept");
         departId = currentEmployee.getDepartment().getId();
         allDepart = query.getResultList();
-        if(currentEmployee.getDepartment().getId()==4L){
+        if (currentEmployee.getDepartment().getId() == 4L) {
             Doctor d = em.find(Doctor.class, currentEmployee.getId());
             secId = d.getSections().getId();
         }
         query = em.createQuery("SELECT s FROM Sections s");
-        allSections=query.getResultList();
-        if(currentEmployee.getDepartment().getId()==4L){
+        allSections = query.getResultList();
+        if (currentEmployee.getDepartment().getId() == 4L) {
             Doctor doc = em.find(Doctor.class, currentEmployee.getId());
             registration = doc.getRegistration();
         }
         query = em.createQuery("SELECT re FROM Registration re");
         allRegistrations = query.getResultList();
     }
+
     /**
-     * 
+     *
      * @return managedPage
      */
-    public String changeInfo(){
+    public String changeInfo() {
         try {
             utx.begin();
             Department oldDepartment = em.find(Department.class, currentEmployee.getDepartment().getId());
             Department selectedDepartment = em.find(Department.class, departId);
-            oldDepartment.setNumber(oldDepartment.getNumber()-1);
-            selectedDepartment.setNumber(selectedDepartment.getNumber()+1);
+            oldDepartment.setNumber(oldDepartment.getNumber() - 1);
+            selectedDepartment.setNumber(selectedDepartment.getNumber() + 1);
             currentEmployee.setDepartment(selectedDepartment);
             em.merge(currentEmployee);
-            if(currentEmployee.getDepartment().getId()==4L){
+            if (currentEmployee.getDepartment().getId() == 4L) {
                 Doctor d = em.find(Doctor.class, currentEmployee.getId());
                 registration = em.find(Registration.class, registration.getId());
                 Sections section = em.find(Sections.class, secId);
                 Sections oldSection = em.find(Sections.class, d.getSections().getId());
-                oldSection.setNumber(oldSection.getNumber()-1);
-                section.setNumber(section.getNumber()+1);
+                oldSection.setNumber(oldSection.getNumber() - 1);
+                section.setNumber(section.getNumber() + 1);
                 d.setSections(section);
                 d.setRegistration(registration);
                 em.merge(d);
             }
             utx.commit();
         } catch (Exception e) {
-        
+
         }
         return "/admin/manageEmployee";
     }
@@ -157,5 +160,5 @@ public class ChangeEmployeeInfoBean implements Serializable{
     public void setSecId(Long secId) {
         this.secId = secId;
     }
-    
+
 }

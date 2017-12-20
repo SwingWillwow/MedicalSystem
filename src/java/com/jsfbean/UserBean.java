@@ -19,53 +19,48 @@ public class UserBean {
     /**
      * Creates a new instance of UserBean
      */
-    
     private String userName;
     private String password;
     private CaptchaBean captchaBean;
     private String captcha;
+
     public UserBean() {
         captchaBean = new CaptchaBean();
     }
-    
-    
-    
-    public String dealLogin(){
-        SessionManagedBean sessionManagedBean=null;
-        if((sessionManagedBean=(SessionManagedBean)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("sessionManagedBean"))==null){
-                sessionManagedBean = new SessionManagedBean();
+
+    public String dealLogin() {
+        SessionManagedBean sessionManagedBean = null;
+        if ((sessionManagedBean = (SessionManagedBean) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("sessionManagedBean")) == null) {
+            sessionManagedBean = new SessionManagedBean();
         }
-        if(sessionManagedBean.userLogin(userName, password)){
-            
+        if (sessionManagedBean.userLogin(userName, password)) {
             return "index";
-        }
-        else{
+        } else {
             sessionManagedBean.setErrorMessage("登录失败。");
             return "";
         }
     }
-    
+
     /*
     *  validateCaptcha
-    */
-    public void validateCaptcha(FacesContext context,UIComponent toValidate,Object value)throws ValidatorException{
-        if(!checkCaptcha()){
+     */
+    public void validateCaptcha(FacesContext context, UIComponent toValidate, Object value) throws ValidatorException {
+        if (!checkCaptcha()) {
             FacesMessage facesMessage = new FacesMessage("验证码错误");
             throw new ValidatorException(facesMessage);
         }
     }
+
     /*
         check captcha
-    */
-    public boolean checkCaptcha(){
+     */
+    public boolean checkCaptcha() {
         return (captcha == null ? captchaBean.getCapValue() == null : captcha.equals(captchaBean.getCapValue()));
     }
-    
-    
+
     /*
     getter and setter
-    */
-    
+     */
     public String getUserName() {
         return userName;
     }
@@ -97,6 +92,5 @@ public class UserBean {
     public void setCaptcha(String captcha) {
         this.captcha = captcha;
     }
-    
-    
+
 }

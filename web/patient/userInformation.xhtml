@@ -4,7 +4,6 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <ui:composition template="/templates/default/main.xhtml">
         <ui:define name="title">
@@ -14,88 +13,71 @@
         <ui:define name="contentWithoutLeftMenu">
             <div class="ContentContainedPage col-lg-11">
                 <div class="col-lg-4 col-lg-offset-4"><h1>查看个人信息</h1></div>
-                    <div class="col-lg-3 col-lg-offset-4">
-                        <label>用户名:</label>
-                        <h:outputText styleClass="form-control" id="userName" value='#{session.getAttribute("userInfo").userName}'>
-                            
-                        </h:outputText>
-                        
-                    </div>
-                
-                    <div class="space"></div>
-                    <div class="col-lg-3 col-lg-offset-4">
-                        <label>姓名:</label>
-                        <h:outputText styleClass="form-control" id="name" value='#{session.getAttribute("userInfo").name}'>
-                        </h:outputText>
-                    </div>
-                    <div class="space"></div>
-                    <div class="col-lg-3 col-lg-offset-4">
-                        <label>性别:</label>
-                        <c:set var="sex" value='#{session.getAttribute("userInfo").sex}' scope="request"/>
-                        <h:outputText styleClass="form-control" id="sex1" value="男" rendered="#{sex=='M'}">
-                            
-                        </h:outputText>
-                        <h:outputText styleClass="form-control" id="sex2" value="女" rendered="#{sex=='F'}">
-                            
-                        </h:outputText>
-                        
-                        
-                    </div>
-                    <div class="space"></div>
-                    <div class="col-lg-3 col-lg-offset-4">
-                        <label>手机号码:</label>
-                        <h:outputText styleClass="form-control" id="Phone" value='#{session.getAttribute("userInfo").phone}'>
-                            
-                        </h:outputText>
-                    </div>
-
-                    <div class="space"></div>
-                    <div class="col-lg-3 col-lg-offset-4">
-                        <label>身份证:</label>
-                        <h:outputText styleClass="form-control" id="idCard" value='#{session.getAttribute("userInfo").idCard}'>
-                            
-                        </h:outputText>
-                    </div>
-                    <div class="space"></div>
-                    <div class="col-lg-3 col-lg-offset-4">
-                        <label>生日:</label>
-                        
-                        <h:outputText styleClass="form-control" id="birthday" value='#{session.getAttribute("userInfo").birthday}'>
-                            <f:convertDateTime pattern="yyyy/MM/dd" timeZone="GMT+8"/>
-                        </h:outputText>
-                    </div>
-                    
-                    <div class="space"></div>
-                    <div class="col-lg-3 col-lg-offset-4">
-                        <label>紧急联系人:</label>
-                        <h:outputText styleClass="form-control" id="emergencyName" value='#{session.getAttribute("userInfo").emergencyName}'>
-                        </h:outputText>
-                    </div>
-                    
-                    <div class="space"></div>
-                    <div class="col-lg-3 col-lg-offset-4">
-                        <label>紧急联系电话:</label>
-                        <h:outputText styleClass="form-control" id="emergencyPhone" value='#{session.getAttribute("userInfo").emergencyPhone}'>
-                        </h:outputText>
-                    </div>
-                    
-                    <div class="space"></div>
-                    <div class="col-lg-3 col-lg-offset-4">
-                        <label>家庭住址:</label>
-                        <h:outputText styleClass="form-control" id="address" value='#{session.getAttribute("userInfo").address}' >
-                        </h:outputText>
-                    </div>
-                    
-                    <div class="space"></div>
-                    <div class="col-lg-3 col-lg-offset-4">
-                        <label>既往病史:</label>
-                        <h:form>
-                            <h:inputTextarea styleClass="form-control" id='description' value='#{session.getAttribute("userInfo").description}' readonly="true"/>
-                        </h:form>
-                    </div>
-                    
-                    <div class="space"></div>
-                    
+                <div class="col-lg-3 col-lg-offset-4">
+                    <label>用户名:</label>
+                    <h:outputText styleClass="form-control" id="userName" value='#{session.getAttribute("userInfo").userName}'>
+                    </h:outputText>
+                </div>
+                <div class="space"></div>
+                <div class="col-lg-3 col-lg-offset-4">
+                    <label>姓名:</label>
+                    <h:outputText styleClass="form-control" id="name" value='#{session.getAttribute("userInfo").name}'>
+                    </h:outputText>
+                </div>
+                <div class="space"></div>
+                <div class="col-lg-3 col-lg-offset-4">
+                    <label>性别:</label>
+                    <c:set var="sex" value='#{session.getAttribute("userInfo").sex}' scope="request"/>
+                    <h:outputText styleClass="form-control" id="sex1" value="男" rendered="#{sex=='M'}">
+                    </h:outputText>
+                    <h:outputText styleClass="form-control" id="sex2" value="女" rendered="#{sex=='F'}">
+                    </h:outputText>
+                </div>
+                <div class="space"></div>
+                <div class="col-lg-3 col-lg-offset-4">
+                    <label>手机号码:</label>
+                    <h:outputText styleClass="form-control" id="Phone" value='#{session.getAttribute("userInfo").phone}'>
+                    </h:outputText>
+                </div>
+                <div class="space"></div>
+                <div class="col-lg-3 col-lg-offset-4">
+                    <label>身份证:</label>
+                    <h:outputText styleClass="form-control" id="idCard" value='#{session.getAttribute("userInfo").idCard}'>
+                    </h:outputText>
+                </div>
+                <div class="space"></div>
+                <div class="col-lg-3 col-lg-offset-4">
+                    <label>生日:</label>
+                    <h:outputText styleClass="form-control" id="birthday" value='#{session.getAttribute("userInfo").birthday}'>
+                        <f:convertDateTime pattern="yyyy/MM/dd" timeZone="GMT+8"/>
+                    </h:outputText>
+                </div>
+                <div class="space"></div>
+                <div class="col-lg-3 col-lg-offset-4">
+                    <label>紧急联系人:</label>
+                    <h:outputText styleClass="form-control" id="emergencyName" value='#{session.getAttribute("userInfo").emergencyName}'>
+                    </h:outputText>
+                </div>
+                <div class="space"></div>
+                <div class="col-lg-3 col-lg-offset-4">
+                    <label>紧急联系电话:</label>
+                    <h:outputText styleClass="form-control" id="emergencyPhone" value='#{session.getAttribute("userInfo").emergencyPhone}'>
+                    </h:outputText>
+                </div>
+                <div class="space"></div>
+                <div class="col-lg-3 col-lg-offset-4">
+                    <label>家庭住址:</label>
+                    <h:outputText styleClass="form-control" id="address" value='#{session.getAttribute("userInfo").address}' >
+                    </h:outputText>
+                </div>
+                <div class="space"></div>
+                <div class="col-lg-3 col-lg-offset-4">
+                    <label>既往病史:</label>
+                    <h:form>
+                        <h:inputTextarea styleClass="form-control" id='description' value='#{session.getAttribute("userInfo").description}' readonly="true"/>
+                    </h:form>
+                </div>
+                <div class="space"></div>
             </div>
         </ui:define>
     </ui:composition>

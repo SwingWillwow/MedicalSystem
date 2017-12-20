@@ -2,9 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <ui:composition template="/templates/default/main.xhtml">
         <ui:define name="title">
             <title>病情判断</title>
@@ -13,7 +11,6 @@
         <ui:define name="contentWithoutLeftMenu">
             <div class="ContentContainedPage col-lg-11">
                 <div class="col-lg-4 col-lg-offset-4"><h1>病人基本情况</h1></div>
-
                 <h:panelGroup rendered="#{sessionManagedBean.hasErrorMessage()}">
                     <div class="col-lg-11">
                         <div class="alert alert-danger"><p align="center">#{sessionManagedBean.errorMessage}</p></div>
@@ -48,16 +45,14 @@
                     <div class="space"></div>
                     <div class="col-lg-3 col-lg-offset-4">
                         <label>病人症状:</label>
-                        <h:inputTextarea id="symptom" value="#{judgeSymptomBean.symptom}" styleClass="form-control" required="true" requiredMessage="病人症状不能为空">
-                            
+                        <h:inputTextarea id="symptom" value="#{judgeSymptomBean.symptom}" styleClass="form-control" required="true" requiredMessage="病人症状不能为空">                           
                         </h:inputTextarea>
                         <h:message for="symptom"/>
                     </div>
                     <div class="space"></div>
                     <div class="col-lg-3 col-lg-offset-4">
                         <label>病情诊断:</label>
-                        <h:inputTextarea id="diagnosisStr" value="#{judgeSymptomBean.diagnosisStr}" styleClass="form-control" required="true" requiredMessage="病情诊断不能为空">
-                            
+                        <h:inputTextarea id="diagnosisStr" value="#{judgeSymptomBean.diagnosisStr}" styleClass="form-control" required="true" requiredMessage="病情诊断不能为空">    
                         </h:inputTextarea>
                         <h:message for="diagnosis"/>
                     </div>
@@ -68,8 +63,6 @@
                         </div>
                     </div>
                 </h:form>
-
-
             </div>
         </ui:define>
     </ui:composition>

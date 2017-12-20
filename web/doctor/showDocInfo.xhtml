@@ -17,16 +17,11 @@
                     </div>
                 </div>
                 <h:form styleClass="form-horizontal">
-
-
                     <div class="col-lg-3 col-lg-offset-4">
                         <label class="control-label" for="userName">用户名:</label>
                         <h:outputText styleClass="form-control" id="userName" value='#{session.getAttribute("userInfo").userName}'>
-
                         </h:outputText>
                     </div>
-
-
                     <div class="space"></div>
                     <div class="col-lg-3 col-lg-offset-4">
                         <label class="control-label">姓名:</label>
@@ -37,21 +32,17 @@
                     <div class="col-lg-3 col-lg-offset-4">
                         <label>性别:</label>
                         <h:outputText styleClass="form-control" id="sex" value='#{session.getAttribute("userInfo").sex}'>
-
                         </h:outputText>
                     </div>
-
                     <div class="space"></div>
                     <div class="col-lg-3 col-lg-offset-4">
                         <label>身份证:</label>
                         <h:outputText styleClass="form-control" id="idCard" value='#{session.getAttribute("userInfo").idCard}'>
-
                         </h:outputText>
                     </div>
                     <div class="space"></div>
                     <div class="col-lg-3 col-lg-offset-4">
                         <label>生日:</label>
-
                         <h:outputText styleClass="form-control" id="birthday" value='#{session.getAttribute("userInfo").birthday}'>
                             <f:convertDateTime pattern="yyyy/MM/dd" timeZone="GMT+8"/>
                         </h:outputText>
@@ -59,17 +50,13 @@
                     <div class="space"></div>
                     <div class="col-lg-3 col-lg-offset-4">
                         <label>医龄:</label>
-
                         <h:outputText styleClass="form-control" id="age" value='#{session.getAttribute("userInfo").age}'>
-
                         </h:outputText>
                     </div>
                     <div class="space"></div>
                     <div class="col-lg-3 col-lg-offset-4">
                         <label>所属部门:</label>
-
                         <h:outputText styleClass="form-control" id="department" value='#{session.getAttribute("userInfo").department.name}'>
-
                         </h:outputText>
                     </div>
                     <div class="space"></div>
@@ -79,9 +66,7 @@
                             <h:inputTextarea styleClass="form-control" id='description' value='#{session.getAttribute("userInfo").description}' readonly="true"/>
                         </h:form>
                     </div>
-
                     <div class="space"></div>
-
                 </h:form>
             </div>
         </ui:define>

@@ -18,23 +18,23 @@
                 <h:dataTable styleClass="table table-striped" value="#{showMedicineRecordBean.medicineRecords}" var="medicineRecord">
                     <h:column>
                         <f:facet name="header">药物流水Id</f:facet>
-                        #{medicineRecord.id}
+                            #{medicineRecord.id}
                     </h:column>
                     <h:column>
                         <f:facet name="header">对应挂号单号</f:facet>
-                        #{medicineRecord.diagnosis.id}
+                            #{medicineRecord.diagnosis.id}
                     </h:column>
                     <h:column>
                         <f:facet name="header">药物Id</f:facet>
-                        #{medicineRecord.medicine.id}
+                            #{medicineRecord.medicine.id}
                     </h:column>
                     <h:column>
                         <f:facet name="header">药物名字</f:facet>
-                        #{medicineRecord.medicine.name}
+                            #{medicineRecord.medicine.name}
                     </h:column>
                     <h:column>
                         <f:facet name="header">用量</f:facet>
-                        #{medicineRecord.dosage}
+                            #{medicineRecord.dosage}
                     </h:column>
                     <h:column>
                         <f:facet name="header">使用日期</f:facet>
@@ -44,23 +44,23 @@
                     </h:column>
                     <h:column>
                         <f:facet name="header">拣药人</f:facet>
-                        #{medicineRecord.medicineOperator.name}
+                            #{medicineRecord.medicineOperator.name}
                     </h:column>   
                 </h:dataTable>
                 <h:panelGroup id="pageination">
                     <div class="col-lg-4 col-lg-offset-4">
-                    <ul class="pagination">
-                        <ui:repeat value="#{showMedicineRecordBean.pageNumber}" var="page" size="#{showMedicineRecordBean.pageCount}">
-                            <li>
-                                <h:form>
-                                    <h:commandLink action="#{showMedicineRecordBean.changePage}" value="#{page}">
-                                        <f:param name="currentPage" value="#{page}"/>
-                                    </h:commandLink>
-                                </h:form>
-                            </li>
-                        </ui:repeat>
-                    </ul>
-                </div>
+                        <ul class="pagination">
+                            <ui:repeat value="#{showMedicineRecordBean.pageNumber}" var="page" size="#{showMedicineRecordBean.pageCount}">
+                                <li>
+                                    <h:form>
+                                        <h:commandLink action="#{showMedicineRecordBean.changePage}" value="#{page}">
+                                            <f:param name="currentPage" value="#{page}"/>
+                                        </h:commandLink>
+                                    </h:form>
+                                </li>
+                            </ui:repeat>
+                        </ul>
+                    </div>
                 </h:panelGroup>
             </div>
         </ui:define>

@@ -1,7 +1,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
 
     <ui:composition>
         <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -56,9 +55,7 @@
                                         <h:form>
                                             <h:commandLink action="#{sessionManagedBean.userLogout}" value="用户登出"/>
                                         </h:form>
-
                                     </li>
-
                                 </ul>
                             </h:panelGroup>
                             <h:panelGroup rendered="#{sessionManagedBean.clk}">
@@ -73,9 +70,7 @@
                                         <h:form>
                                             <h:commandLink action="#{sessionManagedBean.userLogout}" value="用户登出"/>
                                         </h:form>
-
                                     </li>
-
                                 </ul>
                             </h:panelGroup>
                             <h:panelGroup rendered="#{sessionManagedBean.phar}">
@@ -90,9 +85,7 @@
                                         <h:form>
                                             <h:commandLink action="#{sessionManagedBean.userLogout}" value="用户登出"/>
                                         </h:form>
-
                                     </li>
-
                                 </ul>
                             </h:panelGroup>
                             <h:panelGroup rendered="#{sessionManagedBean.doc}">
@@ -107,9 +100,7 @@
                                         <h:form>
                                             <h:commandLink action="#{sessionManagedBean.userLogout}" value="用户登出"/>
                                         </h:form>
-
                                     </li>
-
                                 </ul>
                             </h:panelGroup>
                             <h:panelGroup rendered="#{sessionManagedBean.pat}">
@@ -128,15 +119,10 @@
                                         </h:form>
 
                                     </li>
-
                                 </ul>
                             </h:panelGroup>
-
-
-
                         </li>
                     </ul>
-
                 </div>
             </div>
         </div>

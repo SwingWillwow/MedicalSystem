@@ -23,6 +23,7 @@ import javax.transaction.UserTransaction;
  * @author Administrator
  */
 public class AddMedicineInventoryBean {
+
     @PersistenceContext(unitName = "MedicalSystemPU")
     private EntityManager em;
     @Resource
@@ -33,35 +34,36 @@ public class AddMedicineInventoryBean {
 
     public AddMedicineInventoryBean() {
     }
-    
+
     @PostConstruct
-    public void initAddMedicineInventoryBean(){
-        ExternalContext externalContext=FacesContext.getCurrentInstance().getExternalContext();
-        if(externalContext.getFlash().get("MedicineId")!=null){
-            String medicineId=externalContext.getFlash().get("MedicineId").toString();
-            medicine=em.find(Medicine.class, Long.parseLong(medicineId));
+    public void initAddMedicineInventoryBean() {
+        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+        if (externalContext.getFlash().get("MedicineId") != null) {
+            String medicineId = externalContext.getFlash().get("MedicineId").toString();
+            medicine = em.find(Medicine.class, Long.parseLong(medicineId));
         }
     }
-    public String addMedicineInventory(){
-        ExternalContext externalContext=FacesContext.getCurrentInstance().getExternalContext();
-        HttpSession session=(HttpSession)externalContext.getSession(true);
+
+    public String addMedicineInventory() {
+        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+        HttpSession session = (HttpSession) externalContext.getSession(true);
         if (session.getAttribute("sessionManagedBean") == null) {
             sessionManagedBean = new SessionManagedBean();
         } else {
             sessionManagedBean = (SessionManagedBean) session.getAttribute("sessionManagedBean");
         }
-        Employee operator=(Employee)session.getAttribute("userInfo");
+        Employee operator = (Employee) session.getAttribute("userInfo");
         try {
-            medicine.setInventory(medicine.getInventory()+addingInventory);
+            medicine.setInventory(medicine.getInventory() + addingInventory);
             medicine.setLastUpdateTime(new Date());
             medicine.setOperator(operator);
             utx.begin();
             em.merge(medicine);
-            utx.commit();   
+            utx.commit();
         } catch (Exception e) {
             sessionManagedBean.setErrorMessage(e.getMessage());
         }
-        String tip="修改成功:药物【"+medicine.getName()+"】库存变为"+medicine.getInventory();
+        String tip = "修改成功:药物【" + medicine.getName() + "】库存变为" + medicine.getInventory();
         sessionManagedBean.setSuccessMessage(tip);
         return "/admin/editMedicine";
     }
@@ -74,7 +76,6 @@ public class AddMedicineInventoryBean {
         this.addingInventory = addingInventory;
     }
 
-    
     public Medicine getMedicine() {
         return medicine;
     }
@@ -82,5 +83,5 @@ public class AddMedicineInventoryBean {
     public void setMedicine(Medicine medicine) {
         this.medicine = medicine;
     }
-     
+
 }

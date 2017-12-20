@@ -3,6 +3,7 @@
  * and open the template in the editor.
  */
 package com.entity;
+
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
@@ -16,38 +17,39 @@ import javax.persistence.TemporalType;
  * @author qiuyukun
  */
 @Entity
-@Table(name="Patient")
+@Table(name = "Patient")
 public class Patient extends Users implements Serializable {
-    @Column(name="PatientName",nullable=false)
+
+    @Column(name = "PatientName", nullable = false)
     private String name;
-    @Column(name="Sex",nullable=false)
+    @Column(name = "Sex", nullable = false)
     private char sex;
-    @Column(name="Birthday",nullable=false)//计算年龄，不能空
+    @Column(name = "Birthday", nullable = false)//计算年龄，不能空
     @Temporal(TemporalType.DATE)
     private Date birthday;
-    @Column(name="IdCard",unique=true,nullable=false)
+    @Column(name = "IdCard", unique = true, nullable = false)
     private String idCard;
-    @Column(name="Phone",nullable=false)
+    @Column(name = "Phone", nullable = false)
     private long phone;
-    @Column(name="EmergencyName")
+    @Column(name = "EmergencyName")
     private String emergencyName;
-    @Column(name="EmergencyPhone")
+    @Column(name = "EmergencyPhone")
     private long emergencyPhone;
-    @Column(name="Address",nullable=false)
+    @Column(name = "Address", nullable = false)
     private String address;
-    @Column(name="Description")
+    @Column(name = "Description")
     private String description;//病人过往病史
-    @Column(name="Count")
-    private int count=0;//看病次数，看情况给个vip好了
+    @Column(name = "Count")
+    private int count = 0;//看病次数，看情况给个vip好了
     @Temporal(TemporalType.TIMESTAMP)
     private Date createTime;
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastUpdateTime;
 
-    public Patient(){
-    
+    public Patient() {
+
     }
-    
+
     public char getSex() {
         return sex;
     }
@@ -163,8 +165,8 @@ public class Patient extends Users implements Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
-    
-    public Patient(String userName,String password,String name,char sex, Date birthday, String idCard, long phone, String emergencyName, long emergencyPhone, String address, String description, int count,Date createTime, Date lastUpdateTime) {
+
+    public Patient(String userName, String password, String name, char sex, Date birthday, String idCard, long phone, String emergencyName, long emergencyPhone, String address, String description, int count, Date createTime, Date lastUpdateTime) {
         this.userName = userName;
         this.password = password;
         this.name = name;
@@ -176,8 +178,8 @@ public class Patient extends Users implements Serializable {
         this.emergencyPhone = emergencyPhone;
         this.address = address;
         this.description = description;
-        this.count=count;
+        this.count = count;
         this.createTime = createTime;
         this.lastUpdateTime = lastUpdateTime;
-    }   
+    }
 }

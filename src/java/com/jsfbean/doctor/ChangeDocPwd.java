@@ -28,19 +28,20 @@ public class ChangeDocPwd {
     private UserTransaction utx;
     private String oldPassword;
     private String newPassword;
+
     /**
      * Creates a new instance of ChangeDocPwd
      */
     public ChangeDocPwd() {
-    
+
     }
 
-    public String changePwd(){
+    public String changePwd() {
         SessionManagedBean sessionManagedBean = SessionManagedBean.getInstance();
         try {
             HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
-            Doctor doctor = (Doctor)session.getAttribute("userInfo");
-            if(!PasswordManager.checkPassword(oldPassword, doctor.getPassword())){
+            Doctor doctor = (Doctor) session.getAttribute("userInfo");
+            if (!PasswordManager.checkPassword(oldPassword, doctor.getPassword())) {
                 sessionManagedBean.setErrorMessage("旧密码错误!");
                 return "";
             }
@@ -54,7 +55,7 @@ public class ChangeDocPwd {
         sessionManagedBean.userLogout();
         return "/index.xhtml";
     }
-    
+
     public String getOldPassword() {
         return oldPassword;
     }
@@ -70,5 +71,5 @@ public class ChangeDocPwd {
     public void setNewPassword(String newPassword) {
         this.newPassword = newPassword;
     }
-    
+
 }

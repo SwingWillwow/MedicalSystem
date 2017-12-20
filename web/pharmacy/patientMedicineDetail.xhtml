@@ -8,8 +8,7 @@ and open the template in the editor.
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:composition template="/templates/default/main.xhtml">
         <ui:define name="title">
             <title>用户诊疗记录细节查询</title>
@@ -31,31 +30,31 @@ and open the template in the editor.
                 <h:dataTable styleClass="table table-striped" value="#{pharmacyOperateBean.userDiagnosisDetails()}" var="diagDetail">
                     <h:column>
                         <f:facet name="header">药品项ID</f:facet>
-                        #{diagDetail.id}
+                            #{diagDetail.id}
                     </h:column>
                     <h:column>
                         <f:facet name="header">药物ID</f:facet>
-                        #{diagDetail.medicine.id}
+                            #{diagDetail.medicine.id}
                     </h:column>
                     <h:column>
                         <f:facet name="header">药名</f:facet>
-                        #{diagDetail.medicine.name}
+                            #{diagDetail.medicine.name}
                     </h:column>
                     <h:column>
                         <f:facet name="header">数量</f:facet>
-                        #{diagDetail.count}
+                            #{diagDetail.count}
                     </h:column>
                     <h:column>
                         <f:facet name="header">计量单位</f:facet>
-                        #{diagDetail.medicine.unite}
+                            #{diagDetail.medicine.unite}
                     </h:column>
                     <h:column>
                         <f:facet name="header">药品单价</f:facet>
-                        #{diagDetail.medicine.price}
+                            #{diagDetail.medicine.price}
                     </h:column>
                     <h:column>
                         <f:facet name="header">药品总价</f:facet>
-                        #{diagDetail.itemSum}
+                            #{diagDetail.itemSum}
                     </h:column>
                 </h:dataTable>
                 <h:form>

@@ -5,14 +5,8 @@
  */
 package com.test;
 
-import com.entity.Diagnosis;
-import com.entity.Doctor;
-import com.entity.Employee;
-import com.entity.Patient;
-import com.entity.Registration;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Date;
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -34,6 +28,7 @@ public class addFakeDataServlet extends HttpServlet {
     private EntityManager em;
     @Resource
     private UserTransaction utx;
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -73,7 +68,7 @@ public class addFakeDataServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet addFakeDataServlet</title>");            
+            out.println("<title>Servlet addFakeDataServlet</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet addFakeDataServlet at " + request.getContextPath() + "</h1>");

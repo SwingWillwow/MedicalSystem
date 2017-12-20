@@ -26,7 +26,7 @@ public class ShowTransactionBean {
     /**
      * Creates a new instance of ShowTransactionBean
      */
-     @PersistenceContext(unitName = "MedicalSystemPU")
+    @PersistenceContext(unitName = "MedicalSystemPU")
     private EntityManager em;
     @Resource
     private UserTransaction utx;
@@ -35,32 +35,35 @@ public class ShowTransactionBean {
     int pageCount;
     int currentPage;
     List<String> pageNumber = new ArrayList<>();
+
     public ShowTransactionBean() {
-        
-    }
-    @PostConstruct
-    private void init(){
-        Query query = em.createQuery("SELECT trans FROM TransactionRecord trans");
-        trans = query.getResultList();
-        pageCount = (trans.size()+PAGESIZE-1)/PAGESIZE;
-        currentPage=1;
-        trans.clear();
-        trans = query.setMaxResults(PAGESIZE).setFirstResult(PAGESIZE*(currentPage-1)).getResultList();
-        pageNumber.clear();
-        for(Integer i=1;i<=pageCount;i++){
-            pageNumber.add(i.toString());
-        }
-        
+
     }
 
-    public String changePage(){
+    @PostConstruct
+    private void init() {
+        Query query = em.createQuery("SELECT trans FROM TransactionRecord trans");
+        trans = query.getResultList();
+        pageCount = (trans.size() + PAGESIZE - 1) / PAGESIZE;
+        currentPage = 1;
+        trans.clear();
+        trans = query.setMaxResults(PAGESIZE).setFirstResult(PAGESIZE * (currentPage - 1)).getResultList();
+        pageNumber.clear();
+        for (Integer i = 1; i <= pageCount; i++) {
+            pageNumber.add(i.toString());
+        }
+
+    }
+
+    public String changePage() {
         HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
         currentPage = Integer.parseInt(request.getParameter("currentPage"));
         Query query = em.createQuery("SELECT trans FROM TransactionRecord trans");
         trans.clear();
-        trans = query.setMaxResults(PAGESIZE).setFirstResult(PAGESIZE*(currentPage-1)).getResultList();
+        trans = query.setMaxResults(PAGESIZE).setFirstResult(PAGESIZE * (currentPage - 1)).getResultList();
         return "";
     }
+
     public List<TransactionRecord> getTrans() {
         return trans;
     }
@@ -93,5 +96,4 @@ public class ShowTransactionBean {
         this.pageNumber = pageNumber;
     }
 
-    
 }

@@ -12,7 +12,6 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.inject.Named;
-import javax.enterprise.context.Dependent;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
@@ -39,11 +38,13 @@ public class ShowDeptEmp {
     private UserTransaction utx;
     private List<Employee> allDeptEmps;
     private Long id;
+
     public ShowDeptEmp() {
-        
+
     }
+
     @PostConstruct
-    private void init(){
+    private void init() {
         String sid = ParamUtil.getFlashParamByName(FacesContext.getCurrentInstance(), "deptId");
         id = Long.parseLong(sid);
         Query query = em.createQuery("SELECT e FROM Employee e WHERE e.department = ?1");
@@ -58,5 +59,5 @@ public class ShowDeptEmp {
     public void setAllDeptEmps(List<Employee> allDeptEmps) {
         this.allDeptEmps = allDeptEmps;
     }
-    
+
 }

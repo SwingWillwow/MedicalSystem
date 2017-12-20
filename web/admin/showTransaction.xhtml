@@ -3,9 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:composition template="/templates/default/main.xhtml">
         <ui:define name="title">
             <title>交易信息一览</title>
@@ -20,11 +18,11 @@
                 <h:dataTable styleClass="table table-striped" value="#{showTransactionBean.trans}" var="trans">
                     <h:column>
                         <f:facet name="header">Id</f:facet>
-                        #{trans.id}
+                            #{trans.id}
                     </h:column>
                     <h:column>
                         <f:facet name="header">对应挂号单号</f:facet>
-                        #{trans.diagnosis.id}
+                            #{trans.diagnosis.id}
                     </h:column>
                     <h:column>
                         <f:facet name="header">账单类型</f:facet>
@@ -37,11 +35,11 @@
                     </h:column>
                     <h:column>
                         <f:facet name="header">金额</f:facet>
-                        #{trans.money}
+                            #{trans.money}
                     </h:column>
                     <h:column>
                         <f:facet name="header">缴费人</f:facet>
-                        #{trans.patient.name}
+                            #{trans.patient.name}
                     </h:column>
                     <h:column>
                         <f:facet name="header">缴费方式</f:facet>
@@ -66,23 +64,23 @@
                     </h:column>
                     <h:column>
                         <f:facet name="header">操作人</f:facet>
-                        #{trans.operator.name}
+                            #{trans.operator.name}
                     </h:column>   
                 </h:dataTable>
                 <h:panelGroup id="pageination">
                     <div class="col-lg-4 col-lg-offset-4">
-                    <ul class="pagination">
-                        <ui:repeat value="#{showTransactionBean.pageNumber}" var="page" size="#{showTransactionBean.pageCount}">
-                            <li>
-                                <h:form>
-                                    <h:commandLink action="#{showTransactionBean.changePage}" value="#{page}">
-                                        <f:param name="currentPage" value="#{page}"/>
-                                    </h:commandLink>
-                                </h:form>
-                            </li>
-                        </ui:repeat>
-                    </ul>
-                </div>
+                        <ul class="pagination">
+                            <ui:repeat value="#{showTransactionBean.pageNumber}" var="page" size="#{showTransactionBean.pageCount}">
+                                <li>
+                                    <h:form>
+                                        <h:commandLink action="#{showTransactionBean.changePage}" value="#{page}">
+                                            <f:param name="currentPage" value="#{page}"/>
+                                        </h:commandLink>
+                                    </h:form>
+                                </li>
+                            </ui:repeat>
+                        </ul>
+                    </div>
                 </h:panelGroup>
             </div>
         </ui:define>

@@ -6,7 +6,6 @@ package com.entity;
 
 import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -15,33 +14,32 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
  *
- * @author lmh
- * 药物使用流水表
+ * @author lmh 药物使用流水表
  */
 @Entity
-@Table(name="MedicineRecord")
+@Table(name = "MedicineRecord")
 public class MedicineRecord implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToOne(fetch= FetchType.LAZY,optional=false)
-    @JoinColumn(name="MedicineId")
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "MedicineId")
     private Medicine medicine;//药物
-    @ManyToOne(fetch= FetchType.LAZY,optional=false)
-    @JoinColumn(name="DiagId")
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "DiagId")
     private Diagnosis diagnosis;//对应诊单
-    @Column(name="Dosage",nullable=false)
+    @Column(name = "Dosage", nullable = false)
     private int dosage;//用量
-    @ManyToOne(fetch= FetchType.LAZY,optional=false)
-    @JoinColumn(name="MedicinekOperatorId")
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "MedicinekOperatorId")
     private Employee medicineOperator;//外键药房捡药小姐姐,在Fee表中
     @Temporal(TemporalType.TIMESTAMP)
     private Date createTime;//外键Fee表中药物状态变为“3-已捡药状态”的时间
@@ -49,10 +47,10 @@ public class MedicineRecord implements Serializable {
     public MedicineRecord() {
     }
 
-    public MedicineRecord(Medicine medicine, Diagnosis diagnosis,int dosage, Employee medicineOperator, Date createTime) {
+    public MedicineRecord(Medicine medicine, Diagnosis diagnosis, int dosage, Employee medicineOperator, Date createTime) {
         this.medicine = medicine;
         this.diagnosis = diagnosis;
-        this.dosage=dosage;
+        this.dosage = dosage;
         this.medicineOperator = medicineOperator;
         this.createTime = createTime;
     }
@@ -64,7 +62,7 @@ public class MedicineRecord implements Serializable {
     public void setDosage(int dosage) {
         this.dosage = dosage;
     }
-    
+
     public Long getId() {
         return id;
     }
@@ -104,7 +102,6 @@ public class MedicineRecord implements Serializable {
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
-    
 
     @Override
     public int hashCode() {
@@ -130,5 +127,5 @@ public class MedicineRecord implements Serializable {
     public String toString() {
         return "com.entity.MedicineRecord[ id=" + id + " ]";
     }
-    
+
 }

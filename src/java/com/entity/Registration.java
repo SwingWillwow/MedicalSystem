@@ -17,19 +17,19 @@ import javax.persistence.TemporalType;
 
 /**
  *
- * @author lmh
- * 医生挂号费表，不同医生职位的挂号费不同
+ * @author lmh 医生挂号费表，不同医生职位的挂号费不同
  */
 @Entity
-@Table(name="Registration")
+@Table(name = "Registration")
 public class Registration implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name="RegistrationName",nullable = false,unique = true)
+    @Column(name = "RegistrationName", nullable = false, unique = true)
     private String name;//职位名称
-    @Column(name="DiagFee",nullable=false)
+    @Column(name = "DiagFee", nullable = false)
     private Double diagFee;//挂号费
     @Temporal(TemporalType.TIMESTAMP)
     private Date createTime;
@@ -78,7 +78,6 @@ public class Registration implements Serializable {
         this.lastUpdateTime = lastUpdateTime;
     }
 
-    
     public Long getId() {
         return id;
     }
@@ -111,5 +110,5 @@ public class Registration implements Serializable {
     public String toString() {
         return "com.entity.Registration[ id=" + id + " ]";
     }
-    
+
 }

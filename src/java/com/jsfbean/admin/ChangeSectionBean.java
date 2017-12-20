@@ -5,9 +5,7 @@
  */
 package com.jsfbean.admin;
 
-import com.entity.Department;
 import com.entity.Doctor;
-import com.entity.Employee;
 import com.entity.Sections;
 import com.jsfbean.SessionManagedBean;
 import com.util.ParamUtil;
@@ -29,17 +27,18 @@ public class ChangeSectionBean {
     /**
      * Creates a new instance of ChangeSectionBean
      */
-     @PersistenceContext(unitName = "MedicalSystemPU")
+    @PersistenceContext(unitName = "MedicalSystemPU")
     private EntityManager em;
     @Resource
     private UserTransaction utx;
     private Sections currentSection;
     private List<Doctor> allDoctors;
-    
+
     public ChangeSectionBean() {
     }
+
     @PostConstruct
-    private void init(){
+    private void init() {
         String sectionId = ParamUtil.getFlashParamByName(FacesContext.getCurrentInstance(), "sectionId");
         Long id = Long.parseLong(sectionId);
         currentSection = em.find(Sections.class, id);
@@ -49,7 +48,7 @@ public class ChangeSectionBean {
         allDoctors = query.getResultList();
     }
 
-    public String changeSectionInfo(){
+    public String changeSectionInfo() {
         try {
             utx.begin();
             currentSection.setManager(em.find(Doctor.class, currentSection.getManager().getId()));
@@ -62,7 +61,7 @@ public class ChangeSectionBean {
         SessionManagedBean.getInstance().setSuccessMessage("修改成功");
         return "/admin/manageSection";
     }
-    
+
     public Sections getCurrentSection() {
         return currentSection;
     }
@@ -78,5 +77,5 @@ public class ChangeSectionBean {
     public void setAllDoctors(List<Doctor> allDoctors) {
         this.allDoctors = allDoctors;
     }
-    
+
 }

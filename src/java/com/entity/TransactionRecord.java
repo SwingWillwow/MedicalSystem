@@ -25,26 +25,27 @@ import javax.persistence.TemporalType;
  * @author Administrator
  */
 @Entity
-@Table(name="TransactionRecord")
+@Table(name = "TransactionRecord")
 public class TransactionRecord implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name="Type",nullable=false)
+    @Column(name = "Type", nullable = false)
     private int type;//支付种类（1-挂号费、2-药费）
-    @OneToOne(fetch= FetchType.LAZY,cascade={CascadeType.REMOVE},optional=false)
-    @JoinColumn(name="DiagId")
+    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.REMOVE}, optional = false)
+    @JoinColumn(name = "DiagId")
     private Diagnosis diagnosis;//直接对应诊单，诊单中可查到挂号费，也可查到Fee表中的费用
-    @Column(name="Money",nullable=false,precision=10,scale=2)
+    @Column(name = "Money", nullable = false, precision = 10, scale = 2)
     private Double money;//金额
-    @Column(name="PayType",nullable=false)
+    @Column(name = "PayType", nullable = false)
     private int payType;//支付手段（1-现金，2-支付宝，3-微信，4-银行卡）
-    @ManyToOne(fetch= FetchType.LAZY,optional=false)
-    @JoinColumn(name="PatientId")
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "PatientId")
     private Patient patient;//病人
-    @ManyToOne(fetch= FetchType.LAZY,optional=false)
-    @JoinColumn(name="OperatorId")
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "OperatorId")
     private Employee operator;//账单处理人
     @Temporal(TemporalType.TIMESTAMP)
     private Date createTime;//外键Diagnosis表的创建时间和Fee表的缴费时间
@@ -126,7 +127,6 @@ public class TransactionRecord implements Serializable {
         this.createTime = createTime;
     }
 
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -151,5 +151,5 @@ public class TransactionRecord implements Serializable {
     public String toString() {
         return "com.entity.TransactionRecord[ id=" + id + " ]";
     }
-    
+
 }

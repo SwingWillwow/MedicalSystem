@@ -11,11 +11,8 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.inject.Named;
-import javax.enterprise.context.Dependent;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.Flash;
 import javax.persistence.EntityManager;
@@ -43,15 +40,26 @@ public class showSectionDocBean {
     private EntityManager em;
     @Resource
     private UserTransaction utx;
+
     public showSectionDocBean() {
-        
+
     }
+
     @PostConstruct
-    private void init(){
+    private void init() {
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
         Long sectionId = Long.parseLong(session.getAttribute("sectionId").toString());
         section = em.find(Sections.class, sectionId);
         doctors = section.getDoctors();
+    }
+
+    public String toDocInfo() {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        HttpServletRequest request = (HttpServletRequest) facesContext.getExternalContext().getRequest();
+        String docId = request.getParameter("docId");
+        Flash flash = facesContext.getExternalContext().getFlash();
+        flash.put("docId", docId);
+        return "/showDocInfo.xhtml";
     }
 
     public Sections getSection() {
@@ -69,13 +77,4 @@ public class showSectionDocBean {
     public void setDoctors(List<Doctor> doctors) {
         this.doctors = doctors;
     }
-    public String toDocInfo(){
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        HttpServletRequest request = (HttpServletRequest) facesContext.getExternalContext().getRequest();
-        String docId = request.getParameter("docId");
-        Flash flash = facesContext.getExternalContext().getFlash();
-        flash.put("docId", docId);
-        return "/showDocInfo.xhtml";
-    }
-    
 }

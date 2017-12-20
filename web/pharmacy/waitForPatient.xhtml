@@ -21,23 +21,23 @@ and open the template in the editor.
                 <h:dataTable styleClass="table table-striped" value="#{pharmacyOperateBean.waitPatientList()}" var="diag">
                     <h:column>
                         <f:facet name="header">诊单ID</f:facet>
-                        #{diag.id}
+                            #{diag.id}
                     </h:column>
                     <h:column>
                         <f:facet name="header">药费单号</f:facet>
-                        #{diag.fee.id}
+                            #{diag.fee.id}
                     </h:column>
                     <h:column>
                         <f:facet name="header">药费</f:facet>
-                        #{diag.fee.totalSum}
+                            #{diag.fee.totalSum}
                     </h:column>
                     <h:column>
                         <f:facet name="header">主治医师</f:facet>
-                        #{diag.doctor.name}
+                            #{diag.doctor.name}
                     </h:column>
                     <h:column>
                         <f:facet name="header">用户姓名</f:facet>
-                        #{diag.patient.name}
+                            #{diag.patient.name}
                     </h:column>
                     <h:column>
                         <f:facet name="header">确认领取</f:facet>

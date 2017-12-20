@@ -6,7 +6,6 @@ package com.entity;
 
 import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -15,35 +14,34 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
  *
- * @author lmh
- * 药物记录表
+ * @author lmh 药物记录表
  */
 @Entity
-@Table(name="Medicine")
+@Table(name = "Medicine")
 public class Medicine implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name="MedicineName",unique=true,nullable=false)
+    @Column(name = "MedicineName", unique = true, nullable = false)
     private String name;
-    @Column(name="Type",nullable=false)
+    @Column(name = "Type", nullable = false)
     private String type;//药膏、西药、中药、注射液等
-    @Column(name="Unite",nullable=false)
+    @Column(name = "Unite", nullable = false)
     private String unite;//计量单位(比如“15支/排”，盒)
-    @Column(name="Price",nullable=false,precision=10,scale=2)
+    @Column(name = "Price", nullable = false, precision = 10, scale = 2)
     private Double price;//单价
-    @Column(name="Inventory",nullable=false)
+    @Column(name = "Inventory", nullable = false)
     private int inventory;//库存
-    @ManyToOne(fetch= FetchType.LAZY,optional=false)
-    @JoinColumn(name="OperatorId")
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "OperatorId")
     private Employee operator;//操作人，其实就是管理员id，怀疑可以不要这个字段
     @Temporal(TemporalType.TIMESTAMP)
     private Date createTime;
@@ -127,8 +125,7 @@ public class Medicine implements Serializable {
     public void setLastUpdateTime(Date lastUpdateTime) {
         this.lastUpdateTime = lastUpdateTime;
     }
-    
-    
+
     public Long getId() {
         return id;
     }
@@ -161,5 +158,5 @@ public class Medicine implements Serializable {
     public String toString() {
         return "com.entity.Medicine[ id=" + id + " ]";
     }
-    
+
 }

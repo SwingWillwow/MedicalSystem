@@ -17,41 +17,40 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
  *
- * @author lmh
- * 预约人数登记表，记录每天每位医生的可预约、可挂号人数与实际挂号人数
+ * @author lmh 预约人数登记表，记录每天每位医生的可预约、可挂号人数与实际挂号人数
  */
 @Entity
-@Table(name="PreRegistration")
+@Table(name = "PreRegistration")
 public class PreRegistration implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name="PreTime",nullable=false)
+    @Column(name = "PreTime", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date preTime;//预约的日期
-    @ManyToOne(fetch= FetchType.LAZY)
-    @JoinColumn(name="DocId")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "DocId")
     private Doctor doctor;//所预约医生
-    @Column(name="ByInternet",nullable=false)
+    @Column(name = "ByInternet", nullable = false)
     private int byInternet;//可预约人数
-    @Column(name="ByInternetReal")
+    @Column(name = "ByInternetReal")
     private int byInternetReal;//已预约人数
-    @OneToMany(fetch= FetchType.LAZY,cascade = {CascadeType.REMOVE},mappedBy = "preRegistrationId")
-    @JoinColumn(name="PreRegistrationId")
+    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.REMOVE}, mappedBy = "preRegistrationId")
+    @JoinColumn(name = "PreRegistrationId")
     private List<PreRegistrationDetail> preResgistrationDetails;//预约的详细人
-    @Column(name="ByLive",nullable=false)
+    @Column(name = "ByLive", nullable = false)
     private int byLive;//未预约可挂号人数
-    @Column(name="ByLiveReal")
+    @Column(name = "ByLiveReal")
     private int byLiveReal;//未预约前台已挂号人数
-    @Column(name="Count",nullable=false)
+    @Column(name = "Count", nullable = false)
     private int count;//该天该医生已挂号人数，初始为0，同时为病人提供排号依据
     @Temporal(TemporalType.TIMESTAMP)
     private Date createTime;
@@ -162,7 +161,6 @@ public class PreRegistration implements Serializable {
         this.lastUpdateTime = lastUpdateTime;
     }
 
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -187,5 +185,5 @@ public class PreRegistration implements Serializable {
     public String toString() {
         return "com.entity.PreRegistration[ id=" + id + " ]";
     }
-    
+
 }

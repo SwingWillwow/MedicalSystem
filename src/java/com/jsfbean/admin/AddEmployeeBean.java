@@ -15,10 +15,7 @@ import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
-import javax.faces.component.UIComponent;
-import javax.faces.component.behavior.AjaxBehavior;
 import javax.faces.event.AjaxBehaviorEvent;
-import javax.faces.event.ValueChangeEvent;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -43,12 +40,13 @@ public class AddEmployeeBean {
     private List<Sections> sections;
     private List<Registration> registrations;
     private int deptId;
+
     public AddEmployeeBean() {
-        
+
     }
 
     @PostConstruct
-    private void init(){
+    private void init() {
         Query query = em.createQuery("SELECT dept FROM Department dept");
         allDepts = query.getResultList();
         employee = new Employee();
@@ -61,30 +59,29 @@ public class AddEmployeeBean {
         query = em.createQuery("SELECT reg FROM Registration reg");
         registrations = query.getResultList();
     }
-    
-    
+
     //新增雇员
-    public String newEmployee(){
-        if(employee.getDepartment().getId()==4){
+    public String newEmployee() {
+        if (employee.getDepartment().getId() == 4) {
             addDoctor();
-        }
-        else{
+        } else {
             addEmployee();
         }
         return "/index.xhtml";
     }
-    private void addDoctor(){
+
+    private void addDoctor() {
         setDoctorBasedOnEmployee();
         try {
             utx.begin();
             em.persist(doctor);
             Sections section = em.find(Sections.class, doctor.getSections().getId());
-            section.setNumber(section.getNumber()+1);
+            section.setNumber(section.getNumber() + 1);
 //            List<Doctor> doctors = section.getDoctors();
 //            doctors.add(doctor);
 //            section.setDoctors(doctors);
             Department dept = em.find(Department.class, doctor.getDepartment().getId());
-            dept.setNumber(dept.getNumber()+1);
+            dept.setNumber(dept.getNumber() + 1);
 //            List<Employee> employees = dept.getEmployees();
 //            basicSetForEmployee();
 //            employees.add(employee);
@@ -94,7 +91,8 @@ public class AddEmployeeBean {
             e.printStackTrace();
         }
     }
-    private void setDoctorBasedOnEmployee(){
+
+    private void setDoctorBasedOnEmployee() {
         doctor.setUserName(employee.getUserName());
         doctor.setPassword(PasswordManager.getMD5(employee.getPassword()));
         doctor.setName(employee.getName());
@@ -107,14 +105,15 @@ public class AddEmployeeBean {
         doctor.setSections(em.find(Sections.class, doctor.getSections().getId()));
         doctor.setRegistration(em.find(Registration.class, doctor.getRegistration().getId()));
     }
-    private void addEmployee(){
+
+    private void addEmployee() {
         basicSetForEmployee();
         try {
             utx.begin();
             employee.setPassword(PasswordManager.getMD5(employee.getPassword()));
             em.persist(employee);
             Department dept = em.find(Department.class, employee.getDepartment().getId());
-            dept.setNumber(dept.getNumber()+1);
+            dept.setNumber(dept.getNumber() + 1);
 //            List<Employee> employees = dept.getEmployees();
 //            employees.add(employee);
 //            dept.setEmployees(employees);
@@ -123,16 +122,18 @@ public class AddEmployeeBean {
             e.printStackTrace();
         }
     }
-    private void basicSetForEmployee(){
+
+    private void basicSetForEmployee() {
         employee.setDepartment(em.find(Department.class, employee.getDepartment().getId()));
         employee.setCreateTime(new Date());
         employee.setLastUpdateTime(new Date());
     }
+
     //Ajax
-    public void changeDepart(AjaxBehaviorEvent event){
+    public void changeDepart(AjaxBehaviorEvent event) {
         System.out.println(deptId);
     }
-    
+
     public Doctor getDoctor() {
         return doctor;
     }
@@ -180,5 +181,5 @@ public class AddEmployeeBean {
     public void setRegistrations(List<Registration> registrations) {
         this.registrations = registrations;
     }
-    
+
 }

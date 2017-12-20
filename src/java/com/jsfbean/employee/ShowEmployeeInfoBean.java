@@ -18,13 +18,15 @@ import javax.transaction.UserTransaction;
  * @author Administrator
  */
 public class ShowEmployeeInfoBean {
+
     @PersistenceContext(unitName = "MedicalSystemPU")
     private EntityManager em;
     @Resource
     private UserTransaction utx;
     private Employee employee;
+
     public ShowEmployeeInfoBean() {
-        HttpSession session=(HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
         employee = (Employee) session.getAttribute("userInfo");
     }
 
@@ -35,5 +37,5 @@ public class ShowEmployeeInfoBean {
     public void setEmployee(Employee employee) {
         this.employee = employee;
     }
-    
+
 }

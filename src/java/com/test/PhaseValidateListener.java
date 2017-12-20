@@ -14,17 +14,19 @@ import javax.faces.event.PhaseListener;
  *
  * @author qiuyukun
  */
-public class PhaseValidateListener implements PhaseListener{
+public class PhaseValidateListener implements PhaseListener {
+
     private static final Logger logger = Logger.getLogger("com.test.MyPhaseListener");
+
     @Override
     public void afterPhase(PhaseEvent event) {
-        logger.info("AFTER"+event.getPhaseId());
+        logger.info("AFTER" + event.getPhaseId());
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void beforePhase(PhaseEvent event) {
-        logger.info("BEFORE"+event.getPhaseId());
+        logger.info("BEFORE" + event.getPhaseId());
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -33,5 +35,5 @@ public class PhaseValidateListener implements PhaseListener{
         return PhaseId.ANY_PHASE;
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }

@@ -2,7 +2,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets" style="height: 100%">
 
     <h:head>
@@ -17,24 +16,21 @@
         <h:outputScript name="layer/layer.js"/>
         <h:outputScript name="js/myJs.js"/>
         <ui:insert name="title">
-            
+
         </ui:insert>
     </h:head>
 
     <h:body style="min-height:100%;margin:0;padding-top:50px;position:relative;">
-                <ui:insert name="header">
-                    <ui:include src="/templates/default/header.xhtml"></ui:include>
-                </ui:insert>
-            
-                <ui:insert name="content" >
-                    <ui:include src="/templates/default/content.xhtml"></ui:include>
-                </ui:insert>
-            
-                 
-                <ui:insert name="footer">
-                    <ui:include src="/templates/default/footer.xhtml"></ui:include>
-                </ui:insert>
-           
+        <ui:insert name="header">
+            <ui:include src="/templates/default/header.xhtml"></ui:include>
+        </ui:insert>
 
+        <ui:insert name="content" >
+            <ui:include src="/templates/default/content.xhtml"></ui:include>
+        </ui:insert>
+
+        <ui:insert name="footer">
+            <ui:include src="/templates/default/footer.xhtml"></ui:include>
+        </ui:insert>
     </h:body>
 </html>

@@ -11,8 +11,6 @@ import javax.annotation.Resource;
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.print.Doc;
-import javax.servlet.http.HttpServletRequest;
 import javax.transaction.UserTransaction;
 
 /**
@@ -29,11 +27,13 @@ public class showDocInfoBean {
     @Resource
     private UserTransaction utx;
     private Doctor doctor;
+
     public showDocInfoBean() {
-        
+
     }
+
     @PostConstruct
-    private void init(){
+    private void init() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         String sid = facesContext.getExternalContext().getFlash().get("docId").toString();
         Long id = Long.parseLong(sid);
@@ -47,6 +47,5 @@ public class showDocInfoBean {
     public void setDoctor(Doctor doctor) {
         this.doctor = doctor;
     }
-    
-    
+
 }

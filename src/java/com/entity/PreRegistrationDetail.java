@@ -6,7 +6,6 @@ package com.entity;
 
 import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -15,27 +14,26 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
  *
- * @author lmh
- * 预约人表，详细记录预约人
+ * @author lmh 预约人表，详细记录预约人
  */
 @Entity
-@Table(name="PreRegistrationDetail")
+@Table(name = "PreRegistrationDetail")
 public class PreRegistrationDetail implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToOne(fetch= FetchType.LAZY,optional=false)
-    @JoinColumn(name="PatientId")
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "PatientId")
     private Patient patient;//预约的病人
-    @Column(name="Valid",nullable=false)
+    @Column(name = "Valid", nullable = false)
     private char valid;//是否有效，Y/N
     @Temporal(TemporalType.TIMESTAMP)
     private Date createTime;
@@ -44,7 +42,7 @@ public class PreRegistrationDetail implements Serializable {
     @ManyToOne
     @JoinColumn(name = "PreRegistrationId")
     private PreRegistration preRegistrationId;
-    
+
     public PreRegistrationDetail() {
     }
 
@@ -103,8 +101,6 @@ public class PreRegistrationDetail implements Serializable {
         this.preRegistrationId = preRegistrationId;
     }
 
-    
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -129,5 +125,5 @@ public class PreRegistrationDetail implements Serializable {
     public String toString() {
         return "com.entity.PreRegistrationDetail[ id=" + id + " ]";
     }
-    
+
 }

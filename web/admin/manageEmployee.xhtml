@@ -3,8 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:composition template="/templates/default/main.xhtml">
         <ui:define name="title">
             <title>员工管理</title>
@@ -19,15 +18,15 @@
                 <h:dataTable styleClass="table table-striped" value="#{manageEmployee.employeeList}" var="employee">
                     <h:column>
                         <f:facet name="header">Id</f:facet>
-                        #{employee.id}
+                            #{employee.id}
                     </h:column>
                     <h:column>
                         <f:facet name="header">姓名</f:facet>
-                        #{employee.name}
+                            #{employee.name}
                     </h:column>
                     <h:column>
                         <f:facet name="header">身份证</f:facet>
-                        #{employee.idCard}
+                            #{employee.idCard}
                     </h:column>
                     <h:column>
                         <f:facet name="header">生日</f:facet>
@@ -43,12 +42,10 @@
                         <h:panelGroup rendered="#{employee.sex=='F'}">
                             女
                         </h:panelGroup>
-                        
-                        
                     </h:column>
                     <h:column>
                         <f:facet name="header">所属部门</f:facet>
-                        #{employee.department.name}
+                            #{employee.department.name}
                     </h:column>
                     <h:column>
                         <f:facet name="header">修改</f:facet>

@@ -42,7 +42,7 @@ and open the template in the editor.
                         <h:message for="byInternet"/>
                     </div>
                     <div class="space"></div>
-                    
+
                     <div class="col-lg-3 col-lg-offset-4">
                         <label>已预约人数:</label>
                         <h:outputText styleClass="form-control" id="byInternetReal" value="#{clerkOperateBean.pr.byInternetReal}">
@@ -79,12 +79,11 @@ and open the template in the editor.
                             <f:selectItem itemValue = "4" itemLabel = "银行卡" />
                         </h:selectOneMenu>
                     </div>
-                    
                     <div class="space"></div>
                     <div class="row">
                         <div class="col-lg-2 col-lg-offset-4">
                             <h:commandButton styleClass="btn btn-success" value="挂号" rendered="#{clerkOperateBean.canRegistration}" action="#{clerkOperateBean.byLiveRegistration()}">
-                            
+
                             </h:commandButton>                            
                             <h:commandButton styleClass="btn btn-success" value="返回" action="liveRegistration"/>
                         </div>

@@ -9,7 +9,6 @@ import com.entity.Patient;
 import com.jsfbean.CaptchaBean;
 import com.jsfbean.SessionManagedBean;
 import com.util.PasswordManager;
-import java.time.Instant;
 import java.util.Date;
 import javax.annotation.Resource;
 import javax.faces.application.FacesMessage;
@@ -20,7 +19,6 @@ import javax.faces.validator.ValidatorException;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.servlet.http.HttpSession;
-import javax.servlet.jsp.PageContext;
 import javax.transaction.UserTransaction;
 
 /**
@@ -46,7 +44,7 @@ public class PatientManagedBean {
     private long emergencyPhone;
     private String address;
     private String description;
-    private int count=0;
+    private int count = 0;
     private Date createTime;
     private Date lastUpdateTime;
     private Patient patient;
@@ -54,23 +52,23 @@ public class PatientManagedBean {
     private String captcha;
     private CaptchaBean captchaBean;
     private SessionManagedBean sessionManagedBean;
+
     public PatientManagedBean() {
         captchaBean = new CaptchaBean();
     }
-    
-    public String changePatientInfo(){
+
+    public String changePatientInfo() {
         initPatientManagedBean();
         FacesContext facesContext = FacesContext.getCurrentInstance();
         ExternalContext externalContext = facesContext.getExternalContext();
-        HttpSession session = (HttpSession)externalContext.getSession(true);
-        Patient p = (Patient)session.getAttribute("userInfo");
+        HttpSession session = (HttpSession) externalContext.getSession(true);
+        Patient p = (Patient) session.getAttribute("userInfo");
         p.setLastUpdateTime(new Date());
-        try{
+        try {
             utx.begin();
             em.merge(p);
             utx.commit();
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             sessionManagedBean.setErrorMessage(e.getMessage());
             p = em.find(Patient.class, p.getId());
             session.setAttribute("userInfo", p);
@@ -78,73 +76,71 @@ public class PatientManagedBean {
         }
         return "";
     }
-    
-    public void initPatientManagedBean(){
-        if((sessionManagedBean=(SessionManagedBean)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("sessionManagedBean"))==null){
-                sessionManagedBean = new SessionManagedBean();
+
+    public void initPatientManagedBean() {
+        if ((sessionManagedBean = (SessionManagedBean) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("sessionManagedBean")) == null) {
+            sessionManagedBean = new SessionManagedBean();
         }
     }
-    
-    
+
     //新增病人
-    public String newPatient(){
+    public String newPatient() {
         //inital SessionManagedBean
         initPatientManagedBean();
-        if((sessionManagedBean=(SessionManagedBean)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("sessionManagedBean"))==null){
-                sessionManagedBean = new SessionManagedBean();
+        if ((sessionManagedBean = (SessionManagedBean) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("sessionManagedBean")) == null) {
+            sessionManagedBean = new SessionManagedBean();
         }
-            
-        
+
         //may lead to mistake add try-catch later 
         lastUpdateTime = new Date();
         createTime = new Date();
-        String DBpassword="";
+        String DBpassword = "";
         try {
             DBpassword = PasswordManager.getMD5(password);
         } catch (Exception e) {
             e.printStackTrace();
             return "";
         }
-        patient = new Patient(userName,DBpassword,name,sex,birthday,idCard,phone,emergencyName,emergencyPhone,address,description,count,createTime,lastUpdateTime);
+        patient = new Patient(userName, DBpassword, name, sex, birthday, idCard, phone, emergencyName, emergencyPhone, address, description, count, createTime, lastUpdateTime);
         System.out.println(name);
-        try{
-           //em.getTransaction();
-           utx.begin();
-           em.persist(patient);
-           utx.commit();
-           
-            sessionManagedBean.userLogin(userName,password);
+        try {
+            //em.getTransaction();
+            utx.begin();
+            em.persist(patient);
+            utx.commit();
+
+            sessionManagedBean.userLogin(userName, password);
             sessionManagedBean.setErrorMessage(null);
             return "index";
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             sessionManagedBean.setErrorMessage(e.getMessage());
             return "index";
-        }finally{
-            
+        } finally {
+
         }
     }
+
     /*
     *  validateCaptcha
-    */
-    public void validateCaptcha(FacesContext context,UIComponent toValidate,Object value)throws ValidatorException{
-        if(!checkCaptcha()){
+     */
+    public void validateCaptcha(FacesContext context, UIComponent toValidate, Object value) throws ValidatorException {
+        if (!checkCaptcha()) {
             FacesMessage facesMessage = new FacesMessage("验证码错误");
             throw new ValidatorException(facesMessage);
         }
     }
+
     /*
         check captcha
-    */
-    public boolean checkCaptcha(){
+     */
+    public boolean checkCaptcha() {
         return (captcha == null ? captchaBean.getCapValue() == null : captcha.equals(captchaBean.getCapValue()));
     }
-    
-    
+
     /*
     There're all the getter and setter's
-    */
+     */
     public String getUserName() {
         return userName;
     }
@@ -272,6 +268,5 @@ public class PatientManagedBean {
     public void setCaptchaBean(CaptchaBean captchaBean) {
         this.captchaBean = captchaBean;
     }
-    
-    
+
 }

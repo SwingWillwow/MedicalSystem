@@ -3,8 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:composition template="/templates/default/main.xhtml">
         <ui:define name="title">
             <title>确认药物</title>
@@ -12,14 +11,12 @@
         <ui:define name="leftmenu"></ui:define>
         <ui:define name="contentWithoutLeftMenu">
             <div class="ContentContainedPage col-lg-11">
-                <div class="col-lg-4 col-lg-offset-4"><h1>药物清单</h1></div>
-                
+                <div class="col-lg-4 col-lg-offset-4"><h1>药物清单</h1></div>             
                 <h:panelGroup rendered="#{sessionManagedBean.hasErrorMessage()}">
                     <div class="col-lg-11">
                         <div class="alert alert-danger"><p align="center">#{sessionManagedBean.errorMessage}</p></div>
                     </div>
                 </h:panelGroup>
-                
                 <h:dataTable id="medicineTable" styleClass="table table-striped" value="#{confirmMedicineBean.details}" var="det">
                     <h:column>
                         <f:facet name="header">序号</f:facet>
@@ -53,12 +50,10 @@
                 </h:dataTable>
                 <div class="col-lg-4 col-lg-offset-4 btn-group">
                     <h:form>
-                        <h:commandButton value="确认药单" class="btn btn-success" action="#{confirmMedicineBean.toNextPatient}">
-                        
+                        <h:commandButton value="确认药单" class="btn btn-success" action="#{confirmMedicineBean.toNextPatient}">                      
                     </h:commandButton>
                     </h:form>
-                </div>
-                
+                </div>                
             </div>
         </ui:define>
     </ui:composition>

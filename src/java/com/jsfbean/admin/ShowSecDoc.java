@@ -5,9 +5,7 @@
  */
 package com.jsfbean.admin;
 
-import com.entity.Department;
 import com.entity.Doctor;
-import com.entity.Employee;
 import com.entity.Sections;
 import com.util.ParamUtil;
 import java.util.List;
@@ -34,10 +32,12 @@ public class ShowSecDoc {
     private UserTransaction utx;
     private List<Doctor> allSecDocs;
     private Long id;
+
     public ShowSecDoc() {
     }
+
     @PostConstruct
-    private void init(){
+    private void init() {
         String sid = ParamUtil.getFlashParamByName(FacesContext.getCurrentInstance(), "sectionId");
         id = Long.parseLong(sid);
         Query query = em.createQuery("SELECT d FROM Doctor d WHERE d.sections = ?1");
@@ -60,5 +60,5 @@ public class ShowSecDoc {
     public void setId(Long id) {
         this.id = id;
     }
-    
+
 }

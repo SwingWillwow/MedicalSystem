@@ -6,7 +6,6 @@
 package com.jsfbean.admin;
 
 import com.entity.MedicineRecord;
-import com.entity.TransactionRecord;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -27,7 +26,7 @@ public class ShowMedicineRecordBean {
     /**
      * Creates a new instance of ShowTransactionBean
      */
-     @PersistenceContext(unitName = "MedicalSystemPU")
+    @PersistenceContext(unitName = "MedicalSystemPU")
     private EntityManager em;
     @Resource
     private UserTransaction utx;
@@ -36,30 +35,32 @@ public class ShowMedicineRecordBean {
     int pageCount;
     int currentPage;
     List<String> pageNumber = new ArrayList<>();
+
     public ShowMedicineRecordBean() {
-        
-    }
-    @PostConstruct
-    private void init(){
-        Query query = em.createQuery("SELECT medicineRecords FROM MedicineRecord medicineRecords");
-        medicineRecords = query.getResultList();
-        pageCount = (medicineRecords.size()+PAGESIZE-1)/PAGESIZE;
-        currentPage=1;
-        medicineRecords.clear();
-        medicineRecords = query.setMaxResults(PAGESIZE).setFirstResult(PAGESIZE*(currentPage-1)).getResultList();
-        pageNumber.clear();
-        for(Integer i=1;i<=pageCount;i++){
-            pageNumber.add(i.toString());
-        }
-        
+
     }
 
-    public String changePage(){
+    @PostConstruct
+    private void init() {
+        Query query = em.createQuery("SELECT medicineRecords FROM MedicineRecord medicineRecords");
+        medicineRecords = query.getResultList();
+        pageCount = (medicineRecords.size() + PAGESIZE - 1) / PAGESIZE;
+        currentPage = 1;
+        medicineRecords.clear();
+        medicineRecords = query.setMaxResults(PAGESIZE).setFirstResult(PAGESIZE * (currentPage - 1)).getResultList();
+        pageNumber.clear();
+        for (Integer i = 1; i <= pageCount; i++) {
+            pageNumber.add(i.toString());
+        }
+
+    }
+
+    public String changePage() {
         HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
         currentPage = Integer.parseInt(request.getParameter("currentPage"));
         Query query = em.createQuery("SELECT medicineRecords FROM MedicineRecord medicineRecords");
         medicineRecords.clear();
-        medicineRecords = query.setMaxResults(PAGESIZE).setFirstResult(PAGESIZE*(currentPage-1)).getResultList();
+        medicineRecords = query.setMaxResults(PAGESIZE).setFirstResult(PAGESIZE * (currentPage - 1)).getResultList();
         return "";
     }
 
@@ -70,7 +71,6 @@ public class ShowMedicineRecordBean {
     public void setMedicineRecords(List<MedicineRecord> medicineRecords) {
         this.medicineRecords = medicineRecords;
     }
-
 
     public int getPageCount() {
         return pageCount;
@@ -96,5 +96,4 @@ public class ShowMedicineRecordBean {
         this.pageNumber = pageNumber;
     }
 
-    
 }

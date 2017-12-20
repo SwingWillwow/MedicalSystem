@@ -17,7 +17,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
-
 /**
  * 验证码工具
  * <p/>
@@ -26,6 +25,7 @@ import java.util.Random;
  * @date : 2013-7-26
  */
 public class Captcha {
+
     /**
      * 验证码内容区间
      */
@@ -156,7 +156,6 @@ public class Captcha {
         int colorR = randomRGB.nextInt(180);
         int colorG = randomRGB.nextInt(180);
         int colorB = randomRGB.nextInt(180);
-
         return new Color(colorR, colorG, colorB);
     }
 }

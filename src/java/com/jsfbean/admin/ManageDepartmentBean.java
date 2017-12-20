@@ -30,15 +30,16 @@ public class ManageDepartmentBean {
     @Resource
     private UserTransaction utx;
     private List<Department> allDepartments;
+
     public ManageDepartmentBean() {
-        
+
     }
-    
+
     @PostConstruct
-    private void init(){
+    private void init() {
         Query query = em.createQuery("SELECT dept FROM Department dept");
         allDepartments = query.getResultList();
-        
+
     }
 
     public List<Department> getAllDepartments() {
@@ -48,14 +49,15 @@ public class ManageDepartmentBean {
     public void setAllDepartments(List<Department> allDepartments) {
         this.allDepartments = allDepartments;
     }
-    
-    public String tochangedept(){
+
+    public String tochangedept() {
         String deptId = ParamUtil.getParamByName(FacesContext.getCurrentInstance(), "deptId");
         Long id = Long.parseLong(deptId);
         ParamUtil.setParamIntoFlash(FacesContext.getCurrentInstance(), "deptId", id);
         return "/admin/changeDepartment.xhtml";
     }
-    public String showEmployeeList(){
+
+    public String showEmployeeList() {
         String deptId = ParamUtil.getParamByName(FacesContext.getCurrentInstance(), "deptId");
         Long id = Long.parseLong(deptId);
         ParamUtil.setParamIntoFlash(FacesContext.getCurrentInstance(), "deptId", id);

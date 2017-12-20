@@ -21,7 +21,6 @@ import javax.transaction.UserTransaction;
  *
  * @author qiuyukun
  */
-
 public class AddDepartBean {
 
     /**
@@ -33,25 +32,27 @@ public class AddDepartBean {
     private UserTransaction utx;
     private Department newDept;
     private List<Employee> allEmployees;
+
     public AddDepartBean() {
-        
+
     }
+
     @PostConstruct
-    private void init(){
+    private void init() {
         newDept = new Department();
         newDept.setManager(new Employee());
         Query query = em.createQuery("SELECT e FROM Employee e");
         allEmployees = query.getResultList();
         query = em.createQuery("SELECT d FROM Department d");
         List<Department> departments = query.getResultList();
-        for(Department d:departments){
-            if(allEmployees.contains(d.getManager())){
+        for (Department d : departments) {
+            if (allEmployees.contains(d.getManager())) {
                 allEmployees.remove(d.getManager());
             }
         }
     }
 
-    public String addDept(){
+    public String addDept() {
         try {
             utx.begin();
             newDept.setCreateTime(new Date());
@@ -61,7 +62,7 @@ public class AddDepartBean {
             newDept.setNumber(1);
             em.persist(newDept);
             Department oldDepart = em.find(Department.class, manager.getDepartment().getId());
-            oldDepart.setNumber(oldDepart.getNumber()-1);
+            oldDepart.setNumber(oldDepart.getNumber() - 1);
             manager.setDepartment(newDept);
             utx.commit();
         } catch (Exception e) {
@@ -71,7 +72,7 @@ public class AddDepartBean {
         SessionManagedBean.getInstance().setSuccessMessage("新增部门成功");
         return "/admin/manageDepartment";
     }
-    
+
     public Department getNewDept() {
         return newDept;
     }
@@ -87,5 +88,5 @@ public class AddDepartBean {
     public void setAllEmployees(List<Employee> allEmployees) {
         this.allEmployees = allEmployees;
     }
-    
+
 }

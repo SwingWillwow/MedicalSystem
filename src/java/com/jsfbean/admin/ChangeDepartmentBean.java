@@ -27,17 +27,19 @@ public class ChangeDepartmentBean {
     /**
      * Creates a new instance of ChangeDepartmentBean
      */
-     @PersistenceContext(unitName = "MedicalSystemPU")
+    @PersistenceContext(unitName = "MedicalSystemPU")
     private EntityManager em;
     @Resource
     private UserTransaction utx;
     private Department currentDept;
     private List<Employee> allEmployees;
+
     public ChangeDepartmentBean() {
-        
+
     }
+
     @PostConstruct
-    private void init(){
+    private void init() {
         String deptId = ParamUtil.getFlashParamByName(FacesContext.getCurrentInstance(), "deptId");
         Long id = Long.parseLong(deptId);
         currentDept = em.find(Department.class, id);
@@ -45,10 +47,10 @@ public class ChangeDepartmentBean {
         Query query = em.createQuery("SELECT e FROM Employee e WHERE e.department = ?1");
         query.setParameter(1, currentDept);
         allEmployees = query.getResultList();
-        
+
     }
 
-    public String changeDeptInfo(){
+    public String changeDeptInfo() {
         try {
             utx.begin();
             currentDept.setManager(em.find(Employee.class, currentDept.getManager().getId()));
@@ -61,11 +63,10 @@ public class ChangeDepartmentBean {
         SessionManagedBean.getInstance().setSuccessMessage("修改成功");
         return "/admin/manageDepartment";
     }
-    
+
     /*
         getters and setters
      */
-    
     public Department getCurrentDept() {
         return currentDept;
     }
@@ -81,5 +82,5 @@ public class ChangeDepartmentBean {
     public void setAllEmployees(List<Employee> allEmployees) {
         this.allEmployees = allEmployees;
     }
-    
+
 }

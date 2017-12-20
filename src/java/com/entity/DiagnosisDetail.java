@@ -5,7 +5,6 @@
 package com.entity;
 
 import java.io.Serializable;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -13,29 +12,27 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
  *
- * @author lmh
- * 药品项表
+ * @author lmh 药品项表
  */
 @Entity
-@Table(name="DiagnosisDetail")
+@Table(name = "DiagnosisDetail")
 public class DiagnosisDetail implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToOne(fetch= FetchType.LAZY)
-    @JoinColumn(name="MedicineId")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "MedicineId")
     private Medicine medicine;//药物
-    @Column(name="Count",nullable=false)
+    @Column(name = "Count", nullable = false)
     private int count;//计量
-    @Column(name="ItemSum",nullable=false,precision=10,scale=2)
+    @Column(name = "ItemSum", nullable = false, precision = 10, scale = 2)
     private Double itemSum;//单项药品总计
 
     public DiagnosisDetail() {
@@ -79,8 +76,6 @@ public class DiagnosisDetail implements Serializable {
         this.itemSum = itemSum;
     }
 
-    
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -105,5 +100,5 @@ public class DiagnosisDetail implements Serializable {
     public String toString() {
         return "com.entity.DiagnosisDetail[ id=" + id + " ]";
     }
-    
+
 }

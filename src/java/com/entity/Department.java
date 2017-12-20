@@ -7,7 +7,6 @@ package com.entity;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -23,25 +22,25 @@ import javax.persistence.TemporalType;
 
 /**
  *
- * @author lmh
- * 部门表
+ * @author lmh 部门表
  */
 @Entity
-@Table(name="Department")
+@Table(name = "Department")
 public class Department implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name="DeptName",nullable = false,unique = true)
+    @Column(name = "DeptName", nullable = false, unique = true)
     private String name;
-    @OneToOne(fetch= FetchType.LAZY)//必须存在负责人
-    @JoinColumn(name="ManagerId")
+    @OneToOne(fetch = FetchType.LAZY)//必须存在负责人
+    @JoinColumn(name = "ManagerId")
     private Employee manager;//管理人,医生的部门是院长，前台部门是前台，药房是药房，管理员是管理员部
-    @Column(name="Number")
+    @Column(name = "Number")
     private int number;//人数
-    @OneToMany(fetch= FetchType.LAZY)
-    @JoinColumn(name="DeptId")
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "DeptId")
     private List<Employee> employees;//保存该部门的所有人
     @Temporal(TemporalType.TIMESTAMP)
     private Date createTime;
@@ -115,8 +114,7 @@ public class Department implements Serializable {
     public void setLastUpdateTime(Date lastUpdateTime) {
         this.lastUpdateTime = lastUpdateTime;
     }
-    
-    
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -141,5 +139,5 @@ public class Department implements Serializable {
     public String toString() {
         return "com.entity.Department[ id=" + id + " ]";
     }
-    
+
 }

@@ -6,7 +6,6 @@ package com.entity;
 
 import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -15,34 +14,33 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
  *
- * @author lmh
- * 药费表
+ * @author lmh 药费表
  */
 @Entity
-@Table(name="Fee")
+@Table(name = "Fee")
 public class Fee implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name="TotalSum",nullable=false,precision=10,scale=2)
+    @Column(name = "TotalSum", nullable = false, precision = 10, scale = 2)
     private Double totalSum;//诊单药品总价
-    @Column(name="Status",nullable=false)
+    @Column(name = "Status", nullable = false)
     private int status;//账单状态（1-待交、2-已交、3-未领药、4-已领药）
-    @Column(name="PayType")
+    @Column(name = "PayType")
     private int payType;//支付手段（1-现金，2-支付宝，3-微信，4-银行卡）
-    @ManyToOne(fetch= FetchType.LAZY)
-    @JoinColumn(name="FeeOperatorId")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "FeeOperatorId")
     private Employee feeOperator;//外键收钱人ID
-    @ManyToOne(fetch= FetchType.LAZY)
-    @JoinColumn(name="MedicineOperatorId")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "MedicineOperatorId")
     private Employee medicineOperator;//外键捡药人ID
     @Temporal(TemporalType.TIMESTAMP)
     private Date createTime;
@@ -52,10 +50,10 @@ public class Fee implements Serializable {
     public Fee() {
     }
 
-    public Fee(Double totalSum, int status,int payType, Employee feeOperator, Employee medicineOperator, Date createTime, Date lastUpdateTime) {
+    public Fee(Double totalSum, int status, int payType, Employee feeOperator, Employee medicineOperator, Date createTime, Date lastUpdateTime) {
         this.totalSum = totalSum;
         this.status = status;
-        this.payType=payType;
+        this.payType = payType;
         this.feeOperator = feeOperator;
         this.medicineOperator = medicineOperator;
         this.createTime = createTime;
@@ -69,7 +67,7 @@ public class Fee implements Serializable {
     public void setPayType(int payType) {
         this.payType = payType;
     }
-    
+
     public Long getId() {
         return id;
     }
@@ -126,8 +124,6 @@ public class Fee implements Serializable {
         this.lastUpdateTime = lastUpdateTime;
     }
 
-    
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -152,5 +148,5 @@ public class Fee implements Serializable {
     public String toString() {
         return "com.entity.Fee[ id=" + id + " ]";
     }
-    
+
 }

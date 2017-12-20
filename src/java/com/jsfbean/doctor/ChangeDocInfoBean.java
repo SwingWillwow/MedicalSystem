@@ -24,14 +24,16 @@ public class ChangeDocInfoBean {
     private EntityManager em;
     @Resource
     private UserTransaction utx;
+
     /**
      * Creates a new instance of ChangeDocInfoBean
      */
     public ChangeDocInfoBean() {
     }
-    public String changeInformation(){
-        HttpSession session = (HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(true);
-        Doctor doctor = (Doctor)session.getAttribute("userInfo");
+
+    public String changeInformation() {
+        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+        Doctor doctor = (Doctor) session.getAttribute("userInfo");
         try {
             utx.begin();
             em.merge(doctor);

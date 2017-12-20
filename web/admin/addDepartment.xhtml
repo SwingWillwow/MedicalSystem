@@ -3,8 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:composition template="/templates/default/main.xhtml">
         <ui:define name="title">
             <title>添加新部门</title>
@@ -19,9 +18,7 @@
                         <div class="col-lg-3 col-lg-offset-4">
                             <label>部门名称:</label>
                             <h:inputText styleClass="form-control" id="name" value="#{addDepartBean.newDept.name}" required="true" requiredMessage="必须输入部门名称">
-                                
                             </h:inputText>
-
                             <h:message for="name"/>
                         </div>
                     </div>
@@ -34,12 +31,10 @@
                             <h:message for="manger"/>
                         </div>
                     </div>
-                    
                     <div class="space"></div>
                     <div class="row">
                         <div class="col-lg-5 col-lg-offset-4">
                             <h:commandButton styleClass="btn btn-success" value="添加" action="#{addDepartBean.addDept}"/>
-
                         </div>
                     </div>
                 </h:form>
