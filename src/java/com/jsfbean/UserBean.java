@@ -33,6 +33,10 @@ public class UserBean {
         if ((sessionManagedBean = (SessionManagedBean) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("sessionManagedBean")) == null) {
             sessionManagedBean = new SessionManagedBean();
         }
+        if(!validateCaptcha()){
+            sessionManagedBean.setErrorMessage("验证码错误");
+            return "";
+        }
         if (sessionManagedBean.userLogin(userName, password)) {
             return "index";
         } else {
@@ -44,19 +48,34 @@ public class UserBean {
     /*
     *  validateCaptcha
      */
-    public void validateCaptcha(FacesContext context, UIComponent toValidate, Object value) throws ValidatorException {
-        if (!checkCaptcha()) {
-            FacesMessage facesMessage = new FacesMessage("验证码错误");
-            throw new ValidatorException(facesMessage);
+    private boolean validateCaptcha(){
+        if(!captcha.equals(captchaBean.getLastCapValue())){
+            return false;
+        }
+        else{
+            return true;
         }
     }
+//    public void validateCaptcha(FacesContext context, UIComponent toValidate, Object value) throws ValidatorException {
+//        String val = value.toString();
+//        if (!val.equals(captchaBean.getLastCapValue())) {
+//            FacesMessage facesMessage = new FacesMessage("验证码错误");
+//            try {
+//            } catch (Exception e) {
+//            }
+//            throw new ValidatorException(facesMessage);
+//        }
+//    }
 
     /*
         check captcha
      */
-    public boolean checkCaptcha() {
-        return (captcha == null ? captchaBean.getCapValue() == null : captcha.equals(captchaBean.getCapValue()));
-    }
+//    public boolean checkCaptcha() {
+//        if(captcha == null){
+//            return false;
+//        }
+//        return (captcha.equals(captchaBean.getLastCapValue()));
+//    }
 
     /*
     getter and setter
