@@ -15,11 +15,7 @@
                         <h1>欢迎登录一体化系统</h1>
                     </div>
                 </div>
-                <h:panelGroup rendered="#{sessionManagedBean.hasErrorMessage()}">
-                    <div class="row">
-                        <div class="alert alert-danger"><p style="align-content: center">#{sessionManagedBean.errorMessage}</p></div>
-                    </div>
-                </h:panelGroup>
+                <ui:include src="/templates/default/msgPanel.xhtml"/>
                 <h:form styleClass="form-horizontal">
                     <div class="space"></div>
                     <div class ="row form-group">
@@ -50,7 +46,7 @@
                             <div class="space"></div>
                             <div class="input-group">
                                 <label class="control-label input-group-addon">验证码:</label>
-                                <h:inputText id="userCaptcha" styleClass="form-control" value="#{userBean.captcha}" validator="#{userBean.validateCaptcha}"/>
+                                <h:inputText id="userCaptcha" styleClass="form-control" value="#{userBean.captcha}"/>
                             </div>
                             <div class="space"></div>
                             <h:graphicImage name="test#{userBean.captchaBean.id}.png"/>

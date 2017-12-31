@@ -270,6 +270,8 @@ public class ClerkOperateBean {
 
     //预约的病人挂号
     public String byInternetRegistration() {
+        //初始化
+        //<editor-fold>
         SessionManagedBean sessionManagedBean;
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
         HttpSession session = (HttpSession) externalContext.getSession(true);
@@ -282,6 +284,7 @@ public class ClerkOperateBean {
         String temps = httpServletRequest.getParameter("preRegistrationDetailId");
         Long preRegistrationDetailId = Long.parseLong(temps);
         PreRegistrationDetail prd = em.find(PreRegistrationDetail.class, preRegistrationDetailId);//预约人表
+        //</editor-fold>
         Date now = new Date();
         prd.setValid('N');//预约人表失效
         prd.setLastUpdateTime(now);//更新预约表最后更新时间

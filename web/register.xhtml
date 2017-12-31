@@ -11,6 +11,7 @@
         <ui:define name="leftmenu"></ui:define>
         <ui:define name="contentWithoutLeftMenu">
             <div class="ContentContainedPage col-lg-11">
+                <ui:include src="/templates/default/msgPanel.xhtml"/>
                 <div class="col-lg-4 col-lg-offset-4"><h1>欢迎进行用户注册</h1></div>
                 <h:form styleClass="form-horizontal">
                     <div class="row form-group">
@@ -112,7 +113,7 @@
                             <div class="space"></div>
                             <h:graphicImage name="test#{patientManagedBean.captchaBean.id}.png"/>
                             <div class="space"></div>
-                            <h:inputText id="enteredCaptcha" styleClass="form-control" value="#{patientManagedBean.captcha}" validator="#{patientManagedBean.validateCaptcha}"/>
+                            <h:inputText id="enteredCaptcha" styleClass="form-control" value="#{patientManagedBean.captcha}"/>
                             <h:message for="enteredCaptcha"/>
                         </div>
                     </div>

@@ -11,7 +11,7 @@
     <managed-bean>
         <managed-bean-name>patientManagedBean</managed-bean-name>
         <managed-bean-class>com.jsfbean.patient.PatientManagedBean</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
+        <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
     <managed-bean>
         <managed-bean-name>sessionManagedBean</managed-bean-name>
@@ -30,7 +30,7 @@
     <managed-bean>
         <managed-bean-name>userBean</managed-bean-name>
         <managed-bean-class>com.jsfbean.UserBean</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
+        <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
     <managed-bean>
         <managed-bean-name>changePasswordBean</managed-bean-name>

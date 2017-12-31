@@ -87,13 +87,14 @@ public class PatientManagedBean {
     public String newPatient() {
         //inital SessionManagedBean
         initPatientManagedBean();
-        if ((sessionManagedBean = (SessionManagedBean) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("sessionManagedBean")) == null) {
-            sessionManagedBean = new SessionManagedBean();
-        }
 
         //may lead to mistake add try-catch later 
         lastUpdateTime = new Date();
         createTime = new Date();
+        if(!captcha.equals(captchaBean.getLastCapValue())){
+            sessionManagedBean.setErrorMessage("验证码错误");
+            return "";
+        }
         String DBpassword = "";
         try {
             DBpassword = PasswordManager.getMD5(password);

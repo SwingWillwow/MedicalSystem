@@ -50,10 +50,13 @@ public class PatientRegistrationBean implements Serializable {
 //        
 //    }
     public String preRegist() {
+        // 数据初始化
+        // <editor-fold>
         SessionManagedBean sessionManagedBean = SessionManagedBean.getInstance();
         HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
         Long preId = Long.parseLong(request.getParameter("preId"));
         PreRegistration pre = em.find(PreRegistration.class, preId);
+        //</editor-fold>
         //判断预约人数，即能否预约
         if (pre.getByInternetReal() >= pre.getByInternet()) {
             sessionManagedBean.setErrorMessage("预约人数过多，预约失败。");
@@ -69,6 +72,8 @@ public class PatientRegistrationBean implements Serializable {
             sessionManagedBean.setErrorMessage("您同时预约超过三次，无法预约");
             return "";
         }
+        //设置要录入的信息
+        //<editor-fold>
         pre.setByInternetReal(pre.getByInternetReal() + 1);
         PreRegistrationDetail preRegistrationDetail = new PreRegistrationDetail();
         preRegistrationDetail.setCreateTime(new Date());
@@ -78,6 +83,7 @@ public class PatientRegistrationBean implements Serializable {
         preRegistrationDetail.setPreRegistrationId(pre);
         preDetailList.add(preRegistrationDetail);
         pre.setPreResgistrationDetails(preDetailList);
+        //</editor-fold>
         try {
             utx.begin();
             em.persist(preRegistrationDetail);

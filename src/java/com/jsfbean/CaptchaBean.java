@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
 import javax.faces.bean.NoneScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
 import org.captcha.Captcha;
@@ -19,7 +20,6 @@ import org.captcha.Captcha;
  *
  * @author qiuyukun
  */
-@NoneScoped
 public class CaptchaBean {
 
     /**
@@ -27,6 +27,7 @@ public class CaptchaBean {
      */
     private String capPath;
     private String capValue;
+    private String lastCapValue;
     private static String[] savePath = new String[]{
         "resources/test0.png",
         "resources/test1.png",
@@ -43,6 +44,7 @@ public class CaptchaBean {
     public String getCapPath() throws FileNotFoundException, IOException {
         Map<String, InputStream> captchaMap = Captcha.getCaptcha();
         for (String s : captchaMap.keySet()) {
+            lastCapValue = capValue;
             capValue = s;
             InputStream is = captchaMap.get(s);
             String realPath;
@@ -87,5 +89,14 @@ public class CaptchaBean {
     public String getCapValue() {
         return capValue;
     }
+
+    public String getLastCapValue() {
+        return lastCapValue;
+    }
+
+    public void setLastCapValue(String lastCapValue) {
+        this.lastCapValue = lastCapValue;
+    }
+    
 
 }
